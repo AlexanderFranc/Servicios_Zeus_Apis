@@ -50,6 +50,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(emp);
         }
 
+        [Route("listarDocente")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Empleado>>> GetEmployees()
+        {
+            var emp = await _iempleado.GetEmployees();
+            if (emp == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(emp);
+        }
+
         [Route("ver/{id}")]
         [HttpGet]
         public async Task<ActionResult<Empleado>> GetEmpleadobyId(int id)
