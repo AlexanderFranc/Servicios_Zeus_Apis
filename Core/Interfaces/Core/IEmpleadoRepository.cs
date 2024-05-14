@@ -13,7 +13,7 @@ namespace Core.Interfaces.Core
         Task<IEnumerable<Empleado>> getDocentesPlanificacionByFacu(int id);
         Task<IEnumerable<Empleado>> getDocentesPlanificacionByCarr(int id);
 
-
+        Task<List<EmpleadoDto>> GetEmployees();
 
     }
 }

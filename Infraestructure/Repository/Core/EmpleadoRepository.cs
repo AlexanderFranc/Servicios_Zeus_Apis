@@ -43,7 +43,29 @@ namespace Infraestructure.Repository.Core
                                 .Include(x => x.IdUnidadNavigation)
                                 .ToListAsync();
         }
-
+        public async Task<List<EmpleadoDto>> GetEmployees()
+        {
+            EmpleadoDto empleadoDto = new EmpleadoDto();
+            List<EmpleadoDto> listEmpleados = new();
+            DataSet ds_empl = Conexion.BuscarZEUS_ds(
+                "EMPLEADO emp\r\ninner join PROFESOR prof on emp.IDENTIFICACION_EMP = prof.DNI_PROFESORC",
+                "IDENTIFICACION_EMP, NOMBRES_EMP, APELLIDO_EMP",
+                "where emp.ID_TIPO_EMP = 1"
+                );
+            if (ds_empl.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_empl.Tables[0].Rows)
+                {
+                    empleadoDto.IdentificacionEmp = row["IDENTIFICACION_EMP"].ToString();
+                    empleadoDto.NombresEmp = row["NOMBRES_EMP"].ToString();
+                    empleadoDto.ApellidoEmp = row["APELLIDO_EMP"].ToString();
+                    listEmpleados.Add(empleadoDto);
+                    empleadoDto = new EmpleadoDto();
+                }
+            }
+            return listEmpleados;
+        }
+        
         public override async Task<Empleado> GetByIdAsync(int idemp, bool noseguimiento = true)
         {
             var query = noseguimiento ? _context.Empleados.AsNoTracking()
