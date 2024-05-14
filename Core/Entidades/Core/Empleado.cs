@@ -7,13 +7,13 @@ public partial class Empleado
 {
     public int IdEmp { get; set; }
 
-    public int? IdTipoEmp { get; set; }
+    public int IdTipoEmp { get; set; }
 
-    public string? NombresEmp { get; set; }
+    public string NombresEmp { get; set; } = null!;
 
-    public string? ApellidoEmp { get; set; }
+    public string ApellidoEmp { get; set; } = null!;
 
-    public string? IdentificacionEmp { get; set; }
+    public string IdentificacionEmp { get; set; } = null!;
 
     public DateTime? FnacEmp { get; set; }
 
@@ -21,7 +21,7 @@ public partial class Empleado
 
     public string? SexoEmp { get; set; }
 
-    public int? IdTipoDocumento { get; set; }
+    public int IdTipoDocumento { get; set; }
 
     public int? IdPaisNac { get; set; }
 
@@ -87,6 +87,12 @@ public partial class Empleado
 
     public string? CarnetArchivo { get; set; }
 
+    public string? Cargo { get; set; }
+
+    public string? Tipo { get; set; }
+
+    public string? Cdc { get; set; }
+
     public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
     public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();
@@ -113,9 +119,9 @@ public partial class Empleado
 
     public virtual TipoDiscapacidad? IdTipoDiscapacidadNavigation { get; set; }
 
-    public virtual TipoDocumento? IdTipoDocumentoNavigation { get; set; }
+    public virtual TipoDocumento IdTipoDocumentoNavigation { get; set; } = null!;
 
-    public virtual TipoEmpleado? IdTipoEmpNavigation { get; set; }
+    public virtual TipoEmpleado IdTipoEmpNavigation { get; set; } = null!;
 
     public virtual UnidadOrganizativa? IdUnidadNavigation { get; set; }
 

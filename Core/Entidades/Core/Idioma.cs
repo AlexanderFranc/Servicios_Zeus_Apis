@@ -13,13 +13,13 @@ public partial class Idioma
 
     public string Institucion { get; set; } = null!;
 
-    public string? Nivel { get; set; } = null!;
+    public string? Nivel { get; set; }
 
-    public DateTime? FechaEmision { get; set; }
+    public DateOnly? FechaEmision { get; set; }
 
-    public bool Certificacion { get; set; }
+    public bool? Certificacion { get; set; }
 
     public string? Certificado { get; set; }
 
-    public virtual Empleado? IdEmpNavigation { get; set; }
+    public virtual Empleado IdEmpNavigation { get; set; } = null!;
 }
