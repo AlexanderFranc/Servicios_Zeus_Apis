@@ -17,13 +17,13 @@ public partial class Capacitacion
 
     public string Titulo { get; set; } = null!;
 
-    public DateTime? FechaInicio { get; set; }
+    public DateOnly? FechaInicio { get; set; }
 
-    public DateTime? FechaFin { get; set; }
+    public DateOnly? FechaFin { get; set; }
 
     public int? Duracion { get; set; }
 
     public string? Certificado { get; set; }
 
-    public virtual Empleado? IdEmpNavigation { get; set; }
+    public virtual Empleado IdEmpNavigation { get; set; } = null!;
 }

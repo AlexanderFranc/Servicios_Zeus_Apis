@@ -34,11 +34,11 @@ namespace Servicios_Zeus.Extensions
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy", builder =>
-            //builder.AllowAnyOrigin()
+             //builder.AllowAnyOrigin()
              //builder.WithOrigins("https://zeustest3.uisek.edu.ec", "http://zeustest3.uisek.edu.ec")
-             //builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
-            //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
-             builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
+             builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
+             //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
+             //builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
             .AllowAnyHeader()
             .AllowAnyMethod());
         });
