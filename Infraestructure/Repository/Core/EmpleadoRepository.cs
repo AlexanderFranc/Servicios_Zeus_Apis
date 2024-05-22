@@ -52,6 +52,7 @@ namespace Infraestructure.Repository.Core
                 "IDENTIFICACION_EMP, NOMBRES_EMP, APELLIDO_EMP",
                 "where emp.ID_TIPO_EMP = 1"
                 );
+
             if (ds_empl.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_empl.Tables[0].Rows)
