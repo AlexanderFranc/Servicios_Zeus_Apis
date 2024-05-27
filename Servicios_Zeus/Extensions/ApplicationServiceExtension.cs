@@ -118,6 +118,10 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<IUsuarioPaRepository, UsuarioPaRepository>();
             services.AddScoped<IAprobadorPlanAnaliticoRepository, AprobadorPlanAnaliticoRepository>();
             services.AddScoped<ISilaboMateriasUsuarioRepository, SilaboMateriasUsuarioRepository>();
+            services.AddScoped<IPlanificacionTempRepository, PlanificacionTempRepository>();
+            services.AddScoped<ISolicitudRepository, SolicitudRepository>();
+            services.AddScoped<IHorarioTempRepository, HorarioTempRepository>();
+            services.AddScoped<IHorarioFechaTempRepository, HorarioFechaTempRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
