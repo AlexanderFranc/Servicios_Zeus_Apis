@@ -5942,9 +5942,7 @@ public partial class ZeusCoreContext : DbContext
 
             entity.ToTable("PLANIFICACION_TEMP");
 
-            entity.Property(e => e.IdPlanTemp)
-                .ValueGeneratedNever()
-                .HasColumnName("ID_PLAN_TEMP");
+            entity.Property(e => e.IdPlanTemp).HasColumnName("ID_PLAN_TEMP");
             entity.Property(e => e.Activo).HasColumnName("ACTIVO");
             entity.Property(e => e.Cupo).HasColumnName("CUPO");
             entity.Property(e => e.DniProfesorc)
