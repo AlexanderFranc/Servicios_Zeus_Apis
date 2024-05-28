@@ -24,4 +24,6 @@ public partial class Solicitud
     public string? Ua { get; set; }
 
     public DateTime? Fa { get; set; }
+
+    public virtual ICollection<PlanificacionTemp> PlanificacionTemps { get; } = new List<PlanificacionTemp>();
 }
