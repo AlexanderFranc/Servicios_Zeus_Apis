@@ -57,7 +57,6 @@ namespace Servicios_Zeus.Controllers.Core
             var emp = await _iempleado.GetEmployees();
             if (emp == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
-
             return Ok(emp);
         }
 
