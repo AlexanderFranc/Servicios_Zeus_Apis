@@ -50,7 +50,7 @@ namespace Infraestructure.Repository.Core
             DataSet ds_empl = Conexion.BuscarZEUS_ds(
                 "EMPLEADO emp\r\ninner join PROFESOR prof on emp.IDENTIFICACION_EMP = prof.DNI_PROFESORC",
                 "IDENTIFICACION_EMP, NOMBRES_EMP, APELLIDO_EMP",
-                "where emp.ID_TIPO_EMP = 1"
+                "where emp.ID_TIPO_EMP = 1 AND activo_emp=1 ORDER BY APELLIDO_EMP"
                 );
             if (ds_empl.Tables[0].Rows.Count > 0)
             {

@@ -39,6 +39,8 @@ namespace Infraestructure.Repository.Core
         //tipohorario si es edicion E si es Nuevo N
         public List<HorarioSemestralDto> GetHorariosPlanificacionSemestral(string tipohorario,int idplanestudio, int? idplanificacion,int idperiodo,int idperiodicidad,int idmateria,int idsubtipocomponente,int idespacio,string ceduladocente)
         {
+            //if (idplanificacion == 0)
+            //    idplanificacion = null;
             //idplanificacion = 2531;
             //lista que va a contener las horas
             List<HorarioSemestralDto> lstcontenedorhoras=new List<HorarioSemestralDto>();
@@ -51,7 +53,7 @@ namespace Infraestructure.Repository.Core
 
             DataSet ds_horas = Conexion.ExecZeusCore("horasfranjahoraria", idplanestudio.ToString());
             //DataSet ds_horarioocupado= Conexion.ExecZeusCore("HorariosPLanificacion", "'S',"+10+","+4+","+420+","+ 1+"," +68 +","+"'1707833354','2023-06-04','2023-07-11'");
-            DataSet ds_horarioocupado = Conexion.ExecZeusCore("HorariosPLanificacion", "'S'," + idperiodo + "," + idperiodicidad + "," + idmateria + "," + idsubtipocomponente + "," + idespacio + "," + "'"+ ceduladocente + "','2023-06-04','2023-07-11'");
+            DataSet ds_horarioocupado = Conexion.ExecZeusCore("HorariosPLanificacion", "'S'," + idperiodo + "," + idperiodicidad + "," + idmateria + "," + idsubtipocomponente + "," + idespacio + "," + "'"+ ceduladocente + "','2023-06-04','2023-07-11',"+ idplanificacion);
             foreach (DataRow rowhora in ds_horas.Tables[0].Rows)
             {
                 foreach (DataRow rowcruce in ds_horarioocupado.Tables[0].Rows)
