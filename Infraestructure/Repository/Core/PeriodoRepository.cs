@@ -23,6 +23,7 @@ namespace Infraestructure.Repository.Core
                                 .Include(x => x.IdEstadoPeriodoNavigation)
                                 .Include(y => y.IdModalidadNavigation)
                                 .Include(a => a.IdTipoPeriodoNavigation)
+                                .OrderByDescending(z => z.CodigoPeriodo)
                                 .ToListAsync();
         }
         //SERVICIO CAMBIADO
