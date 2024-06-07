@@ -21,9 +21,9 @@ public partial class InfoAcademicaNew
 
     public string Titulo { get; set; } = null!;
 
-    public DateOnly? FechaEmsision { get; set; }
+    public DateTime? FechaEmsision { get; set; }
 
-    public DateOnly? FechaRegSenecyt { get; set; }
+    public DateTime? FechaRegSenecyt { get; set; }
 
     public string? CertificadoTitulo { get; set; }
 
