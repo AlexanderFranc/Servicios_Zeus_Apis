@@ -85,6 +85,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPost]
         public async Task<ActionResult<InfoAcademicaNew>> save([FromBody] InfoAcademicaNewDto infoDto)
         {
+
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<InfoAcademicaNewDto, InfoAcademicaNew>()
