@@ -17,6 +17,8 @@ namespace Infraestructure.Repository.Core
         //CAMBIOS BY LUIS
         public bool updatehorasPlanificacion(PlanificacionDto1 componenteDto, int idplanificacion)
         {
+            var activo = componenteDto.Activo == true ? 1 : 0;
+
             bool result = Conexion.ActualizarZeus("PLANIFICACION",
                 "ID_MALLA=" + componenteDto.IdMalla + "," +
                 //"ID_MATERIA=" + componenteDto.IdMateria + "," +
@@ -33,8 +35,13 @@ namespace Infraestructure.Repository.Core
                 "ID_TIPO_COMPONENTE=" + componenteDto.IdTipoComponente + "," +
                 "PARALELO='" + componenteDto.Paralelo + "'," +
                 "ID_ESPACIOS_FISICOS=" + componenteDto.IdEspaciosFisicos + "," +
-                "CUPO=" + componenteDto.Cupo
+                "CUPO=" + componenteDto.Cupo + "," +
+                //"ACTIVO=" + (componenteDto.Activo === true) ? 1 : 0 + "," +
+                "ACTIVO=" + activo + "," +
+                "UA='" + componenteDto.UA + "'," +
+                "FA='" + Convert.ToDateTime(componenteDto.FA).ToString("yyyy-MM-dd HH:mm:ss") + "'"
                 , " WHERE ID_PLANIFICACION=" + idplanificacion);
+
             return result;
         }
 
