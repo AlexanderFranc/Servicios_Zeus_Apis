@@ -37,5 +37,6 @@ namespace Core.Dtos.Core
         public int IdNivelInfraestructura { get; set; }
         public int? IdInfraestructura { get; set; }
         public string CodigoSubtipoComponente { get; set; }
+        public bool activo { get; set; }
     }
 }
