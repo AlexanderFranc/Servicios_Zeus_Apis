@@ -272,7 +272,7 @@ namespace Infraestructure.Repository.Core
                     componenteMateria.NombreSubtipoComponente = row["nombre_subtipo_componente"].ToString();
                     componenteMateria.HorasComponente = Convert.ToInt32(row["horas_componente"].ToString());
                     componenteMateria.PesoComponente = Convert.ToDouble(row["peso_componente"].ToString());
-                    //componenteMateria.IdPeriodo = Convert.ToInt32(row["id_periodo"].ToString());
+                    componenteMateria.IdPeriodo = idPeriodo;
                     lista.Add(componenteMateria);
 
                     componenteMateria = new ComponenteMateriaMallaDto();
