@@ -30,6 +30,9 @@ namespace Infraestructure.Repository.Core
                 {
                     cruce.Cedula = row["CEDULA"].ToString();
                     cruce.Docente = row["DOCENTE"].ToString();
+                    cruce.CodCarrera = row["CODIGO_CARRERA"].ToString();
+                    cruce.Carrera = row["NOMBRE_CARRERA"].ToString();
+                    cruce.Malla = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
                     cruce.Codigo = row["CODIGO"].ToString();
                     cruce.Materia = row["MATERIA"].ToString();
                     cruce.Aula = row["AULA"].ToString();

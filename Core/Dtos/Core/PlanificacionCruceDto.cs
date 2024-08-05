@@ -10,6 +10,9 @@ namespace Core.Dtos.Core
     {
         public string? Cedula { get; set; }
         public string? Docente { get; set; }
+        public string? CodCarrera { get; set; }
+        public string? Carrera { get; set; }
+        public string? Malla { get; set; }
         public string? Codigo { get; set; }
         public string? Materia { get; set; }
         public string? Aula { get; set; }
