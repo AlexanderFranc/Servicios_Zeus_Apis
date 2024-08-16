@@ -39,7 +39,8 @@ namespace Infraestructure.Repository.Core
                 //"ACTIVO=" + (componenteDto.Activo === true) ? 1 : 0 + "," +
                 "ACTIVO=" + activo + "," +
                 "UA='" + componenteDto.UA + "'," +
-                "FA='" + Convert.ToDateTime(componenteDto.FA).ToString("yyyy-MM-dd HH:mm:ss") + "'"
+                "FA=getdate()"
+                //"FA= convert(DateTime,'" + Convert.ToDateTime(componenteDto.FA).ToString("yyyy-MM-dd HH:mm:ss") + "')"
                 , " WHERE ID_PLANIFICACION=" + idplanificacion);
 
             return result;

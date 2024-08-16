@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/periodo")]
     [ApiController]
