@@ -59,6 +59,8 @@ namespace Servicios_Zeus.Controllers.Core
             {
                 cfg.CreateMap<SolicitudDto, Solicitud>();
             });
+            solicitudDto.FechaSolicitud = DateTime.Now;
+            solicitudDto.FC = DateTime.Now;
             var _mapper = new Mapper(config);
             var _solicitud = _mapper.Map<Solicitud>(solicitudDto);
             _iSolicitud.Add(_solicitud);
