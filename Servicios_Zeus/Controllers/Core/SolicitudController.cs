@@ -10,6 +10,7 @@ using AutoMapper;
 using Infraestructure.Mappers;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 
 
 namespace Servicios_Zeus.Controllers.Core
@@ -93,5 +94,27 @@ namespace Servicios_Zeus.Controllers.Core
             await _iSolicitud.SaveAsync();
             return solicitudDto;
         }
+      
+        //[Route("getSolicitudes/{opcion}/{tipo}/{periodo}/{codfac}/{codcar}/{estado}")]
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudes(string opcion, string tipo, string periodo, string codfac, string codcar, string estado)
+        //{
+        //    var data = _iSolicitud.getSolicitudes(opcion, tipo, periodo, codfac, codcar, estado);
+        //    if (data == null)
+        //        return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+        //    return Ok(data);
+        //}
+
+        [Route("getSolicitudPlanificacion/{idperiodo}/{idplanestudio}/{idmodalidadplanificacio}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacion(int idperiodo, int idplanestudio, int idmodalidadplanificacio)
+        {
+            var data = _iSolicitud.getSolicitudPlanificacion(idperiodo,idplanestudio,idmodalidadplanificacio);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
+        
     }
 }
