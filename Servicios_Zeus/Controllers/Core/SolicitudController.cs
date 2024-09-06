@@ -125,6 +125,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
         }
 
+        [Route("GetHorarioSemestral/{tipohorario}/{idplan}/{idSolicitud}/{idperiodo}/{idperiodicidad}/{idmateria}/{idsubtipocomponente}/{idespacio}/{ceduladocente}")]
+        [HttpGet]
+        public async Task<ActionResult<List<HorarioSemestralDto>>> GetHorarioSolicitud(string tipohorario, int idplan, int? idSolicitud, int idperiodo, int idperiodicidad, int idmateria, int idsubtipocomponente, int idespacio, string ceduladocente)
+        {
+            var data = _iSolicitud.GetHorarioSolicitud(tipohorario, idplan, idSolicitud, idperiodo, idperiodicidad, idmateria, idsubtipocomponente, idespacio, ceduladocente);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+        }
+
 
     }
 }

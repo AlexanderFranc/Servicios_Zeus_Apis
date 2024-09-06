@@ -46,6 +46,9 @@ namespace Core.Dtos.Core
         public string? NombreFacultad { get; set; }
         public string? CodigoCarrera { get; set; }
         public string? NombreCarrera { get; set; }
+        public int IdSolicitud { get; set; }
+        public int IdAsociado { get; set; }
+
         //public string? CodigoMalla { get; set; }
         //public string? CodigoMateria { get; set; }
         //public string? NombreMaterias { get; set; }
