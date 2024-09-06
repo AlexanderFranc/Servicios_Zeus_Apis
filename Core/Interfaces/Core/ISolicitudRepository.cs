@@ -13,5 +13,9 @@ namespace Core.Interfaces.Core
     {
         //List<SolicitudPlanificacionDto> getSolicitudes(string opcion, string tipo,string periodo, string codfac, string codcar, string estado);
         List<SolicitudPlanificacionDto> getSolicitudPlanificacion(int idperiodo, int idplanestudio, int idmodalidadplanificacio);
+
+        List<SolicitudPlanificacionDto> getSolicitudPlanificacionVice(int idperiodo, int idfacultad, int idcarrera, string estado);
+
+        
     }
 }
