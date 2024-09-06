@@ -42,10 +42,10 @@ namespace Core.Dtos.Core
         public string? FechaSolicitud { get; set; }
         public string? Estado { get; set; }
 
-        //public string? CodigoFacultad { get; set; }
-        //public string? NombreFacultad { get; set; }
-        //public string? CodigoCarrera { get; set; }
-        //public string? NombreCarrera { get; set; }
+        public string? CodigoFacultad { get; set; }
+        public string? NombreFacultad { get; set; }
+        public string? CodigoCarrera { get; set; }
+        public string? NombreCarrera { get; set; }
         //public string? CodigoMalla { get; set; }
         //public string? CodigoMateria { get; set; }
         //public string? NombreMaterias { get; set; }
