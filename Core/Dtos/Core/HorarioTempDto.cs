@@ -10,8 +10,8 @@ namespace Core.Dtos.Core
     {
         public int IdPlanTemp { get; set; }
         public int IdDia { get; set; }
-        public TimeOnly? HoraIni { get; set; }
-        public TimeOnly? HoraFin { get; set; }
+        public string? HoraIni { get; set; }
+        public string? HoraFin { get; set; }
         public Boolean? Activo { get; set; }
     }
 }
