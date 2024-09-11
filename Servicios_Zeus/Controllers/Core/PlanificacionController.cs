@@ -55,7 +55,7 @@ namespace Servicios_Zeus.Controllers.Core
         /// <param name="codPlan"></param>
         /// <param name="idModalidad"></param>
         /// <param name="codMateria"></param>
-        /// <returns>true NO debe ser validado, false SI debe ser validado</returns>
+        /// <returns>true si debe ser validado, false no debe ser validado</returns>
         [Route("ValidarMateria/{codPeriodo}/{codPlan}/{idModalidad}/{codMateria}")]
         [HttpGet]
         public async Task<ActionResult<bool>> ValidarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria)
