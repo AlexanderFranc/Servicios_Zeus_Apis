@@ -15,5 +15,6 @@ namespace Core.Interfaces.Core
 
         bool savePlanificacion(PlanificacionMallaDto planificacionDto);
 
+        bool validarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria);
     }
 }
