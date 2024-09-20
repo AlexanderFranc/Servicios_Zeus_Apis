@@ -26,15 +26,15 @@ namespace Infraestructure.Repository.Core
             int? hAA = 0;
             int? hAPE= 0;
             int? hAC = 0;
-            var _planestudio = await (from a in _context.Facultads
-                                      join b in _context.Carreras on a.IdFacultad equals b.IdFacultad
-                                      join c in _context.PlanEstudios on b.IdCarrera equals c.IdCarrera
-                                      join h in _context.ModalidadPes on c.IdModalidadPe equals h.IdModalidadPe
-                                      join d in _context.Componentes on c.IdPlanEstudio equals d.IdPlanEstudio
-                                      join e in _context.Materia on d.IdMateria equals e.IdMateria
-                                      join i in _context.UnidadOrganizacionCurriculars on e.IdUoc equals i.IdUoc
-                                      join f in _context.SubtipoComponentes on d.IdSubtipoComponente equals f.IdSubtipoComponente
-                                      join g in _context.TipoComponentes on f.IdTipoComponente equals g.IdTipoComponente
+            var _planestudio = await (from a in _context.Facultads.AsNoTracking()
+                                      join b in _context.Carreras.AsNoTracking() on a.IdFacultad equals b.IdFacultad
+                                      join c in _context.PlanEstudios.AsNoTracking() on b.IdCarrera equals c.IdCarrera
+                                      join h in _context.ModalidadPes.AsNoTracking() on c.IdModalidadPe equals h.IdModalidadPe
+                                      join d in _context.Componentes.AsNoTracking() on c.IdPlanEstudio equals d.IdPlanEstudio
+                                      join e in _context.Materia.AsNoTracking() on d.IdMateria equals e.IdMateria
+                                      join i in _context.UnidadOrganizacionCurriculars.AsNoTracking() on e.IdUoc equals i.IdUoc
+                                      join f in _context.SubtipoComponentes.AsNoTracking() on d.IdSubtipoComponente equals f.IdSubtipoComponente
+                                      join g in _context.TipoComponentes.AsNoTracking() on f.IdTipoComponente equals g.IdTipoComponente
                                       where d.IdPlanEstudio == idplan && d.IdMateria==idmateria
                                       select new DatosGeneralesSilaboDto
                                       {

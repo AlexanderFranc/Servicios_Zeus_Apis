@@ -28,4 +28,14 @@ public partial class PlanificacionLog
     public int IdEspaciosFisicos { get; set; }
 
     public int Cupo { get; set; }
+
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+
+    public bool? Activo { get; set; }
 }

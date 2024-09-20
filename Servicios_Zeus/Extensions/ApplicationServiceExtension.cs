@@ -123,6 +123,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<IHorarioTempRepository, HorarioTempRepository>();
             services.AddScoped<IHorarioFechaTempRepository, HorarioFechaTempRepository>();
             services.AddScoped<IPlanificacionCruceRepository, PlanificacionCruceRepository>();
+            services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
