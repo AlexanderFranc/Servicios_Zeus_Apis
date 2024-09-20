@@ -53,22 +53,10 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("Save")]
         [HttpPost]
-        public async Task<ActionResult<HorarioTemp>> SaveHorarioTemp([FromBody] HorarioTempDto horarioTempDto)
+        public async Task<ActionResult<bool>> SaveHorarioTemp([FromBody] HorarioTempDto horarioTempDto)
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<HorarioTempDto, HorarioTemp>();
-            });
-            var _mapper = new Mapper(config);
-            var _horarioTemp = _mapper.Map<HorarioTemp>(horarioTempDto);
-            _iHorarioTemp.Add(_horarioTemp);
-            await _iHorarioTemp.SaveAsync();
-            if (_horarioTemp == null)
-            {
-                return BadRequest(new ApiResponse(400));
-            }
-            horarioTempDto.IdPlanTemp = _horarioTemp.IdPlanTemp;
-            return CreatedAtAction(nameof(SaveHorarioTemp), new { IdPlanTemp = horarioTempDto.IdPlanTemp });
+            bool correcto = _iHorarioTemp.insertHorarioSemestral(horarioTempDto);
+            return correcto;
         }
 
         [Route("Update/{id}")]

@@ -30,4 +30,10 @@ public partial class InfoAcademicaNew
     public string? CertificadoSenecyt { get; set; }
 
     public string? Ciudad { get; set; }
+
+    public virtual Empleado IdEmpNavigation { get; set; } = null!;
+
+    public virtual NivelAcademico IdNivelAcademicoNavigation { get; set; } = null!;
+
+    public virtual UnidadEducativa IdUnidadEducativaNavigation { get; set; } = null!;
 }

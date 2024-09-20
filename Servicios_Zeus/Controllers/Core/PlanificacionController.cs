@@ -48,5 +48,20 @@ namespace Servicios_Zeus.Controllers.Core
             if (planDto != null)
                 _iplan.savePlanificacion(planDto);
         }
+        /// <summary>
+        /// Verifica si se debe validar las horas a planificar en el registro de planificación
+        /// </summary>
+        /// <param name="codPeriodo"></param>
+        /// <param name="codPlan"></param>
+        /// <param name="idModalidad"></param>
+        /// <param name="codMateria"></param>
+        /// <returns>true si debe ser validado, false no debe ser validado</returns>
+        [Route("ValidarMateria/{codPeriodo}/{codPlan}/{idModalidad}/{codMateria}")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> ValidarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria)
+        {
+            var validar = _iplan.validarMateria(codPeriodo, codPlan, idModalidad, codMateria);
+            return Ok(!validar);
+        }
     }
 }

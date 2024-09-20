@@ -117,6 +117,17 @@ namespace Infraestructure.Repository.Core
             return result;
         }
 
+        public bool validarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria)
+        {
+            DataSet dataSet = Conexion.BuscarZEUS_ds("VALIDACION_MATERIA", 
+                                                            "[ID_VALIDACION_MATERIA],[CODIGO_PERIODO],[CODIGO_PLAN_ESTUDIO_MALLA],[ID_MODALIDAD],[CODIGO_MATERIA],[ACTIVO]",
+                                                            "WHERE CODIGO_PERIODO = '"+codPeriodo+"' AND CODIGO_PLAN_ESTUDIO_MALLA = '"+codPlan+"' AND ID_MODALIDAD = "+idModalidad+" AND CODIGO_MATERIA = '"+codMateria+"' AND ACTIVO = 1");
+            if (dataSet.Tables[0].Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }

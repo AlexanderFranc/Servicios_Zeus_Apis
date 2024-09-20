@@ -107,6 +107,9 @@ namespace Infraestructure.Repository.Core
             throw new NotImplementedException();
         }
 
-        
+        public Task<List<InfoAcademicaNewDto>> GetTitulosEmpleado(string identificacion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

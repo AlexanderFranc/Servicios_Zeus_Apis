@@ -86,10 +86,13 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult<InfoAcademicaNew>> save([FromBody] InfoAcademicaNewDto infoDto)
         {
 
-            var config = new MapperConfiguration(cfg =>
+        var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<InfoAcademicaNewDto, InfoAcademicaNew>()
-                 .ForMember(dest => dest.IdInfoAcademica, opt => opt.Ignore());
+                 .ForMember(dest => dest.IdInfoAcademica, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdEmpNavigation, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdNivelAcademicoNavigation, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdUnidadEducativaNavigation, opt => opt.Ignore());
               
             });
             var _mapper = new Mapper(config);

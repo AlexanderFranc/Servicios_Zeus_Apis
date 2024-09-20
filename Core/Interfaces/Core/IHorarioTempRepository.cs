@@ -1,4 +1,5 @@
-﻿using Core.Entidades.Core;
+﻿using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Generico;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Core.Interfaces.Core
 {
     public interface IHorarioTempRepository : IGenericRepository<HorarioTemp>
     {
-
+        bool insertHorarioSemestral(HorarioTempDto horariosemestral);
     }
 }
