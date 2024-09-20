@@ -11,5 +11,7 @@ namespace Core.Interfaces.Core
         bool SaveInfoAcademico(InfoAcademicaNewDto lstInfoAcademicoDto);
 
         bool EditInfoAcademico(List<InfoAcademicaNewDto> lstInfoAcademicoDto, int idInfoAcad);
+
+        Task<List<InfoAcademicaNewDto>> GetTitulosEmpleado(string identificacion);
     }
 }

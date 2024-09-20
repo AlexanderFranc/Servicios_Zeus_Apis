@@ -14,4 +14,6 @@ public partial class UnidadEducativa
     public string? NombreUnidadEducativa { get; set; }
 
     public bool? ActivoUnidadEducativa { get; set; }
+
+    public virtual ICollection<InfoAcademicaNew> InfoAcademicaNews { get; } = new List<InfoAcademicaNew>();
 }

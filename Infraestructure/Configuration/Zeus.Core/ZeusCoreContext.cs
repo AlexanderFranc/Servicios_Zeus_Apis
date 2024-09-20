@@ -85,6 +85,8 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<Correquisito> Correquisitos { get; set; }
 
+    public virtual DbSet<CruceHorario> CruceHorarios { get; set; }
+
     public virtual DbSet<Databasechangelog> Databasechangelogs { get; set; }
 
     public virtual DbSet<Databasechangeloglock> Databasechangeloglocks { get; set; }
@@ -112,6 +114,8 @@ public partial class ZeusCoreContext : DbContext
     public virtual DbSet<Dium> Dia { get; set; }
 
     public virtual DbSet<Empleado> Empleados { get; set; }
+
+    public virtual DbSet<Errorplan20251> Errorplan20251s { get; set; }
 
     public virtual DbSet<EspaciosFisico> EspaciosFisicos { get; set; }
 
@@ -201,6 +205,10 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<HorarioFinModAb20234> HorarioFinModAb20234s { get; set; }
 
+    public virtual DbSet<HorarioFinModOc20251> HorarioFinModOc20251s { get; set; }
+
+    public virtual DbSet<HorarioFinOc20251> HorarioFinOc20251s { get; set; }
+
     public virtual DbSet<HorarioFinal20234> HorarioFinal20234s { get; set; }
 
     public virtual DbSet<HorarioFinal20234Resp> HorarioFinal20234Resps { get; set; }
@@ -246,6 +254,8 @@ public partial class ZeusCoreContext : DbContext
     public virtual DbSet<InfoExperiencium> InfoExperiencia { get; set; }
 
     public virtual DbSet<InfoPersonal> InfoPersonals { get; set; }
+
+    public virtual DbSet<InfoPlanificacion> InfoPlanificacions { get; set; }
 
     public virtual DbSet<Infraestructura> Infraestructuras { get; set; }
 
@@ -421,13 +431,15 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<UnidadOrganizativa> UnidadOrganizativas { get; set; }
 
+    public virtual DbSet<ValidacionMaterium> ValidacionMateria { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
         .AddJsonFile("appsettings.json").Build();
         optionsBuilder.UseSqlServer(configuration.GetConnectionString("ZEUS"));
 
-    } 
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Acreditacione>(entity =>
@@ -911,7 +923,6 @@ public partial class ZeusCoreContext : DbContext
 
             entity.Property(e => e.IdCapacitacion).HasColumnName("ID_CAPACITACION");
             entity.Property(e => e.Certificado)
-								  
                 .IsUnicode(false)
                 .HasColumnName("CERTIFICADO");
             entity.Property(e => e.Duracion).HasColumnName("DURACION");
@@ -921,7 +932,6 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdTipoActividad).HasColumnName("ID_TIPO_ACTIVIDAD");
             entity.Property(e => e.IdTipoAprobacion).HasColumnName("ID_TIPO_APROBACION");
             entity.Property(e => e.Institucion)
-								  
                 .IsUnicode(false)
                 .HasColumnName("INSTITUCION");
             entity.Property(e => e.Titulo)
@@ -1591,6 +1601,63 @@ public partial class ZeusCoreContext : DbContext
                 .HasConstraintName("FK_CORREQUI_FK_CORREQ_TIPO_PRE");
         });
 
+        modelBuilder.Entity<CruceHorario>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("CruceHorario");
+
+            entity.Property(e => e.Aula)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("AULA");
+            entity.Property(e => e.Carrera)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("CARRERA");
+            entity.Property(e => e.Cedula)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("CEDULA");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO");
+            entity.Property(e => e.CodigoCarrera)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("codigo_carrera");
+            entity.Property(e => e.Dia)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("DIA");
+            entity.Property(e => e.Docente)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("DOCENTE");
+            entity.Property(e => e.HoraFin)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("HORA_FIN");
+            entity.Property(e => e.HoraIni)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("HORA_INI");
+            entity.Property(e => e.IdPlanificacion).HasColumnName("ID_PLANIFICACION");
+            entity.Property(e => e.Malla)
+                .HasMaxLength(25)
+                .IsUnicode(false)
+                .HasColumnName("MALLA");
+            entity.Property(e => e.Materia)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("MATERIA");
+            entity.Property(e => e.Paralelo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("PARALELO");
+        });
+
         modelBuilder.Entity<Databasechangelog>(entity =>
         {
             entity
@@ -2087,7 +2154,7 @@ public partial class ZeusCoreContext : DbContext
         {
             entity.HasKey(e => e.IdEmp).IsClustered(false);
 
-            entity.ToTable("EMPLEADO");
+            entity.ToTable("EMPLEADO", tb => tb.HasTrigger("CreaDocente"));
 
             entity.HasIndex(e => e.IdentificacionEmp, "AK_UQ__EMPLEADO__E35A_EMPLEADO").IsUnique();
 
@@ -2267,6 +2334,21 @@ public partial class ZeusCoreContext : DbContext
             entity.HasOne(d => d.IdUnidadNavigation).WithMany(p => p.Empleados)
                 .HasForeignKey(d => d.IdUnidad)
                 .HasConstraintName("FK_EMPLEADO_FK_EMPLEA_FACULTAD");
+        });
+
+        modelBuilder.Entity<Errorplan20251>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("ERRORPLAN20251");
+
+            entity.Property(e => e.Error)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("ERROR");
+            entity.Property(e => e.Fc)
+                .HasColumnType("datetime")
+                .HasColumnName("FC");
         });
 
         modelBuilder.Entity<EspaciosFisico>(entity =>
@@ -3606,6 +3688,77 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.Seccion).HasColumnName("SECCION");
         });
 
+        modelBuilder.Entity<HorarioFinModOc20251>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("HorarioFinModOc_20251");
+
+            entity.Property(e => e.Asignatura)
+                .HasMaxLength(255)
+                .HasColumnName("ASIGNATURA");
+            entity.Property(e => e.Carrera)
+                .HasMaxLength(255)
+                .HasColumnName("CARRERA");
+            entity.Property(e => e.Codasig)
+                .HasMaxLength(255)
+                .HasColumnName("CODASIG");
+            entity.Property(e => e.Codcarr)
+                .HasMaxLength(255)
+                .HasColumnName("CODCARR");
+            entity.Property(e => e.Codplane)
+                .HasMaxLength(255)
+                .HasColumnName("CODPLANE");
+            entity.Property(e => e.Codprof)
+                .HasMaxLength(255)
+                .HasColumnName("CODPROF");
+            entity.Property(e => e.Profesor)
+                .HasMaxLength(255)
+                .HasColumnName("PROFESOR");
+            entity.Property(e => e.Seccion).HasColumnName("SECCION");
+        });
+
+        modelBuilder.Entity<HorarioFinOc20251>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("HorarioFinOc_20251");
+
+            entity.Property(e => e.Archivo)
+                .HasMaxLength(255)
+                .HasColumnName("ARCHIVO");
+            entity.Property(e => e.Aula)
+                .HasMaxLength(255)
+                .HasColumnName("AULA");
+            entity.Property(e => e.Desde)
+                .HasMaxLength(255)
+                .HasColumnName("DESDE");
+            entity.Property(e => e.Dia)
+                .HasMaxLength(255)
+                .HasColumnName("DIA");
+            entity.Property(e => e.Grupo)
+                .HasMaxLength(255)
+                .HasColumnName("GRUPO");
+            entity.Property(e => e.Hasta)
+                .HasMaxLength(255)
+                .HasColumnName("HASTA");
+            entity.Property(e => e.Materia)
+                .HasMaxLength(255)
+                .HasColumnName("MATERIA");
+            entity.Property(e => e.Profesor)
+                .HasMaxLength(255)
+                .HasColumnName("PROFESOR");
+            entity.Property(e => e.Semana)
+                .HasMaxLength(255)
+                .HasColumnName("SEMANA");
+            entity.Property(e => e.Sesion)
+                .HasMaxLength(255)
+                .HasColumnName("SESION");
+            entity.Property(e => e.Tarea)
+                .HasMaxLength(255)
+                .HasColumnName("TAREA");
+        });
+
         modelBuilder.Entity<HorarioFinal20234>(entity =>
         {
             entity
@@ -4297,16 +4450,6 @@ public partial class ZeusCoreContext : DbContext
                 .HasForeignKey(d => d.IdCiudad)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_INFO_ACADEMICA_PAIS");
-
-            entity.HasOne(d => d.IdEmpNavigation).WithMany(p => p.InfoAcademicas)
-                .HasForeignKey(d => d.IdEmp)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_INFO_ACADEMICA_EMPLEADO");
-
-            entity.HasOne(d => d.IdNivelAcademicoNavigation).WithMany(p => p.InfoAcademicas)
-                .HasForeignKey(d => d.IdNivelAcademico)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_INFO_ACADEMICA_NIVEL_ACADEMICO");
         });
 
         modelBuilder.Entity<InfoAcademicaNew>(entity =>
@@ -4336,13 +4479,26 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdPais).HasColumnName("ID_PAIS");
             entity.Property(e => e.IdUnidadEducativa).HasColumnName("ID_UNIDAD_EDUCATIVA");
             entity.Property(e => e.Institucion)
-                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("INSTITUCION");
             entity.Property(e => e.Titulo)
-                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("TITULO");
+
+            entity.HasOne(d => d.IdEmpNavigation).WithMany(p => p.InfoAcademicaNews)
+                .HasForeignKey(d => d.IdEmp)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_INFO_ACADEMICA_NEW_EMPLEADO");
+
+            entity.HasOne(d => d.IdNivelAcademicoNavigation).WithMany(p => p.InfoAcademicaNews)
+                .HasForeignKey(d => d.IdNivelAcademico)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_INFO_ACADEMICA_NEW_NIVEL_ACADEMICO");
+
+            entity.HasOne(d => d.IdUnidadEducativaNavigation).WithMany(p => p.InfoAcademicaNews)
+                .HasForeignKey(d => d.IdUnidadEducativa)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_INFO_ACADEMICA_NEW_UNIDAD_EDUCATIVA");
         });
 
         modelBuilder.Entity<InfoAcademicaSubir>(entity =>
@@ -4436,6 +4592,84 @@ public partial class ZeusCoreContext : DbContext
             entity.HasOne(d => d.IdEmpNavigation).WithMany(p => p.InfoPersonals)
                 .HasForeignKey(d => d.IdEmp)
                 .HasConstraintName("FK_INFO_PER_FK_INFO_P_EMPLEADO");
+        });
+
+        modelBuilder.Entity<InfoPlanificacion>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("INFO_PLANIFICACION");
+
+            entity.Property(e => e.CodigoCarrera)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_CARRERA");
+            entity.Property(e => e.CodigoEspaciosFisicos)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_ESPACIOS_FISICOS");
+            entity.Property(e => e.CodigoFacultad)
+                .HasMaxLength(4)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_FACULTAD");
+            entity.Property(e => e.CodigoMateria)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_MATERIA");
+            entity.Property(e => e.CodigoPeriodo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_PERIODO");
+            entity.Property(e => e.CodigoPlanEstudioMalla)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_PLAN_ESTUDIO_MALLA");
+            entity.Property(e => e.CodigoTextoPeriodo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_TEXTO_PERIODO");
+            entity.Property(e => e.DniProfesorc)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("DNI_PROFESORC");
+            entity.Property(e => e.HFin)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("H_FIN");
+            entity.Property(e => e.HIni)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("H_INI");
+            entity.Property(e => e.IdPlanificacion).HasColumnName("ID_PLANIFICACION");
+            entity.Property(e => e.Modalidad)
+                .HasMaxLength(14)
+                .IsUnicode(false)
+                .HasColumnName("MODALIDAD");
+            entity.Property(e => e.NivelMateria).HasColumnName("NIVEL_MATERIA");
+            entity.Property(e => e.NombreCarrera)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE_CARRERA");
+            entity.Property(e => e.NombreDia)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE_DIA");
+            entity.Property(e => e.NombreFacultad)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE_FACULTAD");
+            entity.Property(e => e.NombreMateria)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE_MATERIA");
+            entity.Property(e => e.Paralelo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("PARALELO");
+            entity.Property(e => e.Profesor)
+                .HasMaxLength(101)
+                .IsUnicode(false)
+                .HasColumnName("PROFESOR");
         });
 
         modelBuilder.Entity<Infraestructura>(entity =>
@@ -5443,6 +5677,9 @@ public partial class ZeusCoreContext : DbContext
 
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
             entity.Property(e => e.ActivoPeriodo).HasColumnName("ACTIVO_PERIODO");
+            entity.Property(e => e.ActivoPeriodoSilabo)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("ACTIVO_PERIODO_SILABO");
             entity.Property(e => e.CodigoNumeroPeriodo)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -5927,11 +6164,18 @@ public partial class ZeusCoreContext : DbContext
                 .HasNoKey()
                 .ToTable("PLANIFICACION_LOG");
 
+            entity.Property(e => e.Activo).HasColumnName("ACTIVO");
             entity.Property(e => e.Cupo).HasColumnName("CUPO");
             entity.Property(e => e.DniProfesorc)
                 .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasColumnName("DNI_PROFESORC");
+            entity.Property(e => e.Fa)
+                .HasColumnType("datetime")
+                .HasColumnName("FA");
+            entity.Property(e => e.Fc)
+                .HasColumnType("datetime")
+                .HasColumnName("FC");
             entity.Property(e => e.Fecha)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA");
@@ -5950,6 +6194,14 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("TIPO_MODIFICACION");
+            entity.Property(e => e.Ua)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("UA");
+            entity.Property(e => e.Uc)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("UC");
         });
 
         modelBuilder.Entity<PlanificacionTemp>(entity =>
@@ -7026,6 +7278,33 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("UNIDAD_ORGANIZATIVA");
+        });
+
+        modelBuilder.Entity<ValidacionMaterium>(entity =>
+        {
+            entity.HasKey(e => e.IdValidacionMateria).HasName("PK_VALIDA_MAT");
+
+            entity.ToTable("VALIDACION_MATERIA");
+
+            entity.Property(e => e.IdValidacionMateria).HasColumnName("ID_VALIDACION_MATERIA");
+            entity.Property(e => e.Activo).HasColumnName("ACTIVO");
+            entity.Property(e => e.CodigoMateria)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_MATERIA");
+            entity.Property(e => e.CodigoPeriodo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_PERIODO");
+            entity.Property(e => e.CodigoPlanEstudioMalla)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_PLAN_ESTUDIO_MALLA");
+            entity.Property(e => e.IdModalidad).HasColumnName("ID_MODALIDAD");
+
+            entity.HasOne(d => d.IdModalidadNavigation).WithMany(p => p.ValidacionMateria)
+                .HasForeignKey(d => d.IdModalidad)
+                .HasConstraintName("FK_VALIDA_MAT_FK_MODALIDAD");
         });
 
         OnModelCreatingPartial(modelBuilder);
