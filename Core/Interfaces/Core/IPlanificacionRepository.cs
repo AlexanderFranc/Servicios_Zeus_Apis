@@ -11,6 +11,7 @@ namespace Core.Interfaces.Core
     public interface IPlanificacionRepository: IGenericRepository<ComponentesPlanificacionDto>
     {
         List<ComponentesPlanificacionDto> getPlanificacion(int idperiodo, int idplanestudio, int idmodalidadplanificacio);
+        ComponentesPlanificacionDto getById(int idPlanificacion);
         bool updatehorasPlanificacion(PlanificacionMallaDto componenteDto,int id);
 
         bool savePlanificacion(PlanificacionMallaDto planificacionDto);

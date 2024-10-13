@@ -204,6 +204,7 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
                     solicitudPlanificacion.CodigoCarrera = row["CODIGO_CARRERA"].ToString();
                     solicitudPlanificacion.NombreCarrera = row["NOMBRE_CARRERA"].ToString();
+                    solicitudPlanificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
 
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();

@@ -16,4 +16,6 @@ public partial class ModalidadPe
     public bool? ActivoModalidadPe { get; set; }
 
     public virtual ICollection<PlanEstudio> PlanEstudios { get; } = new List<PlanEstudio>();
+
+    public virtual ICollection<ValidacionMaterium> ValidacionMateria { get; } = new List<ValidacionMaterium>();
 }

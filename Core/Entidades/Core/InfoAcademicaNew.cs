@@ -21,13 +21,19 @@ public partial class InfoAcademicaNew
 
     public string Titulo { get; set; } = null!;
 
-    public DateTime? FechaEmsision { get; set; }
+    public DateOnly? FechaEmsision { get; set; }
 
-    public DateTime? FechaRegSenecyt { get; set; }
+    public DateOnly? FechaRegSenecyt { get; set; }
 
     public string? CertificadoTitulo { get; set; }
 
     public string? CertificadoSenecyt { get; set; }
 
     public string? Ciudad { get; set; }
+
+    public virtual Empleado IdEmpNavigation { get; set; } = null!;
+
+    public virtual NivelAcademico IdNivelAcademicoNavigation { get; set; } = null!;
+
+    public virtual UnidadEducativa IdUnidadEducativaNavigation { get; set; } = null!;
 }
