@@ -1,16 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Servicios_Zeus.Helpers.Errors;
-using Servicios_Zeus.Helpers;
 using Core.Dtos.Core;
 using AutoMapper;
-using Infraestructure.Mappers;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Options;
 
 
 namespace Servicios_Zeus.Controllers.Core
@@ -96,16 +89,6 @@ namespace Servicios_Zeus.Controllers.Core
             await _iSolicitud.SaveAsync();
             return solicitudDto;
         }
-      
-        //[Route("getSolicitudes/{opcion}/{tipo}/{periodo}/{codfac}/{codcar}/{estado}")]
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudes(string opcion, string tipo, string periodo, string codfac, string codcar, string estado)
-        //{
-        //    var data = _iSolicitud.getSolicitudes(opcion, tipo, periodo, codfac, codcar, estado);
-        //    if (data == null)
-        //        return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
-        //    return Ok(data);
-        //}
 
         [Route("getSolicitudPlanificacion/{idperiodo}/{idplanestudio}/{idmodalidadplanificacio}")]
         [HttpGet]
@@ -122,6 +105,15 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionVice(int idperiodo, int idfacultad, int idcarrera, string estado)
         {
             var data = _iSolicitud.getSolicitudPlanificacionVice(idperiodo, idfacultad, idcarrera, estado);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+        [Route("getSolicitudPlanificacionTH/{idperiodo}/{idfacultad}/{idcarrera}/{estado}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, int idcarrera, string estado)
+        {
+            var data = _iSolicitud.getSolicitudPlanificacionTH(idperiodo, idfacultad, idcarrera, estado);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
