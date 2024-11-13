@@ -514,11 +514,8 @@ namespace Infraestructure.Repository.Core
         {
             bool response = false;
 
-            response = Conexion.ActualizarZeus("SOLICITUD", "ESTADO = " + solicitudDto.Estado + 
-                                        //", IDIOMA = " + idio.Idioma1 + ", INSTITUCION = '" + idio.Institucion +
-                                        //"', NIVEL = '" + idio.Nivel + "', FECHA_EMISION = '" + Convert.ToDateTime(idio.FechaEmision).Date.ToString("yyyy-MM-dd") +
-                                        //"', CERTIFICACION = '" + idio.Certificacion + "', CERTIFICADO = '" + idio.Certificado +
-                                        "'", " Where ID_SOLICITUD = " + idSolicitud);
+            response = Conexion.ActualizarZeus("SOLICITUD", "ESTADO = " + solicitudDto.IdEstado + 
+                                        ", OBSERVACION = " + solicitudDto.Observacion + "'", " Where ID_SOLICITUD = " + idSolicitud);
 
             return response;
         }
