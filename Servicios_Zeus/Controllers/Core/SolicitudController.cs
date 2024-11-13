@@ -129,6 +129,13 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
         }
 
+        [Route("UpdateEstado/{id}")]
+        [HttpPut]
+        public bool UpdateEstado(int id, [FromBody] SolicitudDto solicitudDto)
+        {
+            return _iSolicitud.EditSolicitudEstado(solicitudDto, id);
+        }
+
 
     }
 }
