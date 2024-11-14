@@ -128,7 +128,7 @@ public partial class Empleado
     public virtual ICollection<Idioma> Idiomas { get; } = new List<Idioma>();
 
     public virtual ICollection<InfoAcademicaNew> InfoAcademicaNews { get; } = new List<InfoAcademicaNew>();
-    public virtual ICollection<InfoAcademica> InfoAcademicas { get; } = new List<InfoAcademica>();
+
     public virtual ICollection<InfoExperiencium> InfoExperiencia { get; } = new List<InfoExperiencium>();
 
     public virtual ICollection<InfoPersonal> InfoPersonals { get; } = new List<InfoPersonal>();

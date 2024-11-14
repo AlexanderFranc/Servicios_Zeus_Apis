@@ -21,7 +21,6 @@ namespace Infraestructure.Repository.Core
                     : _context.InfoAcademicas;
 
             return await query
-                                .Include(x => x.IdEmpNavigation)
                                 .Include(x => x.IdCiudadNavigation)
                                 .Include(x => x.IdNivelAcademicoNavigation)
                                 .ToListAsync();
@@ -33,7 +32,6 @@ namespace Infraestructure.Repository.Core
                                    : _context.InfoAcademicas;
 
             return await query
-                                .Include(x => x.IdEmpNavigation)
                                 .Include(x => x.IdCiudadNavigation)
                                 .Include(x => x.IdNivelAcademicoNavigation)
                                 .FirstOrDefaultAsync(x => x.IdInfoAcademica == idinfoAcad);
@@ -56,7 +54,6 @@ namespace Infraestructure.Repository.Core
                                         .CountAsync();
 
             var registros = await query
-                                .Include(x => x.IdEmpNavigation)
                                 .Include(x => x.IdCiudadNavigation)
                                 .Include(x => x.IdNivelAcademicoNavigation)
                                     .Skip((pageIndex - 1) * pageSize)

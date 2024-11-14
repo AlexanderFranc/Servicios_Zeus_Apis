@@ -148,6 +148,8 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<EstadoRequisito> EstadoRequisitos { get; set; }
 
+    public virtual DbSet<EstadoSolicitud> EstadoSolicituds { get; set; }
+
     public virtual DbSet<Etnium> Etnia { get; set; }
 
     public virtual DbSet<ExperienciaDocente> ExperienciaDocentes { get; set; }
@@ -2679,6 +2681,18 @@ public partial class ZeusCoreContext : DbContext
                 .HasColumnName("NOMBRE_ESTADO_REQUISITO");
         });
 
+        modelBuilder.Entity<EstadoSolicitud>(entity =>
+        {
+            entity.HasKey(e => e.IdEstado).HasName("PK__ESTADO_S__241E2E010AA0179A");
+
+            entity.ToTable("ESTADO_SOLICITUD");
+
+            entity.Property(e => e.IdEstado).HasColumnName("ID_ESTADO");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("ESTADO");
+        });
         modelBuilder.Entity<Etnium>(entity =>
         {
             entity.HasKey(e => e.IdEtnia).IsClustered(false);
@@ -5766,6 +5780,7 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.ActivoPeriodoSilabo)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("ACTIVO_PERIODO_SILABO");
+            entity.Property(e => e.AnoPeriodo).HasColumnName("ANO_PERIODO");
             entity.Property(e => e.CodigoNumeroPeriodo)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -6743,10 +6758,6 @@ public partial class ZeusCoreContext : DbContext
             entity.ToTable("SOLICITUD");
 
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
-            entity.Property(e => e.Estado)
-                .HasMaxLength(15)
-                .IsUnicode(false)
-                .HasColumnName("ESTADO");
             entity.Property(e => e.Fa)
                 .HasColumnType("datetime")
                 .HasColumnName("FA");
@@ -6757,6 +6768,9 @@ public partial class ZeusCoreContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_SOLICITUD");
             entity.Property(e => e.IdAsociado).HasColumnName("ID_ASOCIADO");
+            entity.Property(e => e.IdEstado)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("ID_ESTADO");
             entity.Property(e => e.Observacion)
                 .HasMaxLength(200)
                 .IsUnicode(false)
@@ -6773,6 +6787,11 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasColumnName("UC");
+
+            entity.HasOne(d => d.IdEstadoNavigation).WithMany(p => p.Solicituds)
+                .HasForeignKey(d => d.IdEstado)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SOLICITUD_ESTADO_SOLICITUD");
         });
 
         modelBuilder.Entity<SubnivelEstudio>(entity =>

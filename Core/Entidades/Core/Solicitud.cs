@@ -13,7 +13,7 @@ public partial class Solicitud
 
     public int IdAsociado { get; set; }
 
-    public string Estado { get; set; } = null!;
+    public int IdEstado { get; set; }
 
     public string Observacion { get; set; } = null!;
 
@@ -24,6 +24,8 @@ public partial class Solicitud
     public string? Ua { get; set; }
 
     public DateTime? Fa { get; set; }
+
+    public virtual EstadoSolicitud IdEstadoNavigation { get; set; } = null!;
 
     public virtual ICollection<PlanificacionTemp> PlanificacionTemps { get; } = new List<PlanificacionTemp>();
 }

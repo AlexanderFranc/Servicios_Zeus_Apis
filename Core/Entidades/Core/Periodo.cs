@@ -33,6 +33,8 @@ public partial class Periodo
 
     public bool? ActivoPeriodoSilabo { get; set; }
 
+    public int? AnoPeriodo { get; set; }
+
     public virtual EstadoPeriodo IdEstadoPeriodoNavigation { get; set; } = null!;
 
     public virtual ModalidadPeriodo IdModalidadNavigation { get; set; } = null!;

@@ -17,7 +17,7 @@ namespace Infraestructure.Repository.Core
 
         }
         public async Task<Empleado> GetByDniAsync(string ced) => await
-            _context.Empleados.Include(x => x.InfoAcademicas).ThenInclude(x => x.IdNivelAcademicoNavigation).Include(x => x.IdTipoDocumentoNavigation)
+            _context.Empleados.Include(x => x.InfoAcademicaNews).ThenInclude(x => x.IdNivelAcademicoNavigation).Include(x => x.IdTipoDocumentoNavigation)
             .Include(x => x.IdPaisNacNavigation)
             .Where(x => x.IdentificacionEmp == ced).FirstOrDefaultAsync();
 
