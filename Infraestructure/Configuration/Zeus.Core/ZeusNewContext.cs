@@ -6368,11 +6368,6 @@ public partial class ZeusCoreContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("TIPOD");
 
-            entity.HasOne(d => d.IdPlanificacionNavigation).WithMany(p => p.PlanificacionTemps)
-                .HasForeignKey(d => d.IdPlanificacion)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PLANIFICACION_TEMP_PLANIFICACION");
-
             entity.HasOne(d => d.IdSolicitudNavigation).WithMany(p => p.PlanificacionTemps)
                 .HasForeignKey(d => d.IdSolicitud)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -6755,7 +6750,7 @@ public partial class ZeusCoreContext : DbContext
         {
             entity.HasKey(e => e.IdSolicitud).HasName("PK__SOLICITU__F090D584CCE9E49A");
 
-            entity.ToTable("SOLICITUD");
+            entity.ToTable("SOLICITUD", tb => tb.HasTrigger("APROBACION_SOLICITUD"));
 
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
             entity.Property(e => e.Fa)
