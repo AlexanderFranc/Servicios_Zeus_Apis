@@ -49,6 +49,7 @@ namespace Core.Dtos.Core
         public int IdSolicitud { get; set; }
         public int IdAsociado { get; set; }
         public int IdEstado { get; set; }
+        public string? motivo { get; set; }
 
         //public string? CodigoMalla { get; set; }
         //public string? CodigoMateria { get; set; }

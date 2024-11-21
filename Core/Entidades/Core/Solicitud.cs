@@ -15,6 +15,8 @@ public partial class Solicitud
 
     public int IdEstado { get; set; }
 
+    public string Motivo { get; set; } = null!;
+
     public string Observacion { get; set; } = null!;
 
     public string Uc { get; set; } = null!;

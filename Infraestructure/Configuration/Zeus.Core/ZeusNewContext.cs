@@ -4550,6 +4550,10 @@ public partial class ZeusCoreContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_INFO_ACADEMICA_PAIS");
 
+            entity.HasOne(d => d.IdNivelAcademicoNavigation).WithMany(p => p.InfoAcademicas)
+                            .HasForeignKey(d => d.IdNivelAcademico)
+                            .OnDelete(DeleteBehavior.ClientSetNull)
+                            .HasConstraintName("FK_INFO_ACADEMICA_NIVEL_ACADEMICO");
         });
 
         modelBuilder.Entity<InfoAcademicaNew>(entity =>
@@ -6766,6 +6770,10 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdEstado)
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("ID_ESTADO");
+            entity.Property(e => e.Motivo)
+                            .HasMaxLength(500)
+                            .IsUnicode(false)
+                            .HasColumnName("MOTIVO");
             entity.Property(e => e.Observacion)
                 .HasMaxLength(200)
                 .IsUnicode(false)

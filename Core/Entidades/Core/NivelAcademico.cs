@@ -14,4 +14,6 @@ public partial class NivelAcademico
     public bool Activo { get; set; }
 
     public virtual ICollection<InfoAcademicaNew> InfoAcademicaNews { get; } = new List<InfoAcademicaNew>();
+
+    public virtual ICollection<InfoAcademica> InfoAcademicas { get; } = new List<InfoAcademica>();
 }
