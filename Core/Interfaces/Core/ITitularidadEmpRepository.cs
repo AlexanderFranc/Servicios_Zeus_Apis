@@ -1,4 +1,5 @@
 ﻿using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Generico;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.Core
 {
-    public interface ITitularidadEmpRepository : IGenericRepository<TitularidadEmpDto>
+    public interface ITitularidadEmpRepository : IGenericRepository<TitularidadEmp>
     {
 
     }

@@ -127,6 +127,9 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<IEmpleadoTempArchivoRepository, EmpleadoTempArchivoRepository>();
             services.AddScoped<IDedicacionNRepository, DedicacionNRepository>();
             services.AddScoped<ITipoContratoNRepository, TipoContratoNRepository>();
+            services.AddScoped<ITitularidadEmpRepository, TitularidadEmpRepository>();
+            services.AddScoped<IFormaPagoEmpRepository, FormaPagoEmpRepository>();
+            services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)

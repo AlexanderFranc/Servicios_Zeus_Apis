@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infraestructure.Repository.Core
 {
-    public class TitularidadEmpRepository : GenericCoreRepository<TipoContratoN>, ITitularidadEmpRepository
+    public class TitularidadEmpRepository : GenericCoreRepository<TitularidadEmp>, ITitularidadEmpRepository
     {
         public TitularidadEmpRepository(ZeusCoreContext context) : base(context)
         {
