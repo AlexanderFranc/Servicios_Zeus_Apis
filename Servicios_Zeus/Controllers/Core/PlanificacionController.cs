@@ -72,5 +72,14 @@ namespace Servicios_Zeus.Controllers.Core
             var validar = _iplan.validarMateria(codPeriodo, codPlan, idModalidad, codMateria);
             return Ok(!validar);
         }
+        [Route("ObtenerPlanificacionTH/{idperiodo}/{idFacultad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> ObtenerPlanificacionTH(int idperiodo, int idFacultad)
+        {
+            var planestudio = _iplan.obtenerPlanificacionTH(idperiodo, idFacultad);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
     }
 }
