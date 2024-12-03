@@ -13,6 +13,8 @@ public partial class Solicitud
 
     public int IdAsociado { get; set; }
 
+    public int? IdEmpTempN { get; set; }
+
     public int IdEstado { get; set; }
 
     public string Motivo { get; set; } = null!;

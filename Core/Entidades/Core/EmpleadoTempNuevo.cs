@@ -19,21 +19,53 @@ public partial class EmpleadoTempNuevo
 
     public string Email { get; set; } = null!;
 
-    public string Horario { get; set; } = null!;
+    public int? IdUnidadEducativa { get; set; }
+
+    public string? UnidadEducativa { get; set; }
+
+    public string Titulo { get; set; } = null!;
+
+    public int IdCampoAmplio { get; set; }
+
+    public int? IdCampoEspecifico { get; set; }
+
+    public int IdFacultad { get; set; }
 
     public int IdTipoContrato { get; set; }
 
     public int IdDedicacion { get; set; }
 
-    public int IdCampoAmplio { get; set; }
+    public string Horario { get; set; } = null!;
 
-    public int IdUnidadOrganizativa { get; set; }
+    public int? IdTitularidad { get; set; }
 
-    public string Titulo { get; set; } = null!;
+    public int? IdCategoria { get; set; }
 
-    public int? IdCampoEspecifico { get; set; }
+    public int? IdFormaPago { get; set; }
 
-    public int? IdUnidadEducativa { get; set; }
+    public int? IdEstado { get; set; }
 
-    public string? UnidadEducativa { get; set; }
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+
+    public virtual CampoAmplio IdCampoAmplioNavigation { get; set; } = null!;
+
+    public virtual CampoEspecifico? IdCampoEspecificoNavigation { get; set; }
+
+    public virtual CategoriaEmp? IdCategoriaNavigation { get; set; }
+
+    public virtual EstadoSolicitud? IdEstadoNavigation { get; set; }
+
+    public virtual Facultad IdFacultadNavigation { get; set; } = null!;
+
+    public virtual FormaPagoEmp? IdFormaPagoNavigation { get; set; }
+
+    public virtual TipoContratoN IdTipoContratoNavigation { get; set; } = null!;
+
+    public virtual TitularidadEmp? IdTitularidadNavigation { get; set; }
 }

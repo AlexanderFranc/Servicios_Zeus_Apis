@@ -10,4 +10,6 @@ public partial class FormaPagoEmp
     public string Fpago { get; set; } = null!;
 
     public bool Activo { get; set; }
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
 }

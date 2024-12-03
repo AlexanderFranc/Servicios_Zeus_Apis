@@ -9,5 +9,7 @@ public partial class EstadoSolicitud
 
     public string Estado { get; set; } = null!;
 
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
+
     public virtual ICollection<Solicitud> Solicituds { get; } = new List<Solicitud>();
 }
