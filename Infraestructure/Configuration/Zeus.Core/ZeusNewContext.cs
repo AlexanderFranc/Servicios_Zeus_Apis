@@ -6206,6 +6206,9 @@ public partial class ZeusCoreContext : DbContext
 
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
             entity.Property(e => e.ActivoPeriodo).HasColumnName("ACTIVO_PERIODO");
+            entity.Property(e => e.ActivoPeriodoPlanificacion)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("ACTIVO_PERIODO_PLANIFICACION");
             entity.Property(e => e.ActivoPeriodoSilabo)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("ACTIVO_PERIODO_SILABO");
