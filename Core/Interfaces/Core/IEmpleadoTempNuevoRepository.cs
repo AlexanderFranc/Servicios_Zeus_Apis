@@ -6,6 +6,6 @@ namespace Core.Interfaces.Core
 {
     public interface IEmpleadoTempNuevoRepository : IGenericRepository<EmpleadoTempNuevo>
     {
-        bool SaveIdiomas(IdiomaDto lstIdiomaDto);
+
     }
 }
