@@ -18,7 +18,7 @@ namespace Servicios_Zeus.Controllers.Core
         }
         [Route("Agregar")]
         [HttpPost]
-        public async Task<ActionResult<EmpleadoTempNuevo>> AgregarEmpleadoTempNuevo(EmpleadoTempNuevoDto empleadoTempNuevoDto)
+        public async Task<ActionResult<EmpleadoTempNuevo>> AgregarEmpleadoTempNuevo([FromBody] EmpleadoTempNuevoDto empleadoTempNuevoDto)
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -33,7 +33,10 @@ namespace Servicios_Zeus.Controllers.Core
                 return BadRequest(new ApiResponse(400));
             }
             empleadoTempNuevoDto.IdEmpNuevo = data.IdEmpNuevo;
-            return CreatedAtAction(nameof(AgregarEmpleadoTempNuevo), new { IdCarrera = empleadoTempNuevoDto.IdEmpNuevo });
+            return CreatedAtAction(nameof(AgregarEmpleadoTempNuevo), new { IdEmpNuevo = empleadoTempNuevoDto.IdEmpNuevo });
         }
+
+
+       
     }
 }
