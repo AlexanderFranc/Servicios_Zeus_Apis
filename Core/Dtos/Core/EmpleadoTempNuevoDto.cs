@@ -20,12 +20,12 @@
         public string Horario { get; set; } = null!;
         public int IdTitularidad { get; set; }
         public int IdCategoria { get; set; }
-        public int IFormaPago { get; set; }
+        public int IdFormaPago { get; set; }
         public int IdEstado { get; set; }
         public int Nivel { get; set; }
-        public string UC { get; set; } = null!;
+        public string? UC { get; set; } = null!;
         public DateTime? FC { get; set; } 
-        public string UA { get; set; } = null!;
+        public string? UA { get; set; } = null!;
         public DateTime? FA { get; set; } 
     }
 }

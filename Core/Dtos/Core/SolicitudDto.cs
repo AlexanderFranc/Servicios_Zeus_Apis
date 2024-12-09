@@ -12,6 +12,7 @@ namespace Core.Dtos.Core
         public string TipoSolicitud { get; set; }
         public DateTime? FechaSolicitud { get; set; }
         public int? IdAsociado { get; set; }
+        public int? IdEmpTempN { get; set; }
         public int? IdEstado { get; set; }
         public string? Motivo { get; set; }
         public string? Observacion { get; set; }
