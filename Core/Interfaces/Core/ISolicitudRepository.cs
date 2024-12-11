@@ -18,7 +18,8 @@ namespace Core.Interfaces.Core
 
         List<HorarioSemestralDto> GetHorarioSolicitud(string tipohorario, int idplanestudio, int? idSolicitud, int idperiodo, int idperiodicidad, int idmateria, int idsubtipocomponente, int idespacio, string ceduladocente);
 
-        List<SolicitudPlanificacionDto> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, int idcarrera, string estado);
+        List<SolicitudEmpleadoDto> getSolicitudNuevoEmp(int idperiodo, int idfacultad, string estado);
+        List<SolicitudPlanificacionDto> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado);
 
         bool EditSolicitudEstado(SolicitudDto solicitudDto, int idSolicitud);
 

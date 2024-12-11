@@ -109,11 +109,20 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
         }
+        [Route("getSolicitudNuevoEmp/{idperiodo}/{idfacultad}/{estado}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudEmpleadoDto>>> getSolicitudNuevoEmp(int idperiodo, int idfacultad, string estado)
+        {
+            var data = _iSolicitud.getSolicitudNuevoEmp(idperiodo, idfacultad, estado);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
         [Route("getSolicitudPlanificacionTH/{idperiodo}/{idfacultad}/{idcarrera}/{estado}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, int idcarrera, string estado)
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado)
         {
-            var data = _iSolicitud.getSolicitudPlanificacionTH(idperiodo, idfacultad, idcarrera, estado);
+            var data = _iSolicitud.getSolicitudPlanificacionTH(idperiodo, idfacultad, estado);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
