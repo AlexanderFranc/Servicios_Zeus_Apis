@@ -67,6 +67,13 @@ namespace Servicios_Zeus.Controllers.Core
             return CreatedAtAction(nameof(SaveSolicitud), new { IdSolicitud = solicitudDto.IdSolicitud });
         }
 
+        [Route("SaveSolicitudPlanEmp")]
+        [HttpPost]
+        public bool SaveSolicitudPlanEmp([FromBody] List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        {
+            return _iSolicitud.SaveSolicitudPlanEmp(lstSolicitudDto, idEmpleadoNuevo);
+        }
+
         [Route("Update/{id}")]
         [HttpPut]
         public async Task<ActionResult<SolicitudDto>> Put(int id, [FromBody] SolicitudDto solicitudDto)
@@ -118,6 +125,17 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
         }
+
+        [Route("getSolicitudPlanificacionNuevoEmp/{idEmpleadoN}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionNuevoEmp(int idEmpleadoN)
+        {
+            var data = _iSolicitud.getSolicitudPlanificacionNuevoEmp(idEmpleadoN);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
         [Route("getSolicitudPlanificacionTH/{idperiodo}/{idfacultad}/{idcarrera}/{estado}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado)

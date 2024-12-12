@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -215,6 +216,62 @@ namespace Infraestructure.Repository.Core
                 }
             }
             return listaSolicitudEmpleado;
+        }
+
+
+        public List<SolicitudPlanificacionDto> getSolicitudPlanificacionNuevoEmp(int idEmpleadoN)
+        {
+            SolicitudPlanificacionDto solicitudPlanificacion = new SolicitudPlanificacionDto();
+            List<SolicitudPlanificacionDto> listaSolicitudPlanificacion = new List<SolicitudPlanificacionDto>();
+            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'PSE','PLAN',null,null,null,null,null,"+ idEmpleadoN);
+            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            if (ds_solicitud.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_solicitud.Tables[0].Rows)
+                {
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    solicitudPlanificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
+                    solicitudPlanificacion.horasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
+                    solicitudPlanificacion.creditosMateria = float.Parse(row["CREDITOS_MATERIA"].ToString());
+                    solicitudPlanificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
+                    solicitudPlanificacion.codigoPeriodo = row["CODIGO_PERIODO"].ToString();
+                    solicitudPlanificacion.idMateria = Convert.ToInt32(row["ID_MATERIA"].ToString());
+                    solicitudPlanificacion.codigoMateria = row["CODIGO_MATERIA"].ToString();
+                    solicitudPlanificacion.nombreMateria = row["NOMBRE_MATERIA"].ToString();
+                    solicitudPlanificacion.paralelo = row["PARALELO"].ToString();
+                    solicitudPlanificacion.cupo = Convert.ToInt32(row["CUPO"].ToString());
+                    solicitudPlanificacion.dniProfesorc = row["DNI_PROFESORC"].ToString();
+                    solicitudPlanificacion.nombresEmp = row["NOMBRES_EMP"].ToString();
+                    solicitudPlanificacion.apellidoEmp = row["APELLIDO_EMP"].ToString();
+                    solicitudPlanificacion.idModalidadPlanificacion = Convert.ToInt32(row["ID_MODALIDAD_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.NombreModalidadPe = row["NOMBRE_MODALIDAD_PE"].ToString();
+                    solicitudPlanificacion.NombreModalidadp = row["NOMBRE_MODALIDADP"].ToString();
+                    solicitudPlanificacion.codigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
+                    solicitudPlanificacion.idPlanEstudio = Convert.ToInt32(row["ID_PLAN_ESTUDIO"].ToString());
+                    solicitudPlanificacion.idTipoComponente = Convert.ToInt32(row["ID_TIPO_COMPONENTE"].ToString());
+                    solicitudPlanificacion.idPeriodicidad = Convert.ToInt32(row["ID_PERIODICIDAD_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.idEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
+                    solicitudPlanificacion.idModalidad = Convert.ToInt32(row["ID_MODALIDAD"].ToString());
+                    solicitudPlanificacion.IdEstadoPeriodo = Convert.ToInt32(row["ID_ESTADO_PERIODO"].ToString());
+                    solicitudPlanificacion.IdNivelInfraestructura = Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString());
+                    solicitudPlanificacion.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
+                    solicitudPlanificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
+                    solicitudPlanificacion.activo = Convert.ToBoolean(row["ACTIVO"].ToString());
+                    solicitudPlanificacion.TipoSolicitud = row["TIPO_SOLICITUD"].ToString();
+                    solicitudPlanificacion.FechaSolicitud = row["FECHA_SOLICITUD"].ToString();
+                    solicitudPlanificacion.Estado = row["ESTADO"].ToString();
+                    solicitudPlanificacion.IdSolicitud = Convert.ToInt32(row["ID_SOLICITUD"].ToString());
+                    solicitudPlanificacion.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
+
+                    solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
+                    solicitudPlanificacion.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
+
+                    listaSolicitudPlanificacion.Add(solicitudPlanificacion);
+                    solicitudPlanificacion = new SolicitudPlanificacionDto();
+                }
+            }
+            return listaSolicitudPlanificacion;
         }
 
         public List<SolicitudPlanificacionDto> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado)
@@ -560,6 +617,60 @@ namespace Infraestructure.Repository.Core
 
             response = Conexion.ActualizarZeus("SOLICITUD", "ID_ESTADO = " + solicitudDto.IdEstado + 
                                         ", OBSERVACION = '" + solicitudDto.Observacion + "'", " Where ID_SOLICITUD = " + idSolicitud);
+
+            return response;
+        }
+
+
+        public bool EditSolicitudEmpleadoEstado(SolicitudEmpleadoDto solicitudEmpleadoDto, int idEmpleadoN)
+        {
+            bool response = false;
+
+            response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO", "ID_ESTADO = " + solicitudEmpleadoDto.IdEstado +
+                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_SOLICITUD = " + idEmpleadoN);
+
+            return response;
+        }
+
+        public bool SaveSolicitudPlanEmp(List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        {
+            bool response = false;
+            string ds_planTemp = "";
+            string ds_solicitud = "";
+            
+
+            try 
+            {
+                //Eliminar
+                ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
+                ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);                
+            }
+            catch
+            {
+
+            }
+
+            //if (ds_planTemp == "1" && ds_solicitud == "1")
+            //{ 
+                foreach (SolicitudDto solicitudDto in lstSolicitudDto)
+                {
+                    if (solicitudDto.IdSolicitud == 0)
+                    {
+
+                        //string fechaSolicitud = solicitudDto.FechaSolicitud != null ? "'" + Convert.ToDateTime(solicitudDto.FechaSolicitud).ToString("yyyy-MM-dd") + "'" : "null";
+                        //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
+                        //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
+
+                        response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC",
+                                                   "'" + solicitudDto.TipoSolicitud + "','" + solicitudDto.FechaSolicitud + "'," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
+                                                   solicitudDto.IdEstado + ",'" +
+                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "','" + solicitudDto.FC + "'");
+                    }
+                }
+            //}
+            
+
+
 
             return response;
         }

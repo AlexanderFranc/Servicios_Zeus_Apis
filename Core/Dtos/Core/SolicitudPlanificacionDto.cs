@@ -50,6 +50,9 @@ namespace Core.Dtos.Core
         public int IdAsociado { get; set; }
         public int IdEstado { get; set; }
         public string? motivo { get; set; }
+        public int? IdPlanTemp { get; set; }
+        public int? IdEmpNuevo { get; set; }
+
 
         //public string? CodigoMalla { get; set; }
         //public string? CodigoMateria { get; set; }
