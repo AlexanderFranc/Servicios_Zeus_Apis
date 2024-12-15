@@ -136,6 +136,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
         }
 
+        [Route("getNuevoEmp/{idEmpleadoN}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmpleadoTempNuevoDto>>> getNuevoEmp(int idEmpleadoN)
+        {
+            var data = _iSolicitud.getNuevoEmp(idEmpleadoN);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
         [Route("getSolicitudPlanificacionTH/{idperiodo}/{idfacultad}/{idcarrera}/{estado}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado)

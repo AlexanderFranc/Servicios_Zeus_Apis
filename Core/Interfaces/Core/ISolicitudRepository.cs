@@ -20,6 +20,7 @@ namespace Core.Interfaces.Core
 
         List<SolicitudEmpleadoDto> getSolicitudNuevoEmp(int idperiodo, int idfacultad, string estado);
         List<SolicitudPlanificacionDto> getSolicitudPlanificacionNuevoEmp(int idEmpleadoN);
+        List<EmpleadoTempNuevoDto> getNuevoEmp(int idEmpleadoN);
         List<SolicitudPlanificacionDto> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado);
 
         bool EditSolicitudEstado(SolicitudDto solicitudDto, int idSolicitud);

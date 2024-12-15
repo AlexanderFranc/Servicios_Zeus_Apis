@@ -218,6 +218,33 @@ namespace Infraestructure.Repository.Core
             return listaSolicitudEmpleado;
         }
 
+        public List<EmpleadoTempNuevoDto> getNuevoEmp(int idEmpleadoN)
+        {
+            EmpleadoTempNuevoDto empleadoNuevoTemp = new EmpleadoTempNuevoDto();
+            List<EmpleadoTempNuevoDto> listaempleadoNuevoTemp = new List<EmpleadoTempNuevoDto>();
+            //DataSet ds_solicitud = Conexion.BuscarZEUS_ds("PLANIFICACION pln inner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO inner join MALLA m on m.ID_MALLA = pln.ID_MALLA inner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO \r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA\r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO\r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC\r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD\r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS inner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA \r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE inner join SOLICITUD s on S.ID_ASOCIADO = PLN.ID_PLANIFICACION  ", "pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO,S.TIPO_SOLICITUD,convert(varchar(20),s.FECHA_SOLICITUD, 23) FECHA_SOLICITUD,S.ESTADO   ", "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio);
+
+            //DataSet ds_horarioocupado = Conexion.ExecZeusCore("HorariosPLanificacion", "'S'," + idperiodo + "," + idperiodicidad + "," + idmateria + "," + idsubtipocomponente + "," + idespacio + "," + "'" + ceduladocente + "','2023-06-04','2023-07-11'," + idplanificacion);
+            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'CI',null,null,null,null,null," + idEmpleadoN);
+            if (ds_solicitud.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_solicitud.Tables[0].Rows)
+                {
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    empleadoNuevoTemp.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
+
+                    empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["id_facultad"].ToString());
+                    empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
+                    empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
+                    //AQUI PONER TODOS LOS CAMPOS 
+
+                    listaempleadoNuevoTemp.Add(empleadoNuevoTemp);
+                    empleadoNuevoTemp = new EmpleadoTempNuevoDto();
+                }
+            }
+            return listaempleadoNuevoTemp;
+        }
+
 
         public List<SolicitudPlanificacionDto> getSolicitudPlanificacionNuevoEmp(int idEmpleadoN)
         {
