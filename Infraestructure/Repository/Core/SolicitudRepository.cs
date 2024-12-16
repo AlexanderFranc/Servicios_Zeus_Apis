@@ -207,8 +207,8 @@ namespace Infraestructure.Repository.Core
                     solicitudEmpleado.Estado = row["ESTADO"].ToString();
                     solicitudEmpleado.Motivo = row["MOTIVO"].ToString();
                     solicitudEmpleado.Observacion = row["OBSERVACION"].ToString();
-                    solicitudEmpleado.IdPeriodo = Convert.ToInt32(row["CODIGO_PERIODO"].ToString());
-                    solicitudEmpleado.Periodo = row["PERIODO"].ToString();
+                    solicitudEmpleado.IdPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
+                    solicitudEmpleado.Periodo = row["CODIGO_PERIODO"].ToString();
 
 
                     listaSolicitudEmpleado.Add(solicitudEmpleado);
