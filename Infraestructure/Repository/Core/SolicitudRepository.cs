@@ -321,6 +321,7 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.Estado = row["ESTADO"].ToString();
                     solicitudPlanificacion.IdSolicitud = Convert.ToInt32(row["ID_SOLICITUD"].ToString());
                     solicitudPlanificacion.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
+                    solicitudPlanificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
 
                     solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
                     solicitudPlanificacion.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
