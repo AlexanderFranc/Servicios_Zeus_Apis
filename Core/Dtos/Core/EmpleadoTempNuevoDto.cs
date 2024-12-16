@@ -37,6 +37,10 @@
         public string? UC { get; set; } = null!;
         public DateTime? FC { get; set; } 
         public string? UA { get; set; } = null!;
-        public DateTime? FA { get; set; } 
+        public DateTime? FA { get; set; }
+        public int IdPeriodo { get; set; }
+        public string? Periodo { get; set; } = null!;
+        public string? Motivo { get; set; } = null!;
+        public string? Observacion { get; set; } = null!;
     }
 }

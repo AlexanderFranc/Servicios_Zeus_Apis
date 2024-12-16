@@ -205,10 +205,10 @@ namespace Infraestructure.Repository.Core
                     solicitudEmpleado.FC = Convert.ToDateTime(row["fc"].ToString());
                     solicitudEmpleado.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
                     solicitudEmpleado.Estado = row["ESTADO"].ToString();
-                    //solicitudEmpleado.Motivo = row["MOTIVO"].ToString();
-                    //solicitudEmpleado.Observacion = row["OBSERVACION"].ToString();
-                    //solicitudEmpleado.IdPeriodo = Convert.ToInt32(row["IDPERIODO"].ToString());
-                    //solicitudEmpleado.Periodo = row["PERIODO"].ToString();
+                    solicitudEmpleado.Motivo = row["MOTIVO"].ToString();
+                    solicitudEmpleado.Observacion = row["OBSERVACION"].ToString();
+                    solicitudEmpleado.IdPeriodo = Convert.ToInt32(row["CODIGO_PERIODO"].ToString());
+                    solicitudEmpleado.Periodo = row["PERIODO"].ToString();
 
 
                     listaSolicitudEmpleado.Add(solicitudEmpleado);
