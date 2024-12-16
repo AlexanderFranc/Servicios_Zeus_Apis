@@ -71,7 +71,7 @@ namespace Infraestructure.Repository.Core
             List<EmpleadoDto> listEmpleados = new();
             DataSet ds_empl = Conexion.BuscarZEUS_ds(
                 "EMPLEADO emp",
-                "IDENTIFICACION_EMP, NOMBRES_EMP, APELLIDO_EMP, CORREO_EMP, CORREO_INST, CELULAR_EMP",
+                "IDENTIFICACION_EMP, NOMBRES_EMP, APELLIDO_EMP, CORREO_EMP, CORREO_INST, CELULAR_EMP,ID_TIPO_DOCUMENTO",
                 "where emp.ID_TIPO_EMP = 1 AND activo_emp=0 ORDER BY APELLIDO_EMP"
                 );
             if (ds_empl.Tables[0].Rows.Count > 0)
@@ -84,6 +84,7 @@ namespace Infraestructure.Repository.Core
                     empleadoDto.CorreoEmp = row["CORREO_EMP"].ToString();
                     empleadoDto.CorreoInst = row["CORREO_INST"].ToString();
                     empleadoDto.CelularEmp = row["CELULAR_EMP"].ToString();
+                    empleadoDto.IdTipoDocumento = Convert.ToInt32(row["ID_TIPO_DOCUMENTO"].ToString());
                     listEmpleados.Add(empleadoDto);
                     empleadoDto = new EmpleadoDto();
                 }
