@@ -233,10 +233,43 @@ namespace Infraestructure.Repository.Core
                     //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
                     empleadoNuevoTemp.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
 
-                    empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["id_facultad"].ToString());
+                    empleadoNuevoTemp.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
+                    empleadoNuevoTemp.TipoIdentificacion = Convert.ToInt32(row["TIPO_IDENTIFICACION"].ToString());
+                    empleadoNuevoTemp.Identificacion = row["IDENTIFICACION"].ToString();
+                    empleadoNuevoTemp.Nombre = row["NOMBRE"].ToString();
+                    empleadoNuevoTemp.Apellido = row["APELLIDO"].ToString();
+                    empleadoNuevoTemp.Celular = row["CELULAR"].ToString();
+                    empleadoNuevoTemp.Email = row["EMAIL"].ToString();
+                    empleadoNuevoTemp.IdUnidadEducativa = Convert.ToInt32(row["ID_UNIDAD_EDUCATIVA"].ToString());
+                    empleadoNuevoTemp.NombreUnidadEducativa = row["NOMBRE_UNIDAD_EDUCATIVA"].ToString();
+                    empleadoNuevoTemp.UnidadEducativa = row["UNIDAD_EDUCATIVA"].ToString();
+                    empleadoNuevoTemp.Titulo = row["TITULO"].ToString();
+                    empleadoNuevoTemp.IdCampoAmplio = Convert.ToInt32(row["ID_CAMPO_AMPLIO"].ToString());
+                    empleadoNuevoTemp.CampoAmplio = row["CAMPO_AMPLIO"].ToString();
+                    empleadoNuevoTemp.IdCampoEspecifico = Convert.ToInt32(row["ID_CAMPO_ESPECIFICO"].ToString());
+                    empleadoNuevoTemp.CampoEspecifico = row["CAMPO_ESPECIFICO"].ToString();
+                    empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["ID_FACULTAD"].ToString());
                     empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
                     empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
-                    //AQUI PONER TODOS LOS CAMPOS 
+                    empleadoNuevoTemp.IdTipoContrato = Convert.ToInt32(row["ID_TIPO_CONTRATO"].ToString());
+                    empleadoNuevoTemp.TipoContrato = Convert.ToInt32(row["TIPO_CONTRATO"].ToString();
+                    empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString();
+                    empleadoNuevoTemp.Dedicacion = row["DEDICACION"].ToString();
+                    empleadoNuevoTemp.Horario = row["HORARIO"].ToString();
+                    empleadoNuevoTemp.IdTitularidad = Convert.ToInt32(row["ID_TITULARIDAD"].ToString());
+                    empleadoNuevoTemp.Titularidad = row["TITULARIDAD"].ToString();
+                    empleadoNuevoTemp.IdCategoria = Convert.ToInt32(row["ID_CATEGORIA"].ToString());
+                    empleadoNuevoTemp.Categoria = row["CATEGORIA"].ToString();
+                    empleadoNuevoTemp.IdFormaPago = Convert.ToInt32(row["ID_FORMA_PAGO"].ToString());
+                    empleadoNuevoTemp.FPago = row["FPAGO"].ToString();
+                    empleadoNuevoTemp.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
+                    empleadoNuevoTemp.Estado = row["ESTADO"].ToString();
+                    empleadoNuevoTemp.UC = row["UC"].ToString();
+                    empleadoNuevoTemp.FC = Convert.ToDateTime(row["FC"].ToString());
+                    empleadoNuevoTemp.UA = row["UA"].ToString();
+                    empleadoNuevoTemp.FA = Convert.ToDateTime(row["FA"].ToString());
+
+
 
                     listaempleadoNuevoTemp.Add(empleadoNuevoTemp);
                     empleadoNuevoTemp = new EmpleadoTempNuevoDto();
