@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Core.Entidades.Core;
-using Microsoft.Extensions.Configuration;
 
-namespace Infraestructure.Configuration.Zeus.Core;
+namespace Core.Entidades.Core;
 
-public partial class ZeusCoreContext : DbContext
+public partial class ZeusNewContext : DbContext
 {
-    public ZeusCoreContext()
+    public ZeusNewContext()
     {
     }
 
-    public ZeusCoreContext(DbContextOptions<ZeusCoreContext> options)
+    public ZeusNewContext(DbContextOptions<ZeusNewContext> options)
         : base(options)
     {
     }
@@ -462,12 +460,9 @@ public partial class ZeusCoreContext : DbContext
     public virtual DbSet<ValidacionMaterium> ValidacionMateria { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-        .AddJsonFile("appsettings.json").Build();
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("ZEUS"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=172.16.32.15;Database=ZEUS_NEW;Persist Security Info=False;User ID=sa;Password=Uisek+*EC;MultipleActiveResultSets=True; TrustServerCertificate=True; Encrypt=false; MultiSubnetFailover=True;");
 
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Acreditacione>(entity =>
@@ -6629,10 +6624,10 @@ public partial class ZeusCoreContext : DbContext
             entity.HasKey(e => e.IdPlanificacion);
 
             entity.ToTable("PLANIFICACION", tb =>
-            {
-                tb.HasTrigger("LOG_PLANIFICACION");
-                tb.HasTrigger("LOG_PLANIFICACION_INSERT");
-            });
+                {
+                    tb.HasTrigger("LOG_PLANIFICACION");
+                    tb.HasTrigger("LOG_PLANIFICACION_INSERT");
+                });
 
             entity.HasIndex(e => new { e.IdPeriodo, e.IdMalla, e.IdModalidadPlanificacion, e.IdPeriodicidadPlanificacion, e.IdTipoComponente, e.Paralelo, e.IdEspaciosFisicos }, "AK_PLANIFICACION").IsUnique();
 
@@ -7194,10 +7189,10 @@ public partial class ZeusCoreContext : DbContext
             entity.HasKey(e => e.IdSolicitud).HasName("PK__SOLICITU__F090D584CCE9E49A");
 
             entity.ToTable("SOLICITUD", tb =>
-            {
-                tb.HasTrigger("APROBACION_SOLICITUD");
-                tb.HasTrigger("SOLICITUD_NUEVO_EMP");
-            });
+                {
+                    tb.HasTrigger("APROBACION_SOLICITUD");
+                    tb.HasTrigger("SOLICITUD_NUEVO_EMP");
+                });
 
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
             entity.Property(e => e.Fa)

@@ -53,6 +53,14 @@ public partial class EmpleadoTempNuevo
 
     public DateTime? Fa { get; set; }
 
+    public int? IdPeriodo { get; set; }
+
+    public string? Motivo { get; set; }
+
+    public string? Observacion { get; set; }
+
+    public int? Nivel { get; set; }
+
     public virtual CampoAmplio IdCampoAmplioNavigation { get; set; } = null!;
 
     public virtual CampoEspecifico? IdCampoEspecificoNavigation { get; set; }
