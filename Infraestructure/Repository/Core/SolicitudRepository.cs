@@ -223,7 +223,7 @@ namespace Infraestructure.Repository.Core
         {
             SolicitudPlanificacionDto solicitudPlanificacion = new SolicitudPlanificacionDto();
             List<SolicitudPlanificacionDto> listaSolicitudPlanificacion = new List<SolicitudPlanificacionDto>();
-            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'PSE','PLAN',null,null,null,null,null,"+ idEmpleadoN);
+            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'PSE','PLAN',null,null,null,null,"+ idEmpleadoN);
             //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
             if (ds_solicitud.Tables[0].Rows.Count > 0)
             {
