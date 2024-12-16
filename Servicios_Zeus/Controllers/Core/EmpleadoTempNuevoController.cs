@@ -20,6 +20,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPost]
         public async Task<ActionResult<EmpleadoTempNuevo>> AgregarEmpleadoTempNuevo([FromBody] EmpleadoTempNuevoDto empleadoTempNuevoDto)
         {
+            empleadoTempNuevoDto.FC = DateTime.Now;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<EmpleadoTempNuevoDto, EmpleadoTempNuevo>();
