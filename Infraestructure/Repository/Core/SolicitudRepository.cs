@@ -232,8 +232,6 @@ namespace Infraestructure.Repository.Core
                 {
                     //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
                     empleadoNuevoTemp.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
-
-                    empleadoNuevoTemp.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
                     empleadoNuevoTemp.TipoIdentificacion = Convert.ToInt32(row["TIPO_IDENTIFICACION"].ToString());
                     empleadoNuevoTemp.Identificacion = row["IDENTIFICACION"].ToString();
                     empleadoNuevoTemp.Nombre = row["NOMBRE"].ToString();
@@ -252,8 +250,8 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
                     empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
                     empleadoNuevoTemp.IdTipoContrato = Convert.ToInt32(row["ID_TIPO_CONTRATO"].ToString());
-                    empleadoNuevoTemp.TipoContrato = Convert.ToInt32(row["TIPO_CONTRATO"].ToString();
-                    empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString();
+                    empleadoNuevoTemp.TipoContrato = row["TIPO_CONTRATO"].ToString();
+                    empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString());
                     empleadoNuevoTemp.Dedicacion = row["DEDICACION"].ToString();
                     empleadoNuevoTemp.Horario = row["HORARIO"].ToString();
                     empleadoNuevoTemp.IdTitularidad = Convert.ToInt32(row["ID_TITULARIDAD"].ToString());
