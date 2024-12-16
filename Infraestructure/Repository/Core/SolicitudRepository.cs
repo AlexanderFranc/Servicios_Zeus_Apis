@@ -264,8 +264,8 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.Estado = row["ESTADO"].ToString();
                     empleadoNuevoTemp.UC = row["UC"].ToString();
                     empleadoNuevoTemp.FC = Convert.ToDateTime(row["FC"].ToString());
-                    empleadoNuevoTemp.UA = row["UA"].ToString();
-                    empleadoNuevoTemp.FA = Convert.ToDateTime(row["FA"].ToString());
+                    //empleadoNuevoTemp.UA = row["UA"].ToString();
+                    //empleadoNuevoTemp.FA = Convert.ToDateTime(row["FA"].ToString());
 
 
 
