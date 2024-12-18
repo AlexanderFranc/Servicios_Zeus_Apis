@@ -20,13 +20,15 @@
         public int IdFacultad { get; set; }
         public string CodigoFacultad { get; set; } = null!;
         public string NombreFacultad { get; set; } = null!;
+        public int IdTipoEmpleado { get; set; }
+        public string TipoEmpleado { get; set; } = null!;
         public int IdTipoContrato { get; set; }
         public string TipoContrato { get; set; } = null!;
         public int IdDedicacion { get; set; }
         public string Dedicacion { get; set; } = null!;
         public string Horario { get; set; } = null!;
-        public int IdTitularidad { get; set; }
-        public string Titularidad { get; set; } = null!;
+        public int? IdTitularidad { get; set; }
+        public string? Titularidad { get; set; } = null!;
         public int IdCategoria { get; set; }
         public string Categoria { get; set; } = null!;
         public int IdFormaPago { get; set; }

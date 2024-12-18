@@ -249,6 +249,8 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["ID_FACULTAD"].ToString());
                     empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
                     empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
+                    empleadoNuevoTemp.IdTipoEmpleado = Convert.ToInt32(row["ID_TIPO_EMP"].ToString());
+                    empleadoNuevoTemp.TipoEmpleado = row["NOMBRE_TIPO_EMP"].ToString();
                     empleadoNuevoTemp.IdTipoContrato = Convert.ToInt32(row["ID_TIPO_CONTRATO"].ToString());
                     empleadoNuevoTemp.TipoContrato = row["TIPO_CONTRATO"].ToString();
                     empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString());
@@ -686,7 +688,7 @@ namespace Infraestructure.Repository.Core
             bool response = false;
 
             response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO", "ID_ESTADO = " + solicitudEmpleadoDto.IdEstado +
-                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_SOLICITUD = " + idEmpleadoN);
+                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_EMP_NUEVO = " + idEmpleadoN);
 
             return response;
         }
@@ -715,15 +717,15 @@ namespace Infraestructure.Repository.Core
                 {
                     if (solicitudDto.IdSolicitud == 0)
                     {
-
-                    //string fechaSolicitud = solicitudDto.FechaSolicitud != null ? "'" + Convert.ToDateTime(solicitudDto.FechaSolicitud).ToString("yyyy-MM-dd") + "'" : "null";
+                    solicitudDto.FechaSolicitud = DateTime.Now;
+                    string fechaSolicitud = solicitudDto.FechaSolicitud != null ? "'" + Convert.ToDateTime(solicitudDto.FechaSolicitud).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
-                    solicitudDto.FC = DateTime.Now;
+                    //solicitudDto.FC = DateTime.Now;
                     response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC",
-                                                   "'" + solicitudDto.TipoSolicitud + "','" + solicitudDto.FechaSolicitud + "'," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
+                                                   "'" + solicitudDto.TipoSolicitud + "'," + fechaSolicitud + "," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
                                                    solicitudDto.IdEstado + ",'" +
-                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "','" + solicitudDto.FC + "'");
+                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()");
                     }
                 }
             //}

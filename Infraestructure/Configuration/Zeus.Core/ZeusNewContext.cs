@@ -2450,6 +2450,7 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdFormaPago).HasColumnName("ID_FORMA_PAGO");
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
             entity.Property(e => e.IdTipoContrato).HasColumnName("ID_TIPO_CONTRATO");
+            entity.Property(e => e.IdTipoEmp).HasColumnName("ID_TIPO_EMP");
             entity.Property(e => e.IdTitularidad).HasColumnName("ID_TITULARIDAD");
             entity.Property(e => e.IdUnidadEducativa).HasColumnName("ID_UNIDAD_EDUCATIVA");
             entity.Property(e => e.Identificacion)
@@ -2516,6 +2517,10 @@ public partial class ZeusCoreContext : DbContext
                 .HasForeignKey(d => d.IdTipoContrato)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_TIPO_CONTRATO_N");
+
+            entity.HasOne(d => d.IdTipoEmpNavigation).WithMany(p => p.EmpleadoTempNuevos)
+                .HasForeignKey(d => d.IdTipoEmp)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_TIPO_EMPLEADO");
 
             entity.HasOne(d => d.IdTitularidadNavigation).WithMany(p => p.EmpleadoTempNuevos)
                 .HasForeignKey(d => d.IdTitularidad)
