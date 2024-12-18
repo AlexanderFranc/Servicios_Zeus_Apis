@@ -20,6 +20,8 @@
         public int IdFacultad { get; set; }
         public string CodigoFacultad { get; set; } = null!;
         public string NombreFacultad { get; set; } = null!;
+        public int IdTipoEmpleado { get; set; }
+        public string TipoEmpleado { get; set; } = null!;
         public int IdTipoContrato { get; set; }
         public string TipoContrato { get; set; } = null!;
         public int IdDedicacion { get; set; }

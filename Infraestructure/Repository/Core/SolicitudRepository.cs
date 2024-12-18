@@ -249,6 +249,8 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["ID_FACULTAD"].ToString());
                     empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
                     empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
+                    empleadoNuevoTemp.IdTipoEmpleado = Convert.ToInt32(row["ID_TIPO_EMP"].ToString());
+                    empleadoNuevoTemp.TipoEmpleado = row["NOMBRE_TIPO_EMP"].ToString();
                     empleadoNuevoTemp.IdTipoContrato = Convert.ToInt32(row["ID_TIPO_CONTRATO"].ToString());
                     empleadoNuevoTemp.TipoContrato = row["TIPO_CONTRATO"].ToString();
                     empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString());
