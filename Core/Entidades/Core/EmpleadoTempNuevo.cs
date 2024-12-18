@@ -31,6 +31,8 @@ public partial class EmpleadoTempNuevo
 
     public int IdFacultad { get; set; }
 
+    public int? IdTipoEmp { get; set; }
+
     public int IdTipoContrato { get; set; }
 
     public int IdDedicacion { get; set; }
@@ -74,6 +76,8 @@ public partial class EmpleadoTempNuevo
     public virtual FormaPagoEmp? IdFormaPagoNavigation { get; set; }
 
     public virtual TipoContratoN IdTipoContratoNavigation { get; set; } = null!;
+
+    public virtual TipoEmpleado? IdTipoEmpNavigation { get; set; }
 
     public virtual TitularidadEmp? IdTitularidadNavigation { get; set; }
 }

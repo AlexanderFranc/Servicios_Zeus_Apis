@@ -688,7 +688,7 @@ namespace Infraestructure.Repository.Core
             bool response = false;
 
             response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO", "ID_ESTADO = " + solicitudEmpleadoDto.IdEstado +
-                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_SOLICITUD = " + idEmpleadoN);
+                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_EMP_NUEVO = " + idEmpleadoN);
 
             return response;
         }

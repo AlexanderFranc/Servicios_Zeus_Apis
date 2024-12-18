@@ -27,8 +27,8 @@
         public int IdDedicacion { get; set; }
         public string Dedicacion { get; set; } = null!;
         public string Horario { get; set; } = null!;
-        public int IdTitularidad { get; set; }
-        public string Titularidad { get; set; } = null!;
+        public int? IdTitularidad { get; set; }
+        public string? Titularidad { get; set; } = null!;
         public int IdCategoria { get; set; }
         public string Categoria { get; set; } = null!;
         public int IdFormaPago { get; set; }
