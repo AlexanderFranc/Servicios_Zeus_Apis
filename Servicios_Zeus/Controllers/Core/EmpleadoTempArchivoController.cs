@@ -35,5 +35,25 @@ namespace Servicios_Zeus.Controllers.Core
             empleadoTempArchivoDto.Id = data.Id;
             return CreatedAtAction(nameof(AgregarEmpleadoTempArchivo), new { Id = empleadoTempArchivoDto.Id });
         }
+
+        [Route("ver/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<EmpleadoTempArchivo>> GetArchivosEmpNuevobyId(int id)
+        {
+            var emp = await _empleadoTempArchivo.GetByIdAsync(id);
+            if (emp == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(emp);
+        }
+
+        [Route("findByIdEmpl/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<EmpleadoTempArchivo>> GetfindByIdEmpN(int id)
+        {
+            var idioma = await _empleadoTempArchivo.GetfindByIdEmpN(id);
+            if (idioma == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(idioma);
+        }
     }
 }

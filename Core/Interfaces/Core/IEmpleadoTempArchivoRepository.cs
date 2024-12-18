@@ -5,5 +5,6 @@ namespace Core.Interfaces.Core
 {
     public interface IEmpleadoTempArchivoRepository : IGenericRepository<EmpleadoTempArchivo>
     {
+        Task<List<EmpleadoTempArchivo>> GetfindByIdEmpN(int idEmpl);
     }
 }
