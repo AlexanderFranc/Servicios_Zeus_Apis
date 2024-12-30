@@ -256,7 +256,7 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.IdDedicacion = Convert.ToInt32(row["ID_DEDICACION"].ToString());
                     empleadoNuevoTemp.Dedicacion = row["DEDICACION"].ToString();
                     empleadoNuevoTemp.Horario = row["HORARIO"].ToString();
-                    empleadoNuevoTemp.IdTitularidad = Convert.ToInt32(row["ID_TITULARIDAD"].ToString());
+                    empleadoNuevoTemp.IdTitularidad = row["ID_TITULARIDAD"] == null ? null : Convert.ToInt32(row["ID_TITULARIDAD"].ToString());
                     empleadoNuevoTemp.Titularidad = row["TITULARIDAD"].ToString();
                     empleadoNuevoTemp.IdCategoria = Convert.ToInt32(row["ID_CATEGORIA"].ToString());
                     empleadoNuevoTemp.Categoria = row["CATEGORIA"].ToString();
