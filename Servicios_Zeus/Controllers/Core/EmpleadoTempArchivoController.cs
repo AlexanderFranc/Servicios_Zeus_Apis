@@ -55,5 +55,12 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404));
             return Ok(idioma);
         }
+
+        [Route("Save")]
+        [HttpPost]
+        public bool SaveEmpleadoTempArchivo([FromBody] EmpleadoTempArchivoDto emplTempArchivoDto)
+        {
+            return _empleadoTempArchivo.SaveEmpleadoTempArchivo(emplTempArchivoDto);
+        }
     }
 }

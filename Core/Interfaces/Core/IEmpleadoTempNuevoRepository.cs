@@ -7,5 +7,6 @@ namespace Core.Interfaces.Core
     public interface IEmpleadoTempNuevoRepository : IGenericRepository<EmpleadoTempNuevo>
     {
 
+        bool EditEmpleadoTempNuevo(EmpleadoTempNuevoDto empleadoTempNuevoDto, int idEmpleadoNuevo);
     }
 }

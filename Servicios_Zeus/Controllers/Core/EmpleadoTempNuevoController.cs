@@ -37,7 +37,14 @@ namespace Servicios_Zeus.Controllers.Core
             return CreatedAtAction(nameof(AgregarEmpleadoTempNuevo), new { IdEmpNuevo = empleadoTempNuevoDto.IdEmpNuevo });
         }
 
+        [Route("UpdateEmpleado/{id}")]
+        [HttpPut]
+        public bool UpdateEmpleado(int id, [FromBody] EmpleadoTempNuevoDto empleadoTempNuevoDto)
+        {
+            return _empleadoTempNuevoRepository.EditEmpleadoTempNuevo(empleadoTempNuevoDto, id);
+        }
 
-       
+
+
     }
 }
