@@ -704,7 +704,7 @@ namespace Infraestructure.Repository.Core
             try 
             {
                 //Eliminar
-                ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
+                ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD WHERE ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
                 ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);                
             }
             catch
