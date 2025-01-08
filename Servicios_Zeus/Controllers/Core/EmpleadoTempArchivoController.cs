@@ -62,5 +62,21 @@ namespace Servicios_Zeus.Controllers.Core
         {
             return _empleadoTempArchivo.SaveEmpleadoTempArchivo(emplTempArchivoDto);
         }
+
+        [Route("eliminar/{idEmpl}/{idTipoArchivo}")]
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int idEmpl, int idTipoArchivo)
+        {
+            var empArchivo = await _empleadoTempArchivo.GetfindEmpArch(idEmpl,idTipoArchivo,true);
+            if (empArchivo == null)
+                return NotFound(new ApiResponse(404, "La Info. Academica que solicita no existe."));
+
+            _empleadoTempArchivo.Remove(empArchivo);
+            await _empleadoTempArchivo.SaveAsync();
+
+            return NoContent();
+        }
     }
 }

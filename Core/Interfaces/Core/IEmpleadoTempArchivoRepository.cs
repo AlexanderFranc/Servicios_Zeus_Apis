@@ -8,6 +8,8 @@ namespace Core.Interfaces.Core
     {
         Task<List<EmpleadoTempArchivo>> GetfindByIdEmpN(int idEmpl);
 
+        Task<EmpleadoTempArchivo> GetfindEmpArch(int idEmpl,int idTipoArchivo,bool seguimiento);
+
         bool SaveEmpleadoTempArchivo(EmpleadoTempArchivoDto emplTempArchivoDto);
     }
 }

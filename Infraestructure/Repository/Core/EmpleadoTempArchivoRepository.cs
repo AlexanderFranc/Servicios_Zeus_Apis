@@ -18,6 +18,18 @@ namespace Infraestructure.Repository.Core
         public async Task<List<EmpleadoTempArchivo>> GetfindByIdEmpN(int idEmpl) => await
            _context.EmpleadoTempArchivos.Where(x => x.IdEmpNuevo == idEmpl).ToListAsync();
 
+        //public async Task<List<EmpleadoTempArchivo>> GetfindEmpArch(int idEmpl, int idTipoArchivo) => await
+        //   _context.EmpleadoTempArchivos.Where(x => x.IdEmpNuevo == idEmpl && x.IdTipoArchivo == idTipoArchivo).ToListAsync();
+
+        public async Task<EmpleadoTempArchivo> GetfindEmpArch(int idEmpl, int idTipoArchivo,bool noseguimiento = true)
+        {
+            var query = noseguimiento ? _context.EmpleadoTempArchivos.AsNoTracking()
+                                   : _context.EmpleadoTempArchivos;
+
+            return await query
+
+                                .FirstOrDefaultAsync(x => x.IdEmpNuevo == idEmpl && x.IdTipoArchivo == idTipoArchivo);
+        }
 
         public bool SaveEmpleadoTempArchivo(EmpleadoTempArchivoDto emplTempArchivoDto)
         {
