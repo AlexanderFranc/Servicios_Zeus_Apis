@@ -11,6 +11,7 @@ namespace Core.Dtos.Core
         public int idNivelEstudio { get; set; }
         public int idMalla { get; set; }
         public int horasSemestralesMateria { get; set; }
+        public int horasSemanalesMateria { get; set; }        
         public float creditosMateria { get; set; }
         public int idPlanificacion { get; set; }
         public int idPeriodo { get; set; }

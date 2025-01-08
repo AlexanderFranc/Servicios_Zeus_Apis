@@ -292,6 +292,7 @@ namespace Infraestructure.Repository.Core
                     //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
                     solicitudPlanificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
                     solicitudPlanificacion.horasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
+                    solicitudPlanificacion.horasSemanalesMateria = Convert.ToInt32(row["HORAS_SEMANALES_MATERIA"].ToString());
                     solicitudPlanificacion.creditosMateria = float.Parse(row["CREDITOS_MATERIA"].ToString());
                     solicitudPlanificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
                     solicitudPlanificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
