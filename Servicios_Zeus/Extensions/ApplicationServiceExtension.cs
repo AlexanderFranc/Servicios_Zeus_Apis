@@ -130,6 +130,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<ITitularidadEmpRepository, TitularidadEmpRepository>();
             services.AddScoped<IFormaPagoEmpRepository, FormaPagoEmpRepository>();
             services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
+            services.AddScoped<IEmailReporsitory, EmailReporsitory>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)

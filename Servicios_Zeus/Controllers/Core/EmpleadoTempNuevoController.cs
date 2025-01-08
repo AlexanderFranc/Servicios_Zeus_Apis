@@ -12,9 +12,11 @@ namespace Servicios_Zeus.Controllers.Core
     public class EmpleadoTempNuevoController : ControllerBase
     {
         private IEmpleadoTempNuevoRepository _empleadoTempNuevoRepository;
-        public EmpleadoTempNuevoController(IEmpleadoTempNuevoRepository empleadoTempNuevoRepository)
+        private IEmailReporsitory _emailRepo;
+        public EmpleadoTempNuevoController(IEmpleadoTempNuevoRepository empleadoTempNuevoRepository, IEmailReporsitory emailRepo)
         {
             _empleadoTempNuevoRepository = empleadoTempNuevoRepository;
+            _emailRepo = emailRepo;
         }
         [Route("Agregar")]
         [HttpPost]
@@ -43,8 +45,11 @@ namespace Servicios_Zeus.Controllers.Core
         {
             return _empleadoTempNuevoRepository.EditEmpleadoTempNuevo(empleadoTempNuevoDto, id);
         }
-
-
-
+        [HttpPost]
+        [Route("sendEmail")]
+        public async void SendEmailAsesor([FromBody] EmailDto emaildata)
+        {
+            await _emailRepo.SendEmail(emaildata);
+        }
     }
 }
