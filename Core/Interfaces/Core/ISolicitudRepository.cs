@@ -22,7 +22,7 @@ namespace Core.Interfaces.Core
         List<SolicitudPlanificacionDto> getSolicitudPlanificacionNuevoEmp(int idEmpleadoN);
         List<EmpleadoTempNuevoDto> getNuevoEmp(int idEmpleadoN);
         List<SolicitudPlanificacionDto> getSolicitudPlanificacionTH(int idperiodo, int idfacultad, string estado);
-
+        List<EmpNuevoObservacionLogDto> getLogObservacionesSolicitudNEmp(int idEmpNuevo);
         bool EditSolicitudEstado(SolicitudDto solicitudDto, int idSolicitud);
         bool EditSolicitudEmpleadoEstado(SolicitudEmpleadoDto solicitudEmpleadoDto, int idEmpleadoN);
         bool SaveSolicitudPlanEmp(List<SolicitudDto> solicitudDto, int idEmpleadoNuevo);

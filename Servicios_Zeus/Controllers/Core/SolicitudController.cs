@@ -179,5 +179,15 @@ namespace Servicios_Zeus.Controllers.Core
             return _iSolicitud.EditSolicitudEmpleadoEstado(solicitudEmpleadoDto, id);
         }
 
+        [Route("getLogObservacionesSolicitudNEmp/{idEmpNuevo}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmpNuevoObservacionLogDto>>> getLogObservacionesSolicitudNEmp(int idEmpNuevo)
+        {
+            var data = _iSolicitud.getLogObservacionesSolicitudNEmp(idEmpNuevo);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
     }
 }
