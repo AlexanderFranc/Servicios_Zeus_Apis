@@ -51,5 +51,11 @@ namespace Servicios_Zeus.Controllers.Core
         {
             await _emailRepo.SendEmail(emaildata);
         }
+        [HttpPost]
+        [Route("sendEmailIngreso")]
+        public async void SendEmailIngreso([FromBody] EmailDto emaildata)
+        {
+            await _emailRepo.SendEmailIngreso(emaildata);
+        }
     }
 }
