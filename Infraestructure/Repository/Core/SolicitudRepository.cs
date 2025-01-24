@@ -395,6 +395,30 @@ namespace Infraestructure.Repository.Core
             return listaSolicitudPlanificacion;
         }
 
+
+        public List<EmpNuevoObservacionLogDto> getLogObservacionesSolicitudNEmp(int idEmpNuevo)
+        {
+            EmpNuevoObservacionLogDto empNuevoObsLog = new EmpNuevoObservacionLogDto();
+            List<EmpNuevoObservacionLogDto> listaempNuevoObsLog = new List<EmpNuevoObservacionLogDto>();
+            DataSet ds_empNuevoObsLog = Conexion.BuscarZEUS_ds("LOG_OBSERVACION_SOLICITUD_EMP A\r\nINNER JOIN EMPLEADO B\r\nON A.UC = B.IDENTIFICACION_EMP", "A.FC,A.UC,B.APELLIDO_EMP +' ' + B.NOMBRES_EMP USUARIO,A.OBSERVACION ", "WHERE A.ID_EMP_NUEVO="+ idEmpNuevo + " ORDER BY FC");
+            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            if (ds_empNuevoObsLog.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_empNuevoObsLog.Tables[0].Rows)
+                {
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    empNuevoObsLog.FC = Convert.ToDateTime(row["FC"].ToString());
+                    empNuevoObsLog.UC = row["UC"].ToString();
+                    empNuevoObsLog.Usuario = row["USUARIO"].ToString();
+                    empNuevoObsLog.Observacion = row["OBSERVACION"].ToString();
+
+                    listaempNuevoObsLog.Add(empNuevoObsLog);
+                    empNuevoObsLog = new EmpNuevoObservacionLogDto();
+                }
+            }
+            return listaempNuevoObsLog;
+        }
+
         public string getDetallecruce(string desc)
         {
             string[] ids = desc.ToString().Split(",");
