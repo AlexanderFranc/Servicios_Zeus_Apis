@@ -19,6 +19,9 @@ namespace Core.Dtos.Core
         public int idMateria { get; set; }
         public string codigoMateria { get; set; }
         public string nombreMateria { get; set; }
+
+        public int? idUOC { get; set; }
+        public string? nombreUOC { get; set; }
         public string paralelo { get; set; }
         public int cupo { get; set; }
         public string dniProfesorc { get; set; }

@@ -315,6 +315,8 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.idMateria = Convert.ToInt32(row["ID_MATERIA"].ToString());
                     solicitudPlanificacion.codigoMateria = row["CODIGO_MATERIA"].ToString();
                     solicitudPlanificacion.nombreMateria = row["NOMBRE_MATERIA"].ToString();
+                    solicitudPlanificacion.idUOC = Convert.ToInt32(row["ID_UOC"].ToString());
+                    solicitudPlanificacion.nombreUOC = row["NOMBRE_UOC"].ToString();
                     solicitudPlanificacion.paralelo = row["PARALELO"].ToString();
                     solicitudPlanificacion.cupo = Convert.ToInt32(row["CUPO"].ToString());
                     solicitudPlanificacion.dniProfesorc = row["DNI_PROFESORC"].ToString();
