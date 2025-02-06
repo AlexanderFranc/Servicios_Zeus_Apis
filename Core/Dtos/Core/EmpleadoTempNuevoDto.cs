@@ -9,6 +9,8 @@
         public string Apellido { get; set; } = null!;
         public string? Celular { get; set; }
         public string Email { get; set; } = null!;
+        public int IdNivelAcadTit { get; set; }
+        public string NivelAcadTit { get; set; }
         public int IdUnidadEducativa { get; set; }
         public string NombreUnidadEducativa { get; set; }
         public string UnidadEducativa { get; set; }
@@ -17,6 +19,18 @@
         public string CampoAmplio { get; set; } = null!;
         public int IdCampoEspecifico { get; set; }
         public string CampoEspecifico { get; set; } = null!;
+
+        public int? IdNivelAcadTit2 { get; set; } = null!;
+        public string? NivelAcadTit2 { get; set; } = null!;
+        public int? IdUnidadEducativa2 { get; set; } = null!;
+        public string? NombreUnidadEducativa2 { get; set; } = null!;
+        public string? UnidadEducativa2 { get; set; } = null!;
+        public string? Titulo2 { get; set; } = null!;
+        public int? IdCampoAmplio2 { get; set; } = null!;
+        public string? CampoAmplio2 { get; set; } = null!;
+        public int? IdCampoEspecifico2 { get; set; } = null!;
+        public string? CampoEspecifico2 { get; set; } = null!;
+
         public int IdFacultad { get; set; }
         public string CodigoFacultad { get; set; } = null!;
         public string NombreFacultad { get; set; } = null!;
@@ -31,8 +45,8 @@
         public string? Titularidad { get; set; } = null!;
         public int IdCategoria { get; set; }
         public string Categoria { get; set; } = null!;
-        public int IdFormaPago { get; set; }
-        public string FPago { get; set; } = null!;
+        public int? IdFormaPago { get; set; } = null!; 
+        public string? FPago { get; set; } = null!;
         public int IdEstado { get; set; }
         public string Estado { get; set; } = null!;
         public int Nivel { get; set; }

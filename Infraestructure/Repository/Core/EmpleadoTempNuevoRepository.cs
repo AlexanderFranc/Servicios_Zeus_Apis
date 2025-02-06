@@ -38,11 +38,20 @@ namespace Infraestructure.Repository.Core
                 "APELLIDO = '" +empleadoTempNuevoDto.Apellido+"'," +
                 "CELULAR = '" +empleadoTempNuevoDto.Celular+"'," +
                 "EMAIL = '" +empleadoTempNuevoDto.Email+"'," +
+                "ID_NIVEL_ACAD_TIT = " + empleadoTempNuevoDto.IdNivelAcadTit + "," +
                 "ID_UNIDAD_EDUCATIVA = " +empleadoTempNuevoDto.IdUnidadEducativa+"," +
                 "UNIDAD_EDUCATIVA = '" +empleadoTempNuevoDto.UnidadEducativa+"'," +
                 "TITULO = '" +empleadoTempNuevoDto.Titulo+"'," +
                 "ID_CAMPO_AMPLIO = " +empleadoTempNuevoDto.IdCampoAmplio+"," +
                 "ID_CAMPO_ESPECIFICO = " +empleadoTempNuevoDto.IdCampoEspecifico+"," +
+
+                "ID_NIVEL_ACAD_TIT2 = " + empleadoTempNuevoDto.IdNivelAcadTit2 + "," +
+                "ID_UNIDAD_EDUCATIVA2 = " + empleadoTempNuevoDto.IdUnidadEducativa2 + "," +
+                "UNIDAD_EDUCATIVA2 = '" + empleadoTempNuevoDto.UnidadEducativa2 + "'," +
+                "TITULO2 = '" + empleadoTempNuevoDto.Titulo2 + "'," +
+                "ID_CAMPO_AMPLIO2 = " + empleadoTempNuevoDto.IdCampoAmplio2 + "," +
+                "ID_CAMPO_ESPECIFICO2 = " + empleadoTempNuevoDto.IdCampoEspecifico2 + "," +
+
                 "ID_FACULTAD = " +empleadoTempNuevoDto.IdFacultad+"," +
                 "ID_TIPO_EMPLEADO = " +empleadoTempNuevoDto.IdTipoEmpleado+"," +
                 "ID_TIPO_CONTRATO = " +empleadoTempNuevoDto.IdTipoContrato+"," +
@@ -50,7 +59,7 @@ namespace Infraestructure.Repository.Core
                 "HORARIO =  '" +empleadoTempNuevoDto.Horario+"'," +
                 "ID_TITULARIDAD = " + idTitularidad + "," +
                 "ID_CATEGORIA = " +empleadoTempNuevoDto.IdCategoria+"," +
-                "ID_FORMA_PAGO = " +empleadoTempNuevoDto.IdFormaPago+"," +
+                "ID_FORMA_PAGO = " +empleadoTempNuevoDto.IdFormaPago+"," +   //recibir nulos
                 "ID_ESTADO = " +empleadoTempNuevoDto.IdEstado+"," +
                 "NIVEL = " +empleadoTempNuevoDto.Nivel+"," +
                 "UA= '" +empleadoTempNuevoDto.UA+"'," +

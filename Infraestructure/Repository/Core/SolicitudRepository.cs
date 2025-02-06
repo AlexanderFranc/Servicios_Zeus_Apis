@@ -238,6 +238,8 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.Apellido = row["APELLIDO"].ToString();
                     empleadoNuevoTemp.Celular = row["CELULAR"].ToString();
                     empleadoNuevoTemp.Email = row["EMAIL"].ToString();
+                    empleadoNuevoTemp.IdNivelAcadTit = Convert.ToInt32(row["ID_NIVEL_ACAD_TIT"].ToString());
+                    empleadoNuevoTemp.NivelAcadTit = row["NIVEL_ACADEMICO"].ToString();
                     empleadoNuevoTemp.IdUnidadEducativa = Convert.ToInt32(row["ID_UNIDAD_EDUCATIVA"].ToString());
                     empleadoNuevoTemp.NombreUnidadEducativa = row["NOMBRE_UNIDAD_EDUCATIVA"].ToString();
                     empleadoNuevoTemp.UnidadEducativa = row["UNIDAD_EDUCATIVA"].ToString();
@@ -246,6 +248,19 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.CampoAmplio = row["CAMPO_AMPLIO"].ToString();
                     empleadoNuevoTemp.IdCampoEspecifico = Convert.ToInt32(row["ID_CAMPO_ESPECIFICO"].ToString());
                     empleadoNuevoTemp.CampoEspecifico = row["CAMPO_ESPECIFICO"].ToString();
+
+                    empleadoNuevoTemp.IdNivelAcadTit2 = Convert.ToInt32(row["ID_NIVEL_ACAD_TIT2"].ToString());
+                    empleadoNuevoTemp.NivelAcadTit2 = row["NIVEL_ACADEMICO2"].ToString();
+                    empleadoNuevoTemp.IdUnidadEducativa2 = Convert.ToInt32(row["ID_UNIDAD_EDUCATIVA2"].ToString());
+                    empleadoNuevoTemp.NombreUnidadEducativa2 = row["NOMBRE_UNIDAD_EDUCATIVA2"].ToString();
+                    empleadoNuevoTemp.UnidadEducativa2 = row["UNIDAD_EDUCATIVA2"].ToString();
+                    empleadoNuevoTemp.Titulo2 = row["TITULO2"].ToString();
+                    empleadoNuevoTemp.IdCampoAmplio2 = Convert.ToInt32(row["ID_CAMPO_AMPLIO2"].ToString());
+                    empleadoNuevoTemp.CampoAmplio2 = row["CAMPO_AMPLIO2"].ToString();
+                    empleadoNuevoTemp.IdCampoEspecifico2 = Convert.ToInt32(row["ID_CAMPO_ESPECIFICO2"].ToString());
+                    empleadoNuevoTemp.CampoEspecifico2 = row["CAMPO_ESPECIFICO2"].ToString();
+
+
                     empleadoNuevoTemp.IdFacultad = Convert.ToInt32(row["ID_FACULTAD"].ToString());
                     empleadoNuevoTemp.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
                     empleadoNuevoTemp.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
