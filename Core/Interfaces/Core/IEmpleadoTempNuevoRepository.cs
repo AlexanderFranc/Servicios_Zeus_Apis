@@ -8,5 +8,7 @@ namespace Core.Interfaces.Core
     {
 
         bool EditEmpleadoTempNuevo(EmpleadoTempNuevoDto empleadoTempNuevoDto, int idEmpleadoNuevo);
+
+        bool ExisteEmpleadoTemp(string identificacion);
     }
 }
