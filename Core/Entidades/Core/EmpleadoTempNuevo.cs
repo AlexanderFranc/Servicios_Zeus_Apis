@@ -19,6 +19,8 @@ public partial class EmpleadoTempNuevo
 
     public string Email { get; set; } = null!;
 
+    public int? IdNivelAcadTit { get; set; }
+
     public int? IdUnidadEducativa { get; set; }
 
     public string? UnidadEducativa { get; set; }
@@ -28,6 +30,18 @@ public partial class EmpleadoTempNuevo
     public int IdCampoAmplio { get; set; }
 
     public int? IdCampoEspecifico { get; set; }
+
+    public int? IdNivelAcadTit2 { get; set; }
+
+    public int? IdUnidadEducativa2 { get; set; }
+
+    public string? UnidadEducativa2 { get; set; }
+
+    public string? Titulo2 { get; set; }
+
+    public int? IdCampoAmplio2 { get; set; }
+
+    public int? IdCampoEspecifico2 { get; set; }
 
     public int IdFacultad { get; set; }
 
@@ -63,11 +77,13 @@ public partial class EmpleadoTempNuevo
 
     public int? Nivel { get; set; }
 
+    public virtual CampoAmplio? IdCampoAmplio2Navigation { get; set; }
+
     public virtual CampoAmplio IdCampoAmplioNavigation { get; set; } = null!;
 
-    public virtual CampoEspecifico? IdCampoEspecificoNavigation { get; set; }
+    public virtual CampoEspecifico? IdCampoEspecifico2Navigation { get; set; }
 
-    public virtual CategoriaEmp? IdCategoriaNavigation { get; set; }
+    public virtual CampoEspecifico? IdCampoEspecificoNavigation { get; set; }
 
     public virtual EstadoSolicitud? IdEstadoNavigation { get; set; }
 
@@ -75,9 +91,13 @@ public partial class EmpleadoTempNuevo
 
     public virtual FormaPagoEmp? IdFormaPagoNavigation { get; set; }
 
-    public virtual TipoContratoN IdTipoContratoNavigation { get; set; } = null!;
+    public virtual NivelAcademico? IdNivelAcadTit2Navigation { get; set; }
+
+    public virtual NivelAcademico? IdNivelAcadTitNavigation { get; set; }
 
     public virtual TipoEmpleado? IdTipoEmpleadoNavigation { get; set; }
 
-    public virtual TitularidadEmp? IdTitularidadNavigation { get; set; }
+    public virtual UnidadEducativa? IdUnidadEducativa2Navigation { get; set; }
+
+    public virtual UnidadEducativa? IdUnidadEducativaNavigation { get; set; }
 }

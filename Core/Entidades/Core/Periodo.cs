@@ -37,6 +37,8 @@ public partial class Periodo
 
     public bool? ActivoPeriodoPlanificacion { get; set; }
 
+    public bool? ActivoPeriodoVinculacion { get; set; }
+
     public virtual EstadoPeriodo IdEstadoPeriodoNavigation { get; set; } = null!;
 
     public virtual ModalidadPeriodo IdModalidadNavigation { get; set; } = null!;

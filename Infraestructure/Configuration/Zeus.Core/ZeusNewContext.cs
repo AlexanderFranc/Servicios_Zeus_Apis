@@ -283,6 +283,8 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
+    public virtual DbSet<LogObservacionSolicitudEmp> LogObservacionSolicitudEmps { get; set; }
+
     public virtual DbSet<Malla> Mallas { get; set; }
 
     public virtual DbSet<Mallaasignaturakaty> Mallaasignaturakaties { get; set; }
@@ -1017,6 +1019,9 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.FechacreaCarrera)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHACREA_CARRERA");
+            entity.Property(e => e.IdCa).HasColumnName("ID_CA");
+            entity.Property(e => e.IdCd).HasColumnName("ID_CD");
+            entity.Property(e => e.IdCe).HasColumnName("ID_CE");
             entity.Property(e => e.IdEstadoCarrera).HasColumnName("ID_ESTADO_CARRERA");
             entity.Property(e => e.IdFacultad).HasColumnName("ID_FACULTAD");
             entity.Property(e => e.IdNivelEstudio).HasColumnName("id_nivel_estudio");
@@ -2442,17 +2447,22 @@ public partial class ZeusCoreContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("HORARIO");
             entity.Property(e => e.IdCampoAmplio).HasColumnName("ID_CAMPO_AMPLIO");
+            entity.Property(e => e.IdCampoAmplio2).HasColumnName("ID_CAMPO_AMPLIO2");
             entity.Property(e => e.IdCampoEspecifico).HasColumnName("ID_CAMPO_ESPECIFICO");
+            entity.Property(e => e.IdCampoEspecifico2).HasColumnName("ID_CAMPO_ESPECIFICO2");
             entity.Property(e => e.IdCategoria).HasColumnName("ID_CATEGORIA");
             entity.Property(e => e.IdDedicacion).HasColumnName("ID_DEDICACION");
             entity.Property(e => e.IdEstado).HasColumnName("ID_ESTADO");
             entity.Property(e => e.IdFacultad).HasColumnName("ID_FACULTAD");
             entity.Property(e => e.IdFormaPago).HasColumnName("ID_FORMA_PAGO");
+            entity.Property(e => e.IdNivelAcadTit).HasColumnName("ID_NIVEL_ACAD_TIT");
+            entity.Property(e => e.IdNivelAcadTit2).HasColumnName("ID_NIVEL_ACAD_TIT2");
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
             entity.Property(e => e.IdTipoContrato).HasColumnName("ID_TIPO_CONTRATO");
             entity.Property(e => e.IdTipoEmpleado).HasColumnName("ID_TIPO_EMPLEADO");
             entity.Property(e => e.IdTitularidad).HasColumnName("ID_TITULARIDAD");
             entity.Property(e => e.IdUnidadEducativa).HasColumnName("ID_UNIDAD_EDUCATIVA");
+            entity.Property(e => e.IdUnidadEducativa2).HasColumnName("ID_UNIDAD_EDUCATIVA2");
             entity.Property(e => e.Identificacion)
                 .HasMaxLength(15)
                 .IsUnicode(false)
@@ -2475,6 +2485,10 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("TITULO");
+            entity.Property(e => e.Titulo2)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("TITULO2");
             entity.Property(e => e.Ua)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -2486,19 +2500,26 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.UnidadEducativa)
                 .IsUnicode(false)
                 .HasColumnName("UNIDAD_EDUCATIVA");
+            entity.Property(e => e.UnidadEducativa2)
+                .IsUnicode(false)
+                .HasColumnName("UNIDAD_EDUCATIVA2");
 
-            entity.HasOne(d => d.IdCampoAmplioNavigation).WithMany(p => p.EmpleadoTempNuevos)
+            entity.HasOne(d => d.IdCampoAmplioNavigation).WithMany(p => p.EmpleadoTempNuevoIdCampoAmplioNavigations)
                 .HasForeignKey(d => d.IdCampoAmplio)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_CAMPO_AMPLIO");
 
-            entity.HasOne(d => d.IdCampoEspecificoNavigation).WithMany(p => p.EmpleadoTempNuevos)
+            entity.HasOne(d => d.IdCampoAmplio2Navigation).WithMany(p => p.EmpleadoTempNuevoIdCampoAmplio2Navigations)
+                .HasForeignKey(d => d.IdCampoAmplio2)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_CAMPO_AMPLIO1");
+
+            entity.HasOne(d => d.IdCampoEspecificoNavigation).WithMany(p => p.EmpleadoTempNuevoIdCampoEspecificoNavigations)
                 .HasForeignKey(d => d.IdCampoEspecifico)
                 .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_CAMPO_ESPECIFICO");
 
-            entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.EmpleadoTempNuevos)
-                .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_CATEGORIA_EMP");
+            entity.HasOne(d => d.IdCampoEspecifico2Navigation).WithMany(p => p.EmpleadoTempNuevoIdCampoEspecifico2Navigations)
+                .HasForeignKey(d => d.IdCampoEspecifico2)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_CAMPO_ESPECIFICO1");
 
             entity.HasOne(d => d.IdEstadoNavigation).WithMany(p => p.EmpleadoTempNuevos)
                 .HasForeignKey(d => d.IdEstado)
@@ -2513,18 +2534,25 @@ public partial class ZeusCoreContext : DbContext
                 .HasForeignKey(d => d.IdFormaPago)
                 .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_FORMA_PAGO_EMP");
 
-            entity.HasOne(d => d.IdTipoContratoNavigation).WithMany(p => p.EmpleadoTempNuevos)
-                .HasForeignKey(d => d.IdTipoContrato)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_TIPO_CONTRATO_N");
+            entity.HasOne(d => d.IdNivelAcadTitNavigation).WithMany(p => p.EmpleadoTempNuevoIdNivelAcadTitNavigations)
+                .HasForeignKey(d => d.IdNivelAcadTit)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_NIVEL_ACADEMICO");
+
+            entity.HasOne(d => d.IdNivelAcadTit2Navigation).WithMany(p => p.EmpleadoTempNuevoIdNivelAcadTit2Navigations)
+                .HasForeignKey(d => d.IdNivelAcadTit2)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_NIVEL_ACADEMICO1");
 
             entity.HasOne(d => d.IdTipoEmpleadoNavigation).WithMany(p => p.EmpleadoTempNuevos)
                 .HasForeignKey(d => d.IdTipoEmpleado)
                 .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_TIPO_EMPLEADO");
 
-            entity.HasOne(d => d.IdTitularidadNavigation).WithMany(p => p.EmpleadoTempNuevos)
-                .HasForeignKey(d => d.IdTitularidad)
-                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_TITULARIDAD_EMP");
+            entity.HasOne(d => d.IdUnidadEducativaNavigation).WithMany(p => p.EmpleadoTempNuevoIdUnidadEducativaNavigations)
+                .HasForeignKey(d => d.IdUnidadEducativa)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_UNIDAD_EDUCATIVA");
+
+            entity.HasOne(d => d.IdUnidadEducativa2Navigation).WithMany(p => p.EmpleadoTempNuevoIdUnidadEducativa2Navigations)
+                .HasForeignKey(d => d.IdUnidadEducativa2)
+                .HasConstraintName("FK_EMPLEADO_TEMP_NUEVO_UNIDAD_EDUCATIVA1");
         });
 
         modelBuilder.Entity<Errorplan20251>(entity =>
@@ -5242,6 +5270,27 @@ public partial class ZeusCoreContext : DbContext
                 .HasConstraintName("FK_ITEM_FK_ITEM_R_TIPO_ITE");
         });
 
+        modelBuilder.Entity<LogObservacionSolicitudEmp>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__LOG_OBSE__3214EC276DD77D8F");
+
+            entity.ToTable("LOG_OBSERVACION_SOLICITUD_EMP");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Fc)
+                .HasColumnType("datetime")
+                .HasColumnName("FC");
+            entity.Property(e => e.IdEmpNuevo).HasColumnName("ID_EMP_NUEVO");
+            entity.Property(e => e.Observacion)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("OBSERVACION");
+            entity.Property(e => e.Uc)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("UC");
+        });
+
         modelBuilder.Entity<Malla>(entity =>
         {
             entity.HasKey(e => e.IdMalla).HasName("PK_MALLA_1");
@@ -6227,6 +6276,7 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.ActivoPeriodoSilabo)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("ACTIVO_PERIODO_SILABO");
+            entity.Property(e => e.ActivoPeriodoVinculacion).HasColumnName("ACTIVO_PERIODO_VINCULACION");
             entity.Property(e => e.AnoPeriodo).HasColumnName("ANO_PERIODO");
             entity.Property(e => e.CodigoNumeroPeriodo)
                 .HasMaxLength(10)

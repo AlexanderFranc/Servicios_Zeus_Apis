@@ -33,6 +33,12 @@ public partial class Carrera
 
     public int? IdNivelEstudio { get; set; }
 
+    public int? IdCa { get; set; }
+
+    public int? IdCe { get; set; }
+
+    public int? IdCd { get; set; }
+
     public virtual ICollection<AutoridadesCarrera> AutoridadesCarreras { get; } = new List<AutoridadesCarrera>();
 
     public virtual ICollection<DesignacionesCarrera> DesignacionesCarreras { get; } = new List<DesignacionesCarrera>();

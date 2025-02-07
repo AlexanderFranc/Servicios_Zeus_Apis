@@ -10,6 +10,4 @@ public partial class TitularidadEmp
     public string Titularidad { get; set; } = null!;
 
     public bool Activo { get; set; }
-
-    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
 }

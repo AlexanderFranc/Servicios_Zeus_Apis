@@ -13,5 +13,7 @@ public partial class CampoEspecifico
 
     public string CampoEspecifico1 { get; set; } = null!;
 
-    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoEspecifico2Navigations { get; } = new List<EmpleadoTempNuevo>();
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoEspecificoNavigations { get; } = new List<EmpleadoTempNuevo>();
 }

@@ -10,6 +10,4 @@ public partial class TipoContratoN
     public string TipoContrato { get; set; } = null!;
 
     public string? DescTipoContrato { get; set; }
-
-    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
 }
