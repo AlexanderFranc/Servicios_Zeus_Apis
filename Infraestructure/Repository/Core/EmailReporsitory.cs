@@ -65,7 +65,6 @@ namespace Infraestructure.Repository.Core
                 "                   <li>CI: "+emaildata.cedulaDocente+"</li>\r\n" +
                 "                   <li>"+emaildata.nombreDocente+"</li>\r\n" +
                 "                   <li>"+emaildata.nombreFacultad+"</li>\r\n" +
-                "                   <li>"+emaildata.tipoContrato+"</li>\r\n" +
                 "                   <li>"+emaildata.periodo+"</li>\r\n" +
                 "               </ul>\r\n" +
                 "           </td>\r\n" +
@@ -216,7 +215,6 @@ namespace Infraestructure.Repository.Core
                 "                   <li>CI: " + emaildata.cedulaDocente + "</li>\r\n" +
                 "                   <li>" + emaildata.nombreDocente + "</li>\r\n" +
                 "                   <li>" + emaildata.nombreFacultad + "</li>\r\n" +
-                "                   <li>" + emaildata.tipoContrato + "</li>\r\n" +
                 "                   <li>" + emaildata.periodo + "</li>\r\n" +
                 "               </ul>\r\n" +
                 "           </td>\r\n" +
