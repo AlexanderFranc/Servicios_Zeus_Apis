@@ -57,5 +57,12 @@ namespace Servicios_Zeus.Controllers.Core
         {
             await _emailRepo.SendEmailIngreso(emaildata);
         }
+
+        [Route("ExisteEmpleadoTemp/{identificacion}")]
+        [HttpGet]
+        public bool ExisteEmpleadoTemp(string identificacion)
+        {
+            return _empleadoTempNuevoRepository.ExisteEmpleadoTemp(identificacion);
+        }
     }
 }

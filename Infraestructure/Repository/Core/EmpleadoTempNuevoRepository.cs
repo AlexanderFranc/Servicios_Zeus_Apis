@@ -5,6 +5,7 @@ using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 namespace Infraestructure.Repository.Core
 {
     public class EmpleadoTempNuevoRepository : GenericCoreRepository<EmpleadoTempNuevo>, IEmpleadoTempNuevoRepository
@@ -70,6 +71,25 @@ namespace Infraestructure.Repository.Core
 
 
                 " Where ID_EMP_NUEVO = " + idEmpleadoNuevo);
+
+            return response;
+        }
+        
+        public bool ExisteEmpleadoTemp(string identificacion)
+        {
+            bool response = false;
+
+            DataSet ds_empl_nuevo = Conexion.BuscarZEUS_ds(
+                "EMPLEADO_TEMP_NUEVO a\r\ninner join ESTADO_SOLICITUD b\r\non a.ID_ESTADO = b.ID_ESTADO",
+                "ID_EMP_NUEVO",
+                "where a.IDENTIFICACION='" + identificacion + "' and b.ESTADO<>'RECHAZADO'"
+                );
+
+            if (ds_empl_nuevo.Tables[0].Rows.Count > 0) 
+            { 
+                response = true; 
+            }
+
 
             return response;
         }
