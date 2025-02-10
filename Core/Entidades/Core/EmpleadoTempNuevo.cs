@@ -77,6 +77,10 @@ public partial class EmpleadoTempNuevo
 
     public int? Nivel { get; set; }
 
+    public bool? Residente { get; set; }
+
+    public int? IdPaisResidencia { get; set; }
+
     public virtual CampoAmplio? IdCampoAmplio2Navigation { get; set; }
 
     public virtual CampoAmplio IdCampoAmplioNavigation { get; set; } = null!;

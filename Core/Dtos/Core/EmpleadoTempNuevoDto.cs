@@ -59,6 +59,6 @@
         public string? Motivo { get; set; } = null!;
         public string? Observacion { get; set; } = null!;
         public Boolean? Residente { get; set; } 
-        public int IdPaisResidencia { get; set; }
+        public int? IdPaisResidencia { get; set; }
     }
 }
