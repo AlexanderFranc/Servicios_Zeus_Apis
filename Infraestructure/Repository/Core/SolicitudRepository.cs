@@ -284,6 +284,9 @@ namespace Infraestructure.Repository.Core
                     //empleadoNuevoTemp.UA = row["UA"].ToString();
                     //empleadoNuevoTemp.FA = Convert.ToDateTime(row["FA"].ToString());
 
+                    empleadoNuevoTemp.Residente = Convert.ToBoolean(row["RESIDENTE"].ToString());
+                    empleadoNuevoTemp.IdPaisResidencia = Convert.ToInt32(row["ID_PAIS_RESIDENCIA"].ToString());
+
 
 
                     listaempleadoNuevoTemp.Add(empleadoNuevoTemp);

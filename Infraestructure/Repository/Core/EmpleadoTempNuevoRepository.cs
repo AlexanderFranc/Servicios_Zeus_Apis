@@ -65,10 +65,12 @@ namespace Infraestructure.Repository.Core
                 "NIVEL = " +empleadoTempNuevoDto.Nivel+"," +
                 "UA= '" +empleadoTempNuevoDto.UA+"'," +
                 "FA = GETDATE()," +
-                "ID_PERIODO = " +empleadoTempNuevoDto.IdPeriodo ,
+                "ID_PERIODO = " +empleadoTempNuevoDto.IdPeriodo +
                 //"MOTIVO = '" +empleadoTempNuevoDto.Motivo+"'," +
                 //"OBSERVACION = '" +empleadoTempNuevoDto.Observacion+"'",
 
+                "RESIDENTE = " + empleadoTempNuevoDto.Residente +
+                "ID_PAIS_RESIDENCIA = " + empleadoTempNuevoDto.IdPaisResidencia,
 
                 " Where ID_EMP_NUEVO = " + idEmpleadoNuevo);
 
