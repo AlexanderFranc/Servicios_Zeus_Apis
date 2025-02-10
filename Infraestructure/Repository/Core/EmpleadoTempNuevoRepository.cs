@@ -103,5 +103,35 @@ namespace Infraestructure.Repository.Core
 
             return response;
         }
+
+        public bool EditEmpleadoTempNuevoTH(EmpleadoTempNuevoDto empleadoTempNuevoDto, int idEmpleadoNuevo)
+        {
+            bool response = false;
+
+            string idTitularidad = "";
+
+            if (empleadoTempNuevoDto.IdTitularidad == null)
+            {
+                idTitularidad = "null";
+            }
+            else
+            {
+                idTitularidad = empleadoTempNuevoDto.IdTitularidad.ToString();
+            }
+
+            response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO",
+
+                
+                "ID_TIPO_CONTRATO = " + empleadoTempNuevoDto.IdTipoContrato + "," +                
+                "ID_TITULARIDAD = " + idTitularidad + "," +
+                "ID_CATEGORIA = " + empleadoTempNuevoDto.IdCategoria + "," +                
+                "UA= '" + empleadoTempNuevoDto.UA + "'," +
+                "FA = GETDATE()," ,
+
+                " Where ID_EMP_NUEVO = " + idEmpleadoNuevo);
+
+            return response;
+        }
+
     }
 }

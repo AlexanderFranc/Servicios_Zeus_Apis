@@ -64,5 +64,12 @@ namespace Servicios_Zeus.Controllers.Core
         {
             return _empleadoTempNuevoRepository.ExisteEmpleadoTemp(identificacion);
         }
+
+        [Route("UpdateEmpleadoTH/{id}")]
+        [HttpPut]
+        public bool UpdateEmpleadoTH(int id, [FromBody] EmpleadoTempNuevoDto empleadoTempNuevoDto)
+        {
+            return _empleadoTempNuevoRepository.EditEmpleadoTempNuevoTH(empleadoTempNuevoDto, id);
+        }
     }
 }
