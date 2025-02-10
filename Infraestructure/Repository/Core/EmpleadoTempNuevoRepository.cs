@@ -126,7 +126,7 @@ namespace Infraestructure.Repository.Core
                 "ID_TITULARIDAD = " + idTitularidad + "," +
                 "ID_CATEGORIA = " + empleadoTempNuevoDto.IdCategoria + "," +                
                 "UA= '" + empleadoTempNuevoDto.UA + "'," +
-                "FA = GETDATE()," ,
+                "FA = GETDATE()" ,
 
                 " Where ID_EMP_NUEVO = " + idEmpleadoNuevo);
 
