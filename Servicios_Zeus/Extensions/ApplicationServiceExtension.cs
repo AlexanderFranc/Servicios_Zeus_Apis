@@ -191,6 +191,7 @@ namespace Servicios_Zeus.Extensions
                 options.StackBlockedRequests = false;
                 options.HttpStatusCode = 429;
                 options.RealIpHeader = "X-Real-IP";
+                
                 options.GeneralRules = new List<RateLimitRule>
                 {
                     new RateLimitRule
