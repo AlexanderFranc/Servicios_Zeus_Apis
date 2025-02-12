@@ -51,6 +51,7 @@
         public string Estado { get; set; } = null!;
         public int Nivel { get; set; }
         public string? UC { get; set; } = null!;
+        public string? CorreoUC { get; set; } = null!;
         public DateTime? FC { get; set; } 
         public string? UA { get; set; } = null!;
         public DateTime? FA { get; set; }

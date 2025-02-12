@@ -280,6 +280,7 @@ namespace Infraestructure.Repository.Core
                     empleadoNuevoTemp.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
                     empleadoNuevoTemp.Estado = row["ESTADO"].ToString();
                     empleadoNuevoTemp.UC = row["UC"].ToString();
+                    empleadoNuevoTemp.CorreoUC = row["CORREOUC"].ToString();
                     empleadoNuevoTemp.FC = Convert.ToDateTime(row["FC"].ToString());
                     //empleadoNuevoTemp.UA = row["UA"].ToString();
                     //empleadoNuevoTemp.FA = Convert.ToDateTime(row["FA"].ToString());

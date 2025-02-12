@@ -1,6 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data;
+using System.Linq.Expressions;
+using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
+using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +78,30 @@ namespace Infraestructure.Repository.Core
                                     .ToListAsync();
 
             return (totalRegistros, registros);
+        }
+
+        public List<CarreraDto> getCarreraByFacultadCoordinador(string identificacion, int idFacultad)
+        {
+            CarreraDto carreraDto = new CarreraDto();
+            List<CarreraDto> listaCarrera = new List<CarreraDto>();
+            DataSet ds_carrera = Conexion.BuscarZEUS_ds("matriculaumasec.matricula.mt_Carrer a\r\ninner join zeus_new.dbo.carrera b\r\non a.codcarr = b.codigo_carrera\r\ninner join zeus_new.dbo.facultad c\r\non b.id_facultad=c.id_facultad\r\ninner join zeus_new.dbo.empleado d\r\non a.certificado = d.identificacion_emp or a.certificado = '0'+d.identificacion_emp or '0'+a.certificado = d.identificacion_emp", "b.ID_CARRERA,b.CODIGO_cARRERA,b.NOMBRE_CARRERA,b.SIGLAS_CARRERA", "where a.certificado='" + identificacion + "' and b.id_facultad=" + idFacultad + " order by b.siglas_carrera");
+            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            if (ds_carrera.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_carrera.Tables[0].Rows)
+                {
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    carreraDto.IdCarrera = Convert.ToInt32(row["ID_CARRERA"].ToString());
+                    carreraDto.CodigoCarrera = row["CODIGO_cARRERA"].ToString();
+                    carreraDto.NombreCarrera  = row["NOMBRE_CARRERA"].ToString();
+                    carreraDto.SiglasCarrera = row["SIGLAS_CARRERA"].ToString();
+
+
+                    listaCarrera.Add(carreraDto);
+                    carreraDto = new CarreraDto();
+                }
+            }
+            return listaCarrera;
         }
 
 
