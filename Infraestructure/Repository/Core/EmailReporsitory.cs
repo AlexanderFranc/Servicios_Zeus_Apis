@@ -7,11 +7,23 @@ namespace Infraestructure.Repository.Core
 {
     public class EmailReporsitory: IEmailReporsitory
     {
+        //CORREO CUANDO APRUEBA TALENTO HUMANO
         public async Task SendEmail(EmailDto emaildata)
         {
+            /*
+             para enviar correo.CC 
+            1. debes verificar el emaildata.estadoSolicitud si es "APROBADA TALENTO HUMANO" no se envía CC 
+                y se debe verificar emaildata.idDedicacion para enviar el TO
+                
+            2. si emaildata.cc es "APROBADA" entonces verificar el emaildata.idDedicacion para enviar el CC
+                y el TO se debe enviar a emaildata.toEmail
+             */
+
             MailMessage correo = new MailMessage();
             correo.To.Add(emaildata.toEmail);
-            correo.CC.Add(emaildata.cc);
+            //correo.CC.Add(emaildata.cc);
+            correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
+            correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
             correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus", System.Text.Encoding.UTF8);
             correo.Subject = emaildata.subject;
@@ -160,8 +172,10 @@ namespace Infraestructure.Repository.Core
         public async Task SendEmailIngreso(EmailDto emaildata)
         {
             MailMessage correo = new MailMessage();
-            correo.To.Add(emaildata.toEmail);
+            correo.To.Add(emaildata.toEmail);//TODO: aqui modificar por los correo de TH -> en emaildata.idDedicacion envío el valor para comprobar si es TIEMPO COMPLETO, ETC
             correo.CC.Add(emaildata.cc);
+            correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
+            correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
             correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus", System.Text.Encoding.UTF8);
             correo.Subject = emaildata.subject;
