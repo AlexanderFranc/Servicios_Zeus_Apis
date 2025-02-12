@@ -113,5 +113,15 @@ namespace Servicios_Zeus.Controllers.Core
             await _irepository.SaveAsync();
             return carreradto;
         }
+
+        [Route("getCarreraByFacultadCoordinador/{identificacion}/{idFacultad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FacultadDto>>> getCarreraByFacultadCoordinador(string identificacion, int idFacultad)
+        {
+            var data = _irepository.getCarreraByFacultadCoordinador(identificacion,idFacultad);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
     }
 }

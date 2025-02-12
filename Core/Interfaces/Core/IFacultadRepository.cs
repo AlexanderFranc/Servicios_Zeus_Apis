@@ -1,4 +1,5 @@
-﻿using Core.Entidades.Core;
+﻿using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Generico;
 
 namespace Core.Interfaces.Core
@@ -6,5 +7,7 @@ namespace Core.Interfaces.Core
     public interface IFacultadRepository : IGenericRepository<Facultad>
     {
         Task<List<Facultad>> GetByCodeFacultadAsync(string cod);
+
+        List<FacultadDto> getFacultadByCoordinador(string identificacion);
     }
 }

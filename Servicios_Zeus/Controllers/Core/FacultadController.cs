@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/facultad")]
     [ApiController]
@@ -110,6 +110,16 @@ namespace Servicios_Zeus.Controllers.Core
             _ifaultad.Update(_facultaddto);
             await _ifaultad.SaveAsync();
             return facultaddto;
+        }
+
+        [Route("getFacultadByCoordinador/{identificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FacultadDto>>> getFacultadByCoordinador(string identificacion)
+        {
+            var data = _ifaultad.getFacultadByCoordinador(identificacion);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
         }
 
     }
