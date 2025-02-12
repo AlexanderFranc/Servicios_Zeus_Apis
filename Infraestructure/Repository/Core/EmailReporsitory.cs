@@ -10,18 +10,20 @@ namespace Infraestructure.Repository.Core
         //CORREO CUANDO APRUEBA TALENTO HUMANO
         public async Task SendEmail(EmailDto emaildata)
         {
-            /*
-             para enviar correo.CC 
-            1. debes verificar el emaildata.estadoSolicitud si es "APROBADA TALENTO HUMANO" no se envía CC 
-                y se debe verificar emaildata.idDedicacion para enviar el TO
-                
-            2. si emaildata.cc es "APROBADA" entonces verificar el emaildata.idDedicacion para enviar el CC
-                y el TO se debe enviar a emaildata.toEmail
-             */
-
             MailMessage correo = new MailMessage();
             correo.To.Add(emaildata.toEmail);
-            //correo.CC.Add(emaildata.cc);
+            if (emaildata.tipoUsuario.Equals("VICE"))
+            {
+                // si es TIEMPO COMPLETO
+                if (emaildata.idDedicacion == 1)
+                {
+                    correo.CC.Add("CORREO 1");
+                }
+                else
+                {
+                    correo.CC.Add("CORREO 2");
+                }
+            }
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
@@ -172,7 +174,16 @@ namespace Infraestructure.Repository.Core
         public async Task SendEmailIngreso(EmailDto emaildata)
         {
             MailMessage correo = new MailMessage();
-            correo.To.Add(emaildata.toEmail);//TODO: aqui modificar por los correo de TH -> en emaildata.idDedicacion envío el valor para comprobar si es TIEMPO COMPLETO, ETC
+            //correo.To.Add(emaildata.toEmail);//TODO: aqui modificar por los correo de TH -> en emaildata.idDedicacion envío el valor para comprobar si es TIEMPO COMPLETO, ETC
+            // si es TIEMPO COMPLETO
+            if (emaildata.idDedicacion == 1)
+            {
+                correo.To.Add("CORREO 1");
+            }
+            else
+            {
+                correo.To.Add("CORREO 2");
+            }
             correo.CC.Add(emaildata.cc);
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");

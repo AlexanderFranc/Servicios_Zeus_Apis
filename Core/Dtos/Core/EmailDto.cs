@@ -15,6 +15,7 @@
         public string estadoSolicitud { get; set; }
         public string observacionSolicitud { get; set; }
         public int idDedicacion { get; set; }
+        public string tipoUsuario { get; set; }
 
     }
 }
