@@ -724,7 +724,7 @@ namespace Infraestructure.Repository.Core
             bool response = false;
 
             response = Conexion.ActualizarZeus("SOLICITUD", "ID_ESTADO = " + solicitudDto.IdEstado + 
-                                        ", OBSERVACION = '" + solicitudDto.Observacion + "'", " Where ID_SOLICITUD = " + idSolicitud);
+                                        ", OBSERVACION = '" + solicitudDto.Observacion + "', FA=GETDATE(), UA='" + solicitudDto.UA +"'", " Where ID_SOLICITUD = " + idSolicitud);
 
             return response;
         }
@@ -735,7 +735,7 @@ namespace Infraestructure.Repository.Core
             bool response = false;
 
             response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO", "ID_ESTADO = " + solicitudEmpleadoDto.IdEstado +
-                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "'", " Where ID_EMP_NUEVO = " + idEmpleadoN);
+                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "', FA=GETDATE(), UA='" + solicitudEmpleadoDto.UA +"'" , " Where ID_EMP_NUEVO = " + idEmpleadoN);
 
             return response;
         }

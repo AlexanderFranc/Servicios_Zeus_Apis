@@ -17,11 +17,11 @@ namespace Infraestructure.Repository.Core
                 // si es TIEMPO COMPLETO
                 if (emaildata.idDedicacion == 1)
                 {
-                    correo.CC.Add("CORREO 1");
+                    correo.CC.Add("contrataciones.tc@uisek.edu.ec");
                 }
                 else
                 {
-                    correo.CC.Add("CORREO 2");
+                    correo.CC.Add("contrataciones.tp@uisek.edu.ec");
                 }
             }
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
@@ -178,12 +178,13 @@ namespace Infraestructure.Repository.Core
             // si es TIEMPO COMPLETO
             if (emaildata.idDedicacion == 1)
             {
-                correo.To.Add("CORREO 1");
+                correo.CC.Add("contrataciones.tc@uisek.edu.ec");
             }
             else
             {
-                correo.To.Add("CORREO 2");
+                correo.CC.Add("contrataciones.tp@uisek.edu.ec");
             }
+
             correo.CC.Add(emaildata.cc);
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");

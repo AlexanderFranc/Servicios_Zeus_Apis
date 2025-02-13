@@ -18,6 +18,7 @@ namespace Core.Dtos.Core
         public string Celular { get; set; }
         public string TipoContrato { get; set; }
         public DateTime? FC { get; set; }
+        public string? UA { get; set; } = null!;
         public int IdEstado { get; set; }
         public string Estado { get; set; }
         public string Motivo { get; set; }
