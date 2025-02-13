@@ -9,7 +9,7 @@ using Servicios_Zeus.Helpers.Errors;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/planificacion")]
     [ApiController]
@@ -29,6 +29,15 @@ namespace Servicios_Zeus.Controllers.Core
         public  async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> GetAll(int idperiodo,int idplan,int idmodalidad)
         {
             var planestudio =  _iplan.getPlanificacion(idperiodo,idplan,idmodalidad);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
+        [Route("GetById/{idPlanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> GetById(int idPlanificacion)
+        {
+            var planestudio = _iplan.getById(idPlanificacion);
             if (planestudio == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(planestudio);
@@ -62,6 +71,15 @@ namespace Servicios_Zeus.Controllers.Core
         {
             var validar = _iplan.validarMateria(codPeriodo, codPlan, idModalidad, codMateria);
             return Ok(!validar);
+        }
+        [Route("ObtenerPlanificacionTH/{idperiodo}/{idFacultad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> ObtenerPlanificacionTH(int idperiodo, int idFacultad)
+        {
+            var planestudio = _iplan.obtenerPlanificacionTH(idperiodo, idFacultad);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
         }
     }
 }

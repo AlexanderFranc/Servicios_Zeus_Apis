@@ -42,4 +42,8 @@ public partial class InfoPlanificacion
     public string? HIni { get; set; }
 
     public string? HFin { get; set; }
+
+    public string? CodigoSubtipoComponente { get; set; }
+
+    public string? NombreSubtipoComponente { get; set; }
 }

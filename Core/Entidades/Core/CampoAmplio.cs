@@ -10,4 +10,8 @@ public partial class CampoAmplio
     public string CodigoCa { get; set; } = null!;
 
     public string CampoAmplio1 { get; set; } = null!;
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoAmplio2Navigations { get; } = new List<EmpleadoTempNuevo>();
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoAmplioNavigations { get; } = new List<EmpleadoTempNuevo>();
 }

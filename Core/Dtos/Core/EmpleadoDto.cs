@@ -90,6 +90,12 @@ namespace Core.Dtos.Core
 
         public string? CarnetArchivo { get; set; }
 
+        public string? Cargo { get; set; }
+
+        public string? Tipo { get; set; }
+
+        public string? Cdc { get; set; }
+
         //public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
         //public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();

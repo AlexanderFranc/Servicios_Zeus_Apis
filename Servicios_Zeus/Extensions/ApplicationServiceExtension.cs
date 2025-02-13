@@ -123,7 +123,14 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<IHorarioTempRepository, HorarioTempRepository>();
             services.AddScoped<IHorarioFechaTempRepository, HorarioFechaTempRepository>();
             services.AddScoped<IPlanificacionCruceRepository, PlanificacionCruceRepository>();
-            services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
+            services.AddScoped<IEmpleadoTempNuevoRepository, EmpleadoTempNuevoRepository>();
+            services.AddScoped<IEmpleadoTempArchivoRepository, EmpleadoTempArchivoRepository>();
+            services.AddScoped<IDedicacionNRepository, DedicacionNRepository>();
+            services.AddScoped<ITipoContratoNRepository, TipoContratoNRepository>();
+            services.AddScoped<ITitularidadEmpRepository, TitularidadEmpRepository>();
+            services.AddScoped<IFormaPagoEmpRepository, FormaPagoEmpRepository>();
+            services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
+            services.AddScoped<IEmailReporsitory, EmailReporsitory>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
@@ -184,6 +191,7 @@ namespace Servicios_Zeus.Extensions
                 options.StackBlockedRequests = false;
                 options.HttpStatusCode = 429;
                 options.RealIpHeader = "X-Real-IP";
+                
                 options.GeneralRules = new List<RateLimitRule>
                 {
                     new RateLimitRule

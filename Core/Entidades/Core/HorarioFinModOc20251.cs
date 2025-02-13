@@ -20,4 +20,6 @@ public partial class HorarioFinModOc20251
     public string? Asignatura { get; set; }
 
     public double? Seccion { get; set; }
+
+    public int? Procesado { get; set; }
 }

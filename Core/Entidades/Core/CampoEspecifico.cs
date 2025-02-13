@@ -12,4 +12,8 @@ public partial class CampoEspecifico
     public string CodigoCe { get; set; } = null!;
 
     public string CampoEspecifico1 { get; set; } = null!;
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoEspecifico2Navigations { get; } = new List<EmpleadoTempNuevo>();
+
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevoIdCampoEspecificoNavigations { get; } = new List<EmpleadoTempNuevo>();
 }

@@ -46,6 +46,4 @@ public partial class Planificacion
     public virtual Periodicidad IdPeriodicidadPlanificacionNavigation { get; set; } = null!;
 
     public virtual Periodo IdPeriodoNavigation { get; set; } = null!;
-
-    public virtual ICollection<PlanificacionTemp> PlanificacionTemps { get; } = new List<PlanificacionTemp>();
 }

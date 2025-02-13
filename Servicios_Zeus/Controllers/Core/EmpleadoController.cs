@@ -60,6 +60,16 @@ namespace Servicios_Zeus.Controllers.Core
 
             return Ok(emp);
         }
+        [Route("docenteInactivo")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Empleado>>> ListarDocenteInactivo()
+        {
+            var emp = await _iempleado.ListarEmpleadosInactivos();
+            if (emp == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+
+            return Ok(emp);
+        }
 
         [Route("ver/{id}")]
         [HttpGet]
