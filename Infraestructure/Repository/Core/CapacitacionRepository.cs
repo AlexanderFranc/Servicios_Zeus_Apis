@@ -50,17 +50,17 @@ namespace Infraestructure.Repository.Core
 
             if (capa.IdCapacitacion == 0)
                 {
-                    response = Conexion.InsertarZeusCore("CAPACITACION", "ID_EMP, ID_TIPO_APROBACION, ID_TIPO_ACTIVIDAD, INSTITUCION, TITULO, FECHA_INICIO, FECHA_FIN, DURACION, CERTIFICADO",
+                    response = Conexion.InsertarZeusCore("CAPACITACION", "ID_EMP, ID_TIPO_APROBACION, ID_TIPO_ACTIVIDAD, INSTITUCION, TITULO, FECHA_INICIO, FECHA_FIN, DURACION, CERTIFICADO,UC,FC",
                                                capa.IdEmp + "," + (capa.IdTipoAprobacion.HasValue ? capa.IdTipoAprobacion.ToString() : "null") + "," + (capa.IdTipoActividad.HasValue ? capa.IdTipoActividad.ToString() : "null") + ",'" + capa.Institucion + "','" + capa.Titulo + "'," +
                                                fechaInicioSQL+"," + fechaFinSQL+ "," +
-                                               (capa.Duracion.HasValue ? capa.Duracion.ToString() : "null") + ",'" + capa.Certificado + "'");
+                                               (capa.Duracion.HasValue ? capa.Duracion.ToString() : "null") + ",'" + capa.Certificado + "','" + capa.UC + "',FC=GETDATE()");
                 }
                 else
                 {
                     response = Conexion.ActualizarZeus("CAPACITACION", "ID_EMP = " + capa.IdEmp + ", ID_TIPO_APROBACION = " + (capa.IdTipoAprobacion.HasValue ? capa.IdTipoAprobacion.ToString() : "null") + ", ID_TIPO_ACTIVIDAD = " + (capa.IdTipoActividad.HasValue ? capa.IdTipoActividad.ToString() : "null") +
                                             ", INSTITUCION = '" + capa.Institucion + "', TITULO = '" + capa.Titulo + "', FECHA_INICIO = " + fechaInicioSQL +
                                             ", FECHA_FIN = "+ fechaFinSQL + ", DURACION = " + (capa.Duracion.HasValue ? capa.Duracion.ToString() : "null") + ", CERTIFICADO = '" + capa.Certificado +
-                                            "'", " Where ID_CAPACITACION = " + capa.IdCapacitacion);
+                                            "', FA=GETDATE(), UA='"+ capa.UA +"'", " Where ID_CAPACITACION = " + capa.IdCapacitacion);
                 }
 
             
@@ -73,7 +73,7 @@ namespace Infraestructure.Repository.Core
                 response = Conexion.ActualizarZeus("CAPACITACION", "ID_EMP = " + capa.IdEmp + ", ID_TIPO_APROBACION = " + capa.IdTipoAprobacion + ", ID_TIPO_ACTIVIDAD = " + capa.IdTipoActividad +
                                             ", INSTITUCION = '" + capa.Institucion + "', TITULO = '" + capa.Titulo + "', FECHA_INICIO = '" + Convert.ToDateTime(capa.FechaInicio).Date.ToString("yyyy-MM-dd") +
                                             "', FECHA_FIN = '" + Convert.ToDateTime(capa.FechaFin).Date.ToString("yyyy-MM-dd") + "', DURACION = " + capa.Duracion + ", CERTIFICADO = '" + capa.Certificado +
-                                            "'", " Where ID_CAPACITACION = " + idCapacitacion);
+                                            "', FA=GETDATE(), UA='" + capa.UA + "'", " Where ID_CAPACITACION = " + idCapacitacion);
             
             return response;
         }

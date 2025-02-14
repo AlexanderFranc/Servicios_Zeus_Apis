@@ -95,6 +95,10 @@ namespace Core.Dtos.Core
         public string? Tipo { get; set; }
 
         public string? Cdc { get; set; }
+        public string? UC { get; set; }
+        public DateTime? FC { get; set; }
+        public string? UA { get; set; }
+        public DateTime? FA { get; set; }
 
         //public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 

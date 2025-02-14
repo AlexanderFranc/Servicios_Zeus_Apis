@@ -67,10 +67,10 @@ namespace Infraestructure.Repository.Core
             
                 if (infoAcad.IdInfoAcademica == 0)
                 {
-                    response = Conexion.InsertarZeusCore("INFO_ACADEMICA_NEW", "ID_EMP, ID_NIVEL_ACADEMICO, ID_PAIS, ID_CAMPO_ESPECIFICO, ID_UNIDAD_EDUCATIVA, INSTITUCION, TITULO, FECHA_EMSISION, FECHA_REG_SENECYT, CERTIFICADO_TITULO, CERTIFICADO_SENECYT,CIUDAD",
+                    response = Conexion.InsertarZeusCore("INFO_ACADEMICA_NEW", "ID_EMP, ID_NIVEL_ACADEMICO, ID_PAIS, ID_CAMPO_ESPECIFICO, ID_UNIDAD_EDUCATIVA, INSTITUCION, TITULO, FECHA_EMSISION, FECHA_REG_SENECYT, CERTIFICADO_TITULO, CERTIFICADO_SENECYT,CIUDAD,UC,FC",
                                                infoAcad.IdEmp + "," + infoAcad.IdNivelAcademico + "," + infoAcad.IdPais + "," + infoAcad.IdCampoEspecifico + "," + infoAcad.IdUnidadEducativa + ",'" + infoAcad.Institucion + "','" + infoAcad.Titulo + "','" +
                                                Convert.ToDateTime(infoAcad.FechaEmsision).Date.ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(infoAcad.FechaRegSenecyt).Date.ToString("yyyy-MM-dd") + "','" + infoAcad.CertificadoTitulo +
-                                               "','" + infoAcad.CertificadoSenecyt + "','"+infoAcad.Ciudad+"'");
+                                               "','" + infoAcad.CertificadoSenecyt + "','"+infoAcad.Ciudad+"','" + infoAcad.UC + "',GETDATE()");
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace Infraestructure.Repository.Core
                     ", CERTIFICADO_TITULO = '" + infoAcad.CertificadoTitulo +
                     "', CERTIFICADO_SENECYT = '" + infoAcad.CertificadoSenecyt +
                     "', CIUDAD = '" + infoAcad.Ciudad +
-                    "'",
+                    "', FA=GETDATE(), UA" + infoAcad.UA +"'",
                     "Where ID_INFO_ACADEMICA = " + infoAcad.IdInfoAcademica
                 );
 
