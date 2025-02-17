@@ -93,6 +93,14 @@ public partial class Empleado
 
     public string? Cdc { get; set; }
 
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+
     public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
     public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();

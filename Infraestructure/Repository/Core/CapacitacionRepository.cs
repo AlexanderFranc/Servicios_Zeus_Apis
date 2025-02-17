@@ -53,7 +53,7 @@ namespace Infraestructure.Repository.Core
                     response = Conexion.InsertarZeusCore("CAPACITACION", "ID_EMP, ID_TIPO_APROBACION, ID_TIPO_ACTIVIDAD, INSTITUCION, TITULO, FECHA_INICIO, FECHA_FIN, DURACION, CERTIFICADO,UC,FC",
                                                capa.IdEmp + "," + (capa.IdTipoAprobacion.HasValue ? capa.IdTipoAprobacion.ToString() : "null") + "," + (capa.IdTipoActividad.HasValue ? capa.IdTipoActividad.ToString() : "null") + ",'" + capa.Institucion + "','" + capa.Titulo + "'," +
                                                fechaInicioSQL+"," + fechaFinSQL+ "," +
-                                               (capa.Duracion.HasValue ? capa.Duracion.ToString() : "null") + ",'" + capa.Certificado + "','" + capa.UC + "',FC=GETDATE()");
+                                               (capa.Duracion.HasValue ? capa.Duracion.ToString() : "null") + ",'" + capa.Certificado + "','" + capa.UC + "',GETDATE()");
                 }
                 else
                 {

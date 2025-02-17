@@ -124,6 +124,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPut]
         public async Task<ActionResult<EmpleadoDto>> Put(int id, [FromBody] EmpleadoDto empdto)
         {
+            empdto.FA = DateTime.Now;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<EmpleadoDto, Empleado>();

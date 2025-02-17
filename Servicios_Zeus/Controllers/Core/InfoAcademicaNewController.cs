@@ -95,6 +95,10 @@ namespace Servicios_Zeus.Controllers.Core
                  .ForMember(dest => dest.IdUnidadEducativaNavigation, opt => opt.Ignore());
               
             });
+            infoDto.FC = DateTime.Now;
+            infoDto.UA = "";
+            infoDto.FA = null;
+            infoDto.FAprueba = null;
             var _mapper = new Mapper(config);
             var _data = _mapper.Map<InfoAcademicaNew>(infoDto);
             _iinfoAcad.Add(_data);

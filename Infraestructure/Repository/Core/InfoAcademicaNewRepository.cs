@@ -93,7 +93,7 @@ namespace Infraestructure.Repository.Core
                     ", CERTIFICADO_TITULO = '" + infoAcad.CertificadoTitulo +
                     "', CERTIFICADO_SENECYT = '" + infoAcad.CertificadoSenecyt +
                     "', CIUDAD = '" + infoAcad.Ciudad +
-                    "', FA=GETDATE(), UA" + infoAcad.UA +"'",
+                    "', FA=GETDATE(), UA='" + infoAcad.UA +"'",
                     "Where ID_INFO_ACADEMICA = " + infoAcad.IdInfoAcademica
                 );
 
