@@ -53,7 +53,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<InfoAcademicaNew>> GetfindByDni(int id)
         {
-            var infoAcad = await _iinfoAcad.GetByIdEmpleado(id);
+            var infoAcad = _iinfoAcad.GetByIdEmpleado(id);
             if (infoAcad == null)
                 return NotFound(new ApiResponse(404));
             return Ok(infoAcad);

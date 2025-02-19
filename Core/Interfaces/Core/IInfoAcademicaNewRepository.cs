@@ -6,7 +6,7 @@ namespace Core.Interfaces.Core
 {
     public  interface IInfoAcademicaNewRepository : IGenericRepository<InfoAcademicaNew>
     {
-        Task<List<InfoAcademicaNew>> GetByIdEmpleado(int idEmpl);
+        List<InfoAcademicaNewDto> GetByIdEmpleado(int idEmpl);
 
         bool SaveInfoAcademico(InfoAcademicaNewDto lstInfoAcademicoDto);
 
