@@ -55,7 +55,7 @@ namespace Infraestructure.Repository.Core
                                           Modalidad=h.NombreModalidadPe,
                                           UnidadCurricular=i.NombreUoc
 
-                                      }).Distinct().ToListAsync();
+                                      }).ToListAsync();
             if (_planestudio.Count() >0)
             {
                 foreach (var item in _planestudio)
