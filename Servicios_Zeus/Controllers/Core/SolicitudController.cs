@@ -18,11 +18,14 @@ namespace Servicios_Zeus.Controllers.Core
     {
         private readonly ISolicitudRepository _iSolicitud;
         private readonly IMapper _mapper;
+        private IEmailReporsitory _emailRepo;
 
-        public SolicitudController(ISolicitudRepository solicitudRepo, IMapper mapper)
+
+        public SolicitudController(ISolicitudRepository solicitudRepo, IMapper mapper, IEmailReporsitory emailRepo)
         {
             _iSolicitud = solicitudRepo;
             _mapper = mapper;
+            _emailRepo = emailRepo;
         }
 
         [Route("GetAll")]
@@ -188,6 +191,11 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
         }
-
+        [Route("enviarCorreoCambioPlanificacion")]
+        [HttpPost]
+        public async void enviarCorreoCambioPlanificacion([FromBody] EmailSolicitudPlanificacionDto body)
+        {
+            await _emailRepo.CorreoCambioPlanificacion(body);
+        }
     }
 }

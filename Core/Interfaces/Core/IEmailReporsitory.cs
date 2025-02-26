@@ -6,5 +6,6 @@ namespace Core.Interfaces.Core
     {
         Task SendEmail(EmailDto emaildata);
         Task SendEmailIngreso(EmailDto emaildata);
+        Task CorreoCambioPlanificacion(EmailSolicitudPlanificacionDto emaildata);
     }
 }
