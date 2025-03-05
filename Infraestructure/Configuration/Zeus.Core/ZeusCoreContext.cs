@@ -2289,6 +2289,7 @@ public partial class ZeusCoreContext : DbContext
             entity.HasIndex(e => e.IdentificacionEmp, "IX_NCLUS_IDENTIFICACION");
 
             entity.Property(e => e.IdEmp).HasColumnName("ID_EMP");
+            entity.Property(e => e.AceptaPd).HasColumnName("ACEPTA_PD");
             entity.Property(e => e.ActivoEmp).HasColumnName("ACTIVO_EMP");
             entity.Property(e => e.ApellidoEmp)
                 .HasMaxLength(50)
@@ -2350,6 +2351,9 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.Fc)
                 .HasColumnType("datetime")
                 .HasColumnName("FC");
+            entity.Property(e => e.FechaAceptaPd)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_ACEPTA_PD");
             entity.Property(e => e.FechaActualizaEmp)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_ACTUALIZA_EMP");

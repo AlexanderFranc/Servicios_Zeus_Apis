@@ -101,6 +101,10 @@ public partial class Empleado
 
     public DateTime? Fa { get; set; }
 
+    public bool? AceptaPd { get; set; }
+
+    public DateTime? FechaAceptaPd { get; set; }
+
     public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
     public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();

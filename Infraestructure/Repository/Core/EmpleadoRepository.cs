@@ -193,7 +193,7 @@ namespace Infraestructure.Repository.Core
                                join d in _context.PlanEstudios on c.IdPlanEstudio equals d.IdPlanEstudio
                                join e in _context.Carreras on d.IdCarrera equals e.IdCarrera
                                join f in _context.Facultads on e.IdFacultad equals f.IdFacultad
-                               where a.ActivoEmp == true && a.NombresEmp != "" && a.ApellidoEmp != "" && f.IdFacultad==id
+                               where a.ActivoEmp == true && a.NombresEmp != "" && a.ApellidoEmp != "" && f.IdFacultad == id
                                select new Empleado
                                {
                                    NombresEmp = a.ApellidoEmp.Trim() + " " + a.NombresEmp.Trim(),
@@ -224,5 +224,52 @@ namespace Infraestructure.Repository.Core
             return query;
 
         }
+        public bool DatosPersonales(EmpleadoDatosPersonalesDto empDto)
+        {
+            try
+            {
+                bool response;
+                int aceptaPd = empDto.AceptaPd ? 1 : 0;
+                response = Conexion.ActualizarZeus("EMPLEADO", "ACEPTA_PD = " + aceptaPd + ", FECHA_ACEPTA_PD=GETDATE()", " Where IDENTIFICACION_EMP = '" + empDto.IdentificacionEmp + "'");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public bool AceptadoDatosPersonales(string identificacionEmp)
+        {
+            try
+            {
+                DataSet ds_empleado = Conexion.BuscarZEUS_ds("EMPLEADO", "ACEPTA_PD", "where IDENTIFICACION_EMP ='" + identificacionEmp + "'");
+                if (ds_empleado.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds_empleado.Tables[0].Rows)
+                    {
+                        var q = row["ACEPTA_PD"].ToString();
+                        if (row["ACEPTA_PD"].ToString() == null)
+                        {
+                            return false;
+                        }
+                        else if (string.IsNullOrEmpty(row["ACEPTA_PD"].ToString()))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("el empleado no existe.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al ejecutar el proceso, " + ex.Message);
+            }
+        }
+
     }
 }

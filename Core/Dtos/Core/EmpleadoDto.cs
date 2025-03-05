@@ -99,6 +99,8 @@ namespace Core.Dtos.Core
         public DateTime? FC { get; set; } = null;
         public string? UA { get; set; }
         public DateTime? FA { get; set; } = null;
+        public bool? AceptaPd { get; set; } = null;
+        public DateTime? FechaAceptaPd { get; set; } = null;
 
         //public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 

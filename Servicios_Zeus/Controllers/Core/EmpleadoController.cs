@@ -98,25 +98,45 @@ namespace Servicios_Zeus.Controllers.Core
                 return BadRequest(new ApiResponse(400));
             }
             empdto.IdEmp = _emp.IdEmp;
-            return CreatedAtAction(nameof(SaveEmpleado), new { IdEmp = empdto.IdEmp, 
-                IdentificacionEmp = empdto.IdentificacionEmp, NombresEmp = empdto.NombresEmp,
-                ApellidoEmp = empdto.ApellidoEmp, FnacEmp = empdto.FnacEmp, 
-                EdadEmp = empdto.EdadEmp , SexoEmp = empdto.SexoEmp,
-                IdTipoDocumento = empdto.IdTipoDocumento, IdPaisNac = empdto.IdPaisNac,
-                IdPais =empdto.IdPais, IdProvincia = empdto.IdProvincia,
-                IdCanton = empdto.IdCanton, IdParroquia = empdto.IdParroquia,
-                CallePrincipal = empdto.CallePrincipal, CalleSecundaria = empdto.CalleSecundaria,
-                Numeracion = empdto.Numeracion, CodPostal = empdto.CodPostal,
-                Referencia = empdto.Referencia, TelefonoEmp = empdto.TelefonoEmp,
-                CelularEmp = empdto.CelularEmp, CorreoEmp = empdto.CorreoEmp,
-                FechaRegistroEmp = empdto.FechaRegistroEmp, FechaActualizaEmp = empdto.FechaActualizaEmp,
-                FotoEmp = empdto.FotoEmp, ActivoEmp = empdto.ActivoEmp,
-                EstadoCivil = empdto.EstadoCivil, Barrio = empdto.Barrio,
-                TiempoResidenciaEc = empdto.TiempoResidenciaEc, CorreoInst = empdto.CorreoInst,
-                TipoSangre = empdto.TipoSangre, CarnetConadis = empdto.CarnetConadis,
-                IdTipoDiscapacidad = empdto.IdTipoDiscapacidad, NumeroCarnetConadis = empdto.NumeroCarnetConadis,
-                PorcentajeDisc = empdto.PorcentajeDisc, IdEtnia = empdto.IdEtnia,
-                CedulaArchivo = empdto.CedulaArchivo, CarnetArchivo = empdto.CarnetArchivo
+            return CreatedAtAction(nameof(SaveEmpleado), new
+            {
+                IdEmp = empdto.IdEmp,
+                IdentificacionEmp = empdto.IdentificacionEmp,
+                NombresEmp = empdto.NombresEmp,
+                ApellidoEmp = empdto.ApellidoEmp,
+                FnacEmp = empdto.FnacEmp,
+                EdadEmp = empdto.EdadEmp,
+                SexoEmp = empdto.SexoEmp,
+                IdTipoDocumento = empdto.IdTipoDocumento,
+                IdPaisNac = empdto.IdPaisNac,
+                IdPais = empdto.IdPais,
+                IdProvincia = empdto.IdProvincia,
+                IdCanton = empdto.IdCanton,
+                IdParroquia = empdto.IdParroquia,
+                CallePrincipal = empdto.CallePrincipal,
+                CalleSecundaria = empdto.CalleSecundaria,
+                Numeracion = empdto.Numeracion,
+                CodPostal = empdto.CodPostal,
+                Referencia = empdto.Referencia,
+                TelefonoEmp = empdto.TelefonoEmp,
+                CelularEmp = empdto.CelularEmp,
+                CorreoEmp = empdto.CorreoEmp,
+                FechaRegistroEmp = empdto.FechaRegistroEmp,
+                FechaActualizaEmp = empdto.FechaActualizaEmp,
+                FotoEmp = empdto.FotoEmp,
+                ActivoEmp = empdto.ActivoEmp,
+                EstadoCivil = empdto.EstadoCivil,
+                Barrio = empdto.Barrio,
+                TiempoResidenciaEc = empdto.TiempoResidenciaEc,
+                CorreoInst = empdto.CorreoInst,
+                TipoSangre = empdto.TipoSangre,
+                CarnetConadis = empdto.CarnetConadis,
+                IdTipoDiscapacidad = empdto.IdTipoDiscapacidad,
+                NumeroCarnetConadis = empdto.NumeroCarnetConadis,
+                PorcentajeDisc = empdto.PorcentajeDisc,
+                IdEtnia = empdto.IdEtnia,
+                CedulaArchivo = empdto.CedulaArchivo,
+                CarnetArchivo = empdto.CarnetArchivo
             });
         }
 
@@ -192,7 +212,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Empleado>>> getDocentesPlanificacion()
         {
-            var emp =await _iempleado.getDocentesPlanificacion();
+            var emp = await _iempleado.getDocentesPlanificacion();
             if (emp == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(emp);
@@ -216,6 +236,32 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(emp);
         }
 
-    }
+        [Route("datosPersonales")]
+        [HttpPost]
+        public ActionResult<bool> DatosPersonales([FromBody] EmpleadoDatosPersonalesDto empdto)
+        {
+            try
+            {
+                return _iempleado.DatosPersonales(empdto);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ApiResponse(400, ex.Message));
+            }
+        }
+        [Route("datosPersonales/{identificacionEmp}")]
+        [HttpGet]
+        public ActionResult<bool> AceptadoDatosPersonales(string identificacionEmp) 
+        {
+            try
+            {
+                return _iempleado.AceptadoDatosPersonales(identificacionEmp);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ApiResponse(400, ex.Message));
+            }
+        }
 
+    }
 }
