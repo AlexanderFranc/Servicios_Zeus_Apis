@@ -5,7 +5,7 @@ using System.Net.Mail;
 
 namespace Infraestructure.Repository.Core
 {
-    public class EmailReporsitory: IEmailReporsitory
+    public class EmailReporsitory : IEmailReporsitory
     {
         //CORREO CUANDO APRUEBA TALENTO HUMANO Y EL VICE UN DOCENTE
         public async Task SendEmail(EmailDto emaildata)
@@ -27,7 +27,7 @@ namespace Infraestructure.Repository.Core
             //solo si aprueba TH se envía el correo al VICE en copia
             if (emaildata.tipoUsuario.Equals("TH") && emaildata.estadoSolicitud.Equals("APROBADA TALENTO HUMANO"))
             {
-                correo.CC.Add("esteban.andrade@uisek.edu.ec");                
+                correo.CC.Add("esteban.andrade@uisek.edu.ec");
             }
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
@@ -65,7 +65,7 @@ namespace Infraestructure.Repository.Core
                 "       </tr>\r\n" +
                 "       <tr>\r\n" +
                 "           <td class=\"styleTitulo\"" +
-                "               ><b>Estimad@</b> " + emaildata.nombreCoordinador +","+ 
+                "               ><b>Estimad@</b> " + emaildata.nombreCoordinador + "," +
                 "           </td>\r\n" +
                 "       </tr>\r\n" +
                 "       <tr>\r\n" +
@@ -81,24 +81,24 @@ namespace Infraestructure.Repository.Core
                 "       <tr>\r\n" +
                 "           <td>\r\n" +
                 "               <ul>\r\n" +
-                "                   <li>CI: "+emaildata.cedulaDocente+"</li>\r\n" +
-                "                   <li>"+emaildata.nombreDocente+"</li>\r\n" +
-                "                   <li>"+emaildata.nombreFacultad+"</li>\r\n" +
-                "                   <li>"+emaildata.periodo+"</li>\r\n" +
+                "                   <li>CI: " + emaildata.cedulaDocente + "</li>\r\n" +
+                "                   <li>" + emaildata.nombreDocente + "</li>\r\n" +
+                "                   <li>" + emaildata.nombreFacultad + "</li>\r\n" +
+                "                   <li>" + emaildata.periodo + "</li>\r\n" +
                 "               </ul>\r\n" +
                 "           </td>\r\n" +
                 "       </tr>\r\n" +
                 "       <tr>\r\n" +
                 "           <td>\r\n" +
                 "               <p style=\"margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;\">\r\n" +
-                "                   Estado: "+emaildata.estadoSolicitud+"\r\n" +
+                "                   Estado: " + emaildata.estadoSolicitud + "\r\n" +
                 "               </p>\r\n" +
                 "           </td>\r\n" +
                 "       </tr>\r\n" +
                 "       <tr>\r\n" +
                 "           <td>\r\n" +
                 "               <p style=\"margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;\">\r\n" +
-                "                   Observación: "+emaildata.observacionSolicitud+"\r\n" +
+                "                   Observación: " + emaildata.observacionSolicitud + "\r\n" +
                 "               </p>\r\n" +
                 "           </td>\r\n" +
                 "       </tr>\r\n" +
@@ -336,13 +336,13 @@ namespace Infraestructure.Repository.Core
         public async Task CorreoCambioPlanificacion(EmailSolicitudPlanificacionDto emaildata)
         {
             MailMessage correo = new MailMessage();
-            
+
             correo.To.Add("edwin.villalobos@uisek.edu.ec");
             correo.To.Add("franklin.onofa@uisek.edu.ec");
 
             //correo.To.Add("esteban.andrade@uisek.edu.ec");
             //correo.CC.Add("contrataciones.tp@uisek.edu.ec"); // por definir AQUI INGRESO NUEVO CORREO 
-            
+
             correo.CC.Add(emaildata.usuarioCreador);
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");

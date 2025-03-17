@@ -45,6 +45,8 @@ public partial class InfoAcademicaNew
 
     public bool? AprobadoTh { get; set; }
 
+    public string? NumRegSenescyt { get; set; }
+
     public virtual Empleado IdEmpNavigation { get; set; } = null!;
 
     public virtual NivelAcademico IdNivelAcademicoNavigation { get; set; } = null!;

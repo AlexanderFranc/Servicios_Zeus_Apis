@@ -36,15 +36,15 @@
         public string NombreFacultad { get; set; } = null!;
         public int IdTipoEmpleado { get; set; }
         public string TipoEmpleado { get; set; } = null!;
-        public int IdTipoContrato { get; set; }
-        public string TipoContrato { get; set; } = null!;
-        public int IdDedicacion { get; set; }
-        public string Dedicacion { get; set; } = null!;
+        public int? IdTipoContrato { get; set; } 
+        public string? TipoContrato { get; set; } = null!;
+        public int? IdDedicacion { get; set; } = null!;
+        public string? Dedicacion { get; set; } = null!;
         public string Horario { get; set; } = null!;
-        public int? IdTitularidad { get; set; }
+        public int? IdTitularidad { get; set; } = null!;
         public string? Titularidad { get; set; } = null!;
-        public int IdCategoria { get; set; }
-        public string Categoria { get; set; } = null!;
+        public int? IdCategoria { get; set; } = null!;
+        public string? Categoria { get; set; } = null!;
         public int? IdFormaPago { get; set; } = null!; 
         public string? FPago { get; set; } = null!;
         public int IdEstado { get; set; }

@@ -5291,6 +5291,10 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.Institucion)
                 .IsUnicode(false)
                 .HasColumnName("INSTITUCION");
+            entity.Property(e => e.NumRegSenescyt)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("NUM_REG_SENESCYT");
             entity.Property(e => e.Titulo)
                 .IsUnicode(false)
                 .HasColumnName("TITULO");

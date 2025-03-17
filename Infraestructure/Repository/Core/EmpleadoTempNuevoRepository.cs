@@ -59,11 +59,11 @@ namespace Infraestructure.Repository.Core
 
                 "ID_FACULTAD = " + empleadoTempNuevoDto.IdFacultad + "," +
                 "ID_TIPO_EMPLEADO = " + empleadoTempNuevoDto.IdTipoEmpleado + "," +
-                "ID_TIPO_CONTRATO = " + empleadoTempNuevoDto.IdTipoContrato + "," +
+                //"ID_TIPO_CONTRATO = " + empleadoTempNuevoDto.IdTipoContrato + "," +
                 "ID_DEDICACION = " + empleadoTempNuevoDto.IdDedicacion + "," +
                 "HORARIO =  '" + empleadoTempNuevoDto.Horario + "'," +
-                "ID_TITULARIDAD = " + idTitularidad + "," +
-                "ID_CATEGORIA = " + empleadoTempNuevoDto.IdCategoria + "," +
+                //"ID_TITULARIDAD = " + idTitularidad + "," +
+                //"ID_CATEGORIA = " + empleadoTempNuevoDto.IdCategoria + "," +
                 "ID_FORMA_PAGO = " + ID_FORMA_PAGO + "," +   //recibir nulos
                 "ID_ESTADO = " + empleadoTempNuevoDto.IdEstado + "," +
                 "NIVEL = " + empleadoTempNuevoDto.Nivel + "," +
