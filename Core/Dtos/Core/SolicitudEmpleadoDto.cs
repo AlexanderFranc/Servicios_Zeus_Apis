@@ -25,6 +25,6 @@ namespace Core.Dtos.Core
         public string Observacion { get; set; }
         public int IdPeriodo { get; set; }
         public string Periodo { get; set; }       
-        public string Dedicacion { get; set; }
+        public string? Dedicacion { get; set; }
     }
 }

@@ -771,7 +771,7 @@ namespace Infraestructure.Repository.Core
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
                     //solicitudDto.FC = DateTime.Now;
                     response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC",
-                                                   "'" + solicitudDto.TipoSolicitud + "'," + fechaSolicitud + "," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
+                                                   "'" + solicitudDto.TipoSolicitud + "',convert(date," + fechaSolicitud + ")," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
                                                    solicitudDto.IdEstado + ",'" +
                                                    solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()");
                     }
