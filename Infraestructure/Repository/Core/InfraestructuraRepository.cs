@@ -73,7 +73,7 @@ namespace Infraestructure.Repository.Core
         {
             return await _context.Infraestructuras.
                             Include(x=>x.NivelInfraestructuras).
-                            ThenInclude(x=>x.EspaciosFisicos).
+                            ThenInclude(x=>x.EspaciosFisicos.Where(x => x.ActivoEspaciosFisicos == true)).
                             ToListAsync();
                     //.Include(a => a.IdCampusNavigation)
                     //.Include(b => b.IdTipoInfraestructuraNavigation)
