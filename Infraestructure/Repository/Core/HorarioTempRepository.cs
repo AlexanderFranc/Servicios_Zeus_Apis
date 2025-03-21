@@ -61,12 +61,34 @@ namespace Infraestructure.Repository.Core
 
             return (totalRegistros, registros);
         }
-        public bool insertHorarioSemestral(HorarioTempDto horariosemestral)
+        public bool insertHorarioSemestral(List<HorarioTempDto> lisHorariosemestral)
         {
             int activo;
-            activo = horariosemestral.Activo == true ? 1 : 0;
-            Conexion.InsertarZeusCore("HORARIO_TEMP", "ID_PLAN_TEMP,ID_DIA,HORA_INI,HORA_FIN,ACTIVO", 
-                horariosemestral.IdPlanTemp + "," + horariosemestral.IdDia + ",'" + horariosemestral.HoraIni + "','" + horariosemestral.HoraFin + "',"+ activo);
+            foreach (var horariosemestral in lisHorariosemestral)
+            {
+                activo = horariosemestral.Activo == true ? 1 : 0;
+                Conexion.InsertarZeusCore("HORARIO_TEMP", "ID_PLAN_TEMP,ID_DIA,HORA_INI,HORA_FIN,ACTIVO",
+                    horariosemestral.IdPlanTemp + "," + horariosemestral.IdDia + ",'" + horariosemestral.HoraIni + "','" + horariosemestral.HoraFin + "'," + activo);
+            }
+                return true;
+        }
+        public bool editHorarioSemestral(int idplanificacion, List<HorarioTempDto> lisHorariosemestral)
+        {
+            int activo;
+
+            if (lisHorariosemestral.Count > 0)
+            {
+                string eliminado = Conexion.deleteZeus("[HORARIO_TEMP]", "ID_PLAN_TEMP=" + idplanificacion);
+                if (eliminado == "1")
+                {
+                    foreach (var horariosemestral in lisHorariosemestral)
+                    {
+                        activo = horariosemestral.Activo == true ? 1 : 0;
+                        Conexion.InsertarZeusCore("HORARIO_TEMP", "ID_PLAN_TEMP,ID_DIA,HORA_INI,HORA_FIN,ACTIVO",
+                            horariosemestral.IdPlanTemp + "," + horariosemestral.IdDia + ",'" + horariosemestral.HoraIni + "','" + horariosemestral.HoraFin + "'," + activo);
+                    }
+                }
+            }
             return true;
         }
     }

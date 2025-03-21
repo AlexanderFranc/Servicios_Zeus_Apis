@@ -92,5 +92,11 @@ namespace Servicios_Zeus.Controllers.Core
             await _iplanificaciontemp.SaveAsync();
             return planificacionTempDto;
         }
+        [Route("Edit")]
+        [HttpPost]
+        public bool EditPlanificacionTemp([FromBody] PlanificacionTempDto planificacionTempDto)
+        {
+            return _iplanificaciontemp.EditPlanificacion(planificacionTempDto);
+        }
     }
 }

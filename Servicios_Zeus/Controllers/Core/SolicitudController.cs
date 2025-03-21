@@ -197,5 +197,11 @@ namespace Servicios_Zeus.Controllers.Core
         {
             await _emailRepo.CorreoCambioPlanificacion(body);
         }
+        [Route("editarSolicitud")]
+        [HttpPost]
+        public bool editarSolicitud([FromBody] SolicitudDto solicitudDto)
+        {
+            return _iSolicitud.EditSolicitud(solicitudDto);
+        }
     }
 }

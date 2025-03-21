@@ -53,7 +53,7 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("Save")]
         [HttpPost]
-        public async Task<ActionResult<bool>> SaveHorarioTemp([FromBody] HorarioTempDto horarioTempDto)
+        public async Task<ActionResult<bool>> SaveHorarioTemp([FromBody] List<HorarioTempDto> horarioTempDto)
         {
             bool correcto = _iHorarioTemp.insertHorarioSemestral(horarioTempDto);
             return correcto;
@@ -80,6 +80,13 @@ namespace Servicios_Zeus.Controllers.Core
             _iHorarioTemp.Update(_horarioTempDto);
             await _iHorarioTemp.SaveAsync();
             return horarioTempDto;
+        }
+        [Route("edit/{idplanificacion}")]
+        [HttpPost]
+        public async Task<ActionResult<bool>> EditHorarioTemp(int idplanificacion,[FromBody] List<HorarioTempDto> horarioTempDto)
+        {
+            bool correcto = _iHorarioTemp.editHorarioSemestral(idplanificacion,horarioTempDto);
+            return correcto;
         }
     }
 }

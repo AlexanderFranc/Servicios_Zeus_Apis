@@ -26,6 +26,7 @@ namespace Core.Interfaces.Core
         bool EditSolicitudEstado(SolicitudDto solicitudDto, int idSolicitud);
         bool EditSolicitudEmpleadoEstado(SolicitudEmpleadoDto solicitudEmpleadoDto, int idEmpleadoN);
         bool SaveSolicitudPlanEmp(List<SolicitudDto> solicitudDto, int idEmpleadoNuevo);
+        bool EditSolicitud(SolicitudDto solicitudDto);
 
     }
 }

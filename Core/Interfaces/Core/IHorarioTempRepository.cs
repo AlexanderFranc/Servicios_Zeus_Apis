@@ -11,6 +11,7 @@ namespace Core.Interfaces.Core
 {
     public interface IHorarioTempRepository : IGenericRepository<HorarioTemp>
     {
-        bool insertHorarioSemestral(HorarioTempDto horariosemestral);
+        bool insertHorarioSemestral(List<HorarioTempDto> horariosemestral);
+        bool editHorarioSemestral(int idplanificacion, List<HorarioTempDto> horariosemestral);
     }
 }
