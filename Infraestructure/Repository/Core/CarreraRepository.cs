@@ -84,8 +84,8 @@ namespace Infraestructure.Repository.Core
         {
             CarreraDto carreraDto = new CarreraDto();
             List<CarreraDto> listaCarrera = new List<CarreraDto>();
-            DataSet ds_carrera = Conexion.BuscarZEUS_ds("matriculaumasec.matricula.mt_Carrer a\r\ninner join zeus_new.dbo.carrera b\r\non a.codcarr = b.codigo_carrera\r\ninner join zeus_new.dbo.facultad c\r\non b.id_facultad=c.id_facultad\r\ninner join zeus_new.dbo.empleado d\r\non a.certificado = d.identificacion_emp or a.certificado = '0'+d.identificacion_emp or '0'+a.certificado = d.identificacion_emp", "b.ID_CARRERA,b.CODIGO_cARRERA,b.NOMBRE_CARRERA,b.SIGLAS_CARRERA", "where a.certificado='" + identificacion + "' and b.id_facultad=" + idFacultad + " order by b.siglas_carrera");
-            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            //DataSet ds_carrera = Conexion.BuscarZEUS_ds("matriculaumasec.matricula.mt_Carrer a\r\ninner join zeus_new.dbo.carrera b\r\non a.codcarr = b.codigo_carrera\r\ninner join zeus_new.dbo.facultad c\r\non b.id_facultad=c.id_facultad\r\ninner join zeus_new.dbo.empleado d\r\non a.certificado = d.identificacion_emp or a.certificado = '0'+d.identificacion_emp or '0'+a.certificado = d.identificacion_emp", "b.ID_CARRERA,b.CODIGO_cARRERA,b.NOMBRE_CARRERA,b.SIGLAS_CARRERA", "where a.certificado='" + identificacion + "' and b.id_facultad=" + idFacultad + " order by b.siglas_carrera");
+            DataSet ds_carrera = Conexion.ExecZeusCore("sp_ConsultaCoordinador", "'C','" + identificacion + "'," + idFacultad );
             if (ds_carrera.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_carrera.Tables[0].Rows)
