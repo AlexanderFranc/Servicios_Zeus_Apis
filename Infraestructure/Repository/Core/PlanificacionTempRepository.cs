@@ -65,8 +65,8 @@ namespace Infraestructure.Repository.Core
         public bool EditPlanificacion(PlanificacionTempDto planificacionTemp) {
             bool response = false;
 
-            response = Conexion.ActualizarZeus("PLANIFICACION_TEMP", "DNI_PROFESORC= " + planificacionTemp.DniProfesorc +
-                                        ", ID_ESPACIOS_FISICOS='" + planificacionTemp.IdEspaciosFisicos + "'", " Where ID_SOLICITUD = " + planificacionTemp.IdSolicitud);
+            response = Conexion.ActualizarZeus("PLANIFICACION_TEMP", "DNI_PROFESORC= '" + planificacionTemp.DniProfesorc +
+                                        "', ID_ESPACIOS_FISICOS=" + planificacionTemp.IdEspaciosFisicos, " Where ID_SOLICITUD = " + planificacionTemp.IdSolicitud);
 
             /*
              update PLANIFICACION_TEMP set DNI_PROFESORC='CEDPROFES',ID_ESPACIOS_FISICOS=123132132 where ID_SOLICITUD=15456
