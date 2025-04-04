@@ -6632,6 +6632,7 @@ public partial class ZeusCoreContext : DbContext
 
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
             entity.Property(e => e.ActivoPeriodo).HasColumnName("ACTIVO_PERIODO");
+            entity.Property(e => e.ActivoPeriodoCambParal).HasColumnName("ACTIVO_PERIODO_CAMB_PARAL");
             entity.Property(e => e.ActivoPeriodoPlanificacion).HasColumnName("ACTIVO_PERIODO_PLANIFICACION");
             entity.Property(e => e.ActivoPeriodoSilabo)
                 .HasDefaultValueSql("((0))")
@@ -7044,10 +7045,10 @@ public partial class ZeusCoreContext : DbContext
             entity.HasKey(e => e.IdPlanificacion);
 
             entity.ToTable("PLANIFICACION", tb =>
-            {
-                tb.HasTrigger("LOG_PLANIFICACION");
-                tb.HasTrigger("LOG_PLANIFICACION_INSERT");
-            });
+                {
+                    tb.HasTrigger("LOG_PLANIFICACION");
+                    tb.HasTrigger("LOG_PLANIFICACION_INSERT");
+                });
 
             entity.HasIndex(e => new { e.IdPeriodo, e.IdMalla, e.IdModalidadPlanificacion, e.IdPeriodicidadPlanificacion, e.IdTipoComponente, e.Paralelo, e.IdEspaciosFisicos }, "AK_PLANIFICACION").IsUnique();
 
@@ -7667,10 +7668,10 @@ public partial class ZeusCoreContext : DbContext
             entity.HasKey(e => e.IdSolicitud).HasName("PK__SOLICITU__F090D584CCE9E49A");
 
             entity.ToTable("SOLICITUD", tb =>
-            {
-                tb.HasTrigger("APROBACION_SOLICITUD");
-                tb.HasTrigger("SOLICITUD_NUEVO_EMP");
-            });
+                {
+                    tb.HasTrigger("APROBACION_SOLICITUD");
+                    tb.HasTrigger("SOLICITUD_NUEVO_EMP");
+                });
 
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
             entity.Property(e => e.Fa)

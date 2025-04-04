@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Entidades.Core;
 
 namespace Core.Dtos.Core
 {
-    public class PeriodoDto
+    public class PeriodoMatriculasDto
     {
         public int IdPeriodo { get; set; }
 
@@ -36,18 +35,7 @@ namespace Core.Dtos.Core
         public DateTime? FechaActualizaPeriodo { get; set; }
 
         public bool? ActivoPeriodo { get; set; }
+        public bool? ActivoPeriodoCambParal { get; set; }
 
-
-        public virtual ICollection<ControlesPeriodo> ControlesPeriodos { get; set; } = new List<ControlesPeriodo>();
-
-        public virtual EstadoPeriodo IdEstadoPeriodoNavigation { get; set; } = null!;
-
-        public virtual ModalidadPeriodo IdModalidadNavigation { get; set; } = null!;
-
-        public virtual Periodicidad IdPeriodicidadNavigation { get; set; } = null!;
-
-        public virtual TipoPeriodo IdTipoPeriodoNavigation { get; set; } = null!;
-
-        public virtual ICollection<Planificacion> Planificacions { get; } = new List<Planificacion>();
     }
 }
