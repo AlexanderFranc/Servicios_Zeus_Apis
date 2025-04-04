@@ -132,6 +132,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
             services.AddScoped<IEmailReporsitory, EmailReporsitory>();
             services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
+            services.AddScoped<IMateriasMatriculadasEstudianteRepository, MateriasMatriculadasEstudianteRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
