@@ -126,12 +126,14 @@ namespace Infraestructure.Repository.Core
                     Creditos = Convert.ToDecimal(row["Creditos"]),
                     Seccion = row["Seccion"].ToString(),
                     Estado = row["Estado"].ToString(),
+
                     Fecha = Convert.ToDateTime(row["Fecha"]),
-                    NFactura = Convert.ToInt32(row["NFactura"]),
+                    NFactura = row["NFactura"].ToString(),
                     MarcarEliminar = Convert.ToBoolean(row["MarcarEliminar"]),
                     Marcada = Convert.ToBoolean(row["Marcada"]),
                     Semestre = row["Semestre"].ToString(),
                     UserInsert = row["USERINSERT"].ToString(),
+
                     NFacturaBorrado = row["NFacturaBorrado"].ToString(),
                     Origen = row["Origen"].ToString(),
                     UserFactura = row["USERFACTURA"].ToString(),
