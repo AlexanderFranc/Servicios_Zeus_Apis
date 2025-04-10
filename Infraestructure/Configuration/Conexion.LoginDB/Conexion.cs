@@ -52,7 +52,7 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
                             .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
-            var myconectionString = _configuration.GetConnectionString("Navision");
+            var myconectionString = _configuration.GetConnectionString("NAVISION");
             return new SqlConnection(myconectionString);
         }
 
@@ -728,7 +728,37 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
             lector.Fill(ds);
             return (ds);
         }
+        public static DataSet ExecNavision(string sp, string campos)
+        {
+            SqlConnection myConnection = CreateConnectionNav();
+            if (myConnection.State == ConnectionState.Closed)
+                myConnection.Open();
 
+            string sql = "exec " + sp + " " + campos + ";";
+            SqlCommand comando = new SqlCommand(sql, myConnection)
+            {
+                CommandType = CommandType.Text,
+                CommandTimeout = 99999999
+            };
+            SqlDataAdapter lector = default(SqlDataAdapter);
+            try
+            {
+                lector = new SqlDataAdapter(comando);
+            }
+            catch (Exception ex)
+            {
+                lector = null;
+            }
+            finally
+            {
+                if (myConnection.State == ConnectionState.Open)
+                    myConnection.Close();
+            }
+
+            DataSet ds = new DataSet();
+            lector.Fill(ds);
+            return (ds);
+        }
         public static DataSet BuscarZEUS_ds(string tabla, string campos, string condicion)
         {
             SqlDataAdapter da = BuscarZEUS(tabla, campos, condicion);

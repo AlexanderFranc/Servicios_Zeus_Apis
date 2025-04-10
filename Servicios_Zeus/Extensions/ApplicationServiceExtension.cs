@@ -34,9 +34,9 @@ namespace Servicios_Zeus.Extensions
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy", builder =>
-             builder.AllowAnyOrigin()
+            // builder.AllowAnyOrigin()
             //builder.WithOrigins("https://zeustest3.uisek.edu.ec", "http://zeustest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "https://eidtest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "http://eidtest3.uisek.edu.ec", "http://evaluacionestest.uisek.edu.ec")
-             //builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
+             builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
              //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
             // builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
             .AllowAnyHeader()
@@ -132,6 +132,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
             services.AddScoped<IEmailReporsitory, EmailReporsitory>();
             services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
+            services.AddScoped<IMateriasMatriculadasEstudianteRepository, MateriasMatriculadasEstudianteRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)

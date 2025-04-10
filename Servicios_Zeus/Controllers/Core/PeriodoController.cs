@@ -118,5 +118,15 @@ namespace Servicios_Zeus.Controllers.Core
 
             return NoContent();
         }
+
+        [Route("getCambioParalelo")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IEnumerable<Periodo>> GetCambioParalelo()
+        {
+            var _period = await _iperiodo.getCambioParalelo();
+            return _period;
+        }
     }
 }
