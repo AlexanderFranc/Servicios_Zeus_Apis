@@ -9,9 +9,9 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
     {
         public static string ConectarMail()
         {
-            string cadena = "lM49DhOmBVVzx9XDjJ18v+AwnDJw50uy";
-            string cadena1 = Desencriptar(cadena);
-            return cadena1;
+            //string cadena = "mdaqlkhhxptrenaq";
+            //string cadena1 = Desencriptar(cadena);
+            return "mdaqlkhhxptrenaq";
         }
         private static string Encriptar(string Input)
         {
