@@ -11,24 +11,25 @@ namespace Infraestructure.Repository.Core
         public async Task SendEmail(EmailDto emaildata)
         {
             MailMessage correo = new MailMessage();
-            correo.To.Add(emaildata.toEmail);
-            if (emaildata.tipoUsuario.Equals("VICE"))
-            {
-                // si es TIEMPO COMPLETO
-                if (emaildata.idDedicacion == 1)
-                {
-                    correo.CC.Add("contrataciones.tc@uisek.edu.ec");
-                }
-                else
-                {
-                    correo.CC.Add("contrataciones.tp@uisek.edu.ec");
-                }
-            }
+            //correo.To.Add(emaildata.toEmail);
+            correo.To.Add("edwin.villalobos@uisek.edu.ec");
+            //if (emaildata.tipoUsuario.Equals("VICE"))
+            //{
+            //    // si es TIEMPO COMPLETO
+            //    if (emaildata.idDedicacion == 1)
+            //    {
+            //        correo.CC.Add("contrataciones.tc@uisek.edu.ec");
+            //    }
+            //    else
+            //    {
+            //        correo.CC.Add("contrataciones.tp@uisek.edu.ec");
+            //    }
+            //}
             //solo si aprueba TH se envía el correo al VICE en copia
-            if (emaildata.tipoUsuario.Equals("TH") && emaildata.estadoSolicitud.Equals("APROBADA TALENTO HUMANO"))
-            {
-                correo.CC.Add("esteban.andrade@uisek.edu.ec");
-            }
+            //if (emaildata.tipoUsuario.Equals("TH") && emaildata.estadoSolicitud.Equals("APROBADA TALENTO HUMANO"))
+            //{
+            //    correo.CC.Add("esteban.andrade@uisek.edu.ec");                
+            //}
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
@@ -182,14 +183,16 @@ namespace Infraestructure.Repository.Core
             MailMessage correo = new MailMessage();
             //correo.To.Add(emaildata.toEmail);//TODO: aqui modificar por los correo de TH -> en emaildata.idDedicacion envío el valor para comprobar si es TIEMPO COMPLETO, ETC
             // si es TIEMPO COMPLETO
-            if (emaildata.idDedicacion == 1)
-            {
-                correo.To.Add("contrataciones.tc@uisek.edu.ec");
-            }
-            else
-            {
-                correo.To.Add("contrataciones.tp@uisek.edu.ec");
-            }
+            //if (emaildata.idDedicacion == 1)
+            //{
+            //    correo.To.Add("contrataciones.tc@uisek.edu.ec");
+            //}
+            //else
+            //{
+            //    correo.To.Add("contrataciones.tp@uisek.edu.ec");
+            //}
+            correo.To.Add("edwin.villalobos@uisek.edu.ec");
+            correo.To.Add("franklin.onofa@uisek.edu.ec");
 
             correo.CC.Add(emaildata.cc);
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
