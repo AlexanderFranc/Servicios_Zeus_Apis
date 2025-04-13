@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Servicios_Zeus/.config/dotnet-tools.json
+FodyWeavers.xsd
+/Servicios_Zeus/.config

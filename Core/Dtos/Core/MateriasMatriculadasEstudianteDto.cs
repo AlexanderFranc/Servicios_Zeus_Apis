@@ -24,7 +24,7 @@ namespace Core.Dtos.Core
             public string Seccion { get; set; }
             public string Estado { get; set; }
             public DateTime Fecha { get; set; }
-            public int NFactura { get; set; }
+            public string NFactura { get; set; }
             public bool MarcarEliminar { get; set; }
             public bool Marcada { get; set; }
             public string Semestre { get; set; }
