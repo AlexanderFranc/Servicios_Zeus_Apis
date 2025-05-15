@@ -15,7 +15,7 @@ namespace Core.Dtos.Core
         public string? HoraI { get; set; }
 
         public string? HoraF { get; set; }
-
+        public int IdEspacioFisico { get; set; }
 
     }
 }

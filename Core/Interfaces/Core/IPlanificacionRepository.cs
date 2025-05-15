@@ -18,5 +18,8 @@ namespace Core.Interfaces.Core
 
         bool validarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria);
         List<ComponentesPlanificacionDto> obtenerPlanificacionTH(int idperiodo, int idFacultad);
+        List<FechasPlanificacionDto> obtenerFechasPlanificacion(int idplanificacion);
+
+        bool updateFcehas(FechasPlanificacionDto fechas, int id);
     }
 }

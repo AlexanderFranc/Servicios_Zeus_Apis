@@ -22,6 +22,13 @@ namespace Infraestructure.Repository.Core
         {
 
         }
+
+        public bool delete(int idplanificacion, string horaI, string horaF)
+        {
+           Conexion.deleteZeus("[HORARIO_FECHA]", " ID_PLANIFICACION=" + idplanificacion + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
+            return true;
+        }
+
         //SERVICIO CAMBIADO
         public async Task<IEnumerable<HorarioFecha>> GetAll(int idplanestudio, int idperiodo, int idmodalidad, string dniprofesor, int idtipocomponente, string paralelo, int idespaciofisico, int idmateria)
         {
@@ -89,7 +96,15 @@ namespace Infraestructure.Repository.Core
                 {
                     foreach(var item in horariomodular)
                     {
-                        Conexion.ExecZeusCore("GuardarHorarioModular", idplanificacion + ",'" + Convert.ToDateTime(item.FechaI).Date + "','" + Convert.ToDateTime(item.FechaF) + "','" + item.HoraI+ "','" + item.HoraF+ "',"+contador);
+                        //Conexion.ExecZeusCore("GuardarHorarioModular", idplanificacion + ",'" + Convert.ToDateTime(item.FechaI).Date + "','" + Convert.ToDateTime(item.FechaF) + "','" + item.HoraI+ "','" + item.HoraF+ "',"+contador);
+                        Conexion.ExecZeusCore("GuardarHorarioModular",
+                        idplanificacion + ",'" +
+                        Convert.ToDateTime(item.FechaI).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        Convert.ToDateTime(item.FechaF).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        item.HoraI + "','" +
+                        item.HoraF + "'," +
+                        contador+","+
+                        item.IdEspacioFisico);
                         contador ++;
                     }
                 }

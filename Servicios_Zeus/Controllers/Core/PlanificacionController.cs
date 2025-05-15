@@ -81,5 +81,24 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(planestudio);
         }
+
+
+
+        [Route("UpdateFechas/{id}")]
+        [HttpPut]
+        public void PutFechas([FromBody] FechasPlanificacionDto fehas, int id)
+        {
+            if (fehas != null)
+                _iplan.updateFcehas(fehas, id);
+        }
+        [Route("obtenerFechasPlanificacion/{idplanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FechasPlanificacionDto>>> obtenerFechasPlanificacion(int idplanificacion)
+        {
+            var planestudio = _iplan.obtenerFechasPlanificacion(idplanificacion);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
     }
 }

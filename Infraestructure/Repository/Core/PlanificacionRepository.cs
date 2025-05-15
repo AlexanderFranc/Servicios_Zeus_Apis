@@ -222,5 +222,31 @@ namespace Infraestructure.Repository.Core
             }
             return listaPlanificacion;
         }
+
+        public bool updateFcehas(FechasPlanificacionDto fechas, int id)
+        {
+            Conexion.ActualizarZeus("[PLANIFICACION]", "FECHA_INICIO_PLANIFICACION='" + fechas.FechaInicio + "', FECHA_FIN_PLANIFICACION='" + fechas.FechaFin + "'", "where ID_PLANIFICACION="+id);
+            return true;
+        }
+
+        public  List<FechasPlanificacionDto> obtenerFechasPlanificacion(int idplanificacion)
+        {
+            FechasPlanificacionDto planificacion = new FechasPlanificacionDto();
+            List<FechasPlanificacionDto> listaPlanificacion = new List<FechasPlanificacionDto>();
+            DataSet ds_planificacion = Conexion.BuscarZEUS_ds("PLANIFICACION","*", "where ID_PLANIFICACION="+idplanificacion);
+
+            if (ds_planificacion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
+                {
+                    planificacion.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
+                    planificacion.FechaFin = Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+                    listaPlanificacion.Add(planificacion);
+                    planificacion = new FechasPlanificacionDto();
+                }
+            }
+            return listaPlanificacion;
+
+        }
     }
 }
