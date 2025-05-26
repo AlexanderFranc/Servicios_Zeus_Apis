@@ -65,7 +65,7 @@ namespace Infraestructure.Repository.Core
             dtTablaHorario.Columns.Add("HoraF", typeof(string));
             foreach (var item in horarioTabla)
             {
-                dtTablaHorario.Rows.Add(item.IdEspacioFisico, item.FechaI, item.HoraI, item.HoraF);
+                dtTablaHorario.Rows.Add(item.IdEspacioFisico, item.FechaPlanificada, item.HoraI, item.HoraF);
             }
 
             var builder = new ConfigurationBuilder()
@@ -84,12 +84,13 @@ namespace Infraestructure.Repository.Core
                 CommandType = CommandType.Text,
                 CommandTimeout = 99999999
             };
+            string? idPlani = idPlanificacion == 0 ? null : ""+idPlanificacion;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@opcion", opcion);
             cmd.Parameters.AddWithValue("@id_periodo", idperiodo);
             cmd.Parameters.AddWithValue("@codprof", codprofe);
             cmd.Parameters.AddWithValue("@horariof", dtTablaHorario);
-            cmd.Parameters.AddWithValue("@idPlanificación", idPlanificacion);
+            cmd.Parameters.AddWithValue("@idPlanificacion", idPlani);
 
             
             SqlDataAdapter lector = default(SqlDataAdapter);

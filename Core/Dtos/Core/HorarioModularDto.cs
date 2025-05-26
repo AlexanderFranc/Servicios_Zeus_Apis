@@ -16,6 +16,7 @@ namespace Core.Dtos.Core
 
         public string? HoraF { get; set; }
         public int IdEspacioFisico { get; set; }
+        public DateTime? FechaPlanificada { get; set; }
 
     }
 }
