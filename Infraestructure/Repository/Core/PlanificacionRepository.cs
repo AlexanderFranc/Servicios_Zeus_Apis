@@ -4,6 +4,7 @@ using Core.Interfaces.Core;
 using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -246,6 +247,31 @@ namespace Infraestructure.Repository.Core
                 }
             }
             return listaPlanificacion;
+
+        }
+
+        public ResponseDto DeletePlanificacion(int idplanidicacion)
+        {
+            ResponseDto response = new ResponseDto();
+
+            //string ds_data = Conexion.deleteZeus("HORARIO", "ID_PLANIFICACION=" + idplanidicacion + " and ID_DIA=" + dia + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
+            DataSet ds_planificacion = Conexion.ExecZeusCore("[EliminarPlanificacion]", "'EP'," + idplanidicacion  );
+
+            if (ds_planificacion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
+                {
+                    response.resultado = Convert.ToBoolean(row["RESULTADO"].ToString());
+                    response.mensaje = row["MENSAJE"].ToString();
+                }
+            }
+            else
+            {
+                response.resultado = false;
+                response.mensaje = "ERROR";
+            }
+
+            return response;
 
         }
     }

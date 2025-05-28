@@ -100,5 +100,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(planestudio);
         }
+
+        [Route("Delete/{idplanificacion}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePlanificacion(int idplanificacion)
+        {
+            var response = _iplan.DeletePlanificacion(idplanificacion);
+            if (response == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(response);
+        }
     }
 }

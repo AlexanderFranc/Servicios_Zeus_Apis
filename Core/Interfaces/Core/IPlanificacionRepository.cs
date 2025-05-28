@@ -1,5 +1,6 @@
 ﻿using Core.Dtos.Core;
 using Core.Interfaces.Generico;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace Core.Interfaces.Core
         List<FechasPlanificacionDto> obtenerFechasPlanificacion(int idplanificacion);
 
         bool updateFcehas(FechasPlanificacionDto fechas, int id);
+
+        ResponseDto DeletePlanificacion(int idplanidicacion);
     }
 }
