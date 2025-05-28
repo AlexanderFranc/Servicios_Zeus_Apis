@@ -23,9 +23,9 @@ namespace Infraestructure.Repository.Core
 
         }
 
-        public bool delete(int idplanificacion, string horaI, string horaF)
+        public bool delete(HorarioModularDto item)
         {
-           Conexion.deleteZeus("[HORARIO_FECHA]", " ID_PLANIFICACION=" + idplanificacion + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
+           Conexion.deleteZeus("[HORARIO_FECHA]", " ID_PLANIFICACION=" + item.IdPlanificacion + " and HORA_INI='" + item.HoraI + "' and HORA_FIN='" + item.HoraF + "' and ID_ESPACIOS_FISICOS="+item.IdEspacioFisico);
             return true;
         }
 

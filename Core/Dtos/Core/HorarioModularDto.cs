@@ -8,6 +8,7 @@ namespace Core.Dtos.Core
 {
     public class HorarioModularDto
     {
+        public int IdPlanificacion { get; set; }
 
         public DateTime? FechaI { get; set; }
         public DateTime? FechaF { get; set; }

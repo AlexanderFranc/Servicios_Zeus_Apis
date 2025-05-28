@@ -72,6 +72,7 @@ namespace Infraestructure.Repository.Core
             }
                 return true;
         }
+
         public bool editHorarioSemestral(int idplanificacion, List<HorarioTempDto> lisHorariosemestral)
         {
             int activo;

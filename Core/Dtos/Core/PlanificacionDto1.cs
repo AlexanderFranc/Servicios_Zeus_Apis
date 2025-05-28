@@ -24,5 +24,8 @@ namespace Core.Dtos.Core
         public DateTime? FC { get; set; }
         public string? UA { get; set; } = null!;
         public DateTime? FA { get; set; }
+        public DateTime? FechaInicioPlanificacion { get; set; }
+        public DateTime? FechaFinPlanificacion { get; set; }
+
     }
 }

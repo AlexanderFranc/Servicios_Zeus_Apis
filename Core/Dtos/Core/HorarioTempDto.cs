@@ -13,5 +13,6 @@ namespace Core.Dtos.Core
         public string? HoraIni { get; set; }
         public string? HoraFin { get; set; }
         public Boolean? Activo { get; set; }
+
     }
 }
