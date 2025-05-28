@@ -64,10 +64,18 @@ namespace Infraestructure.Repository.Core
         }
         public bool EditPlanificacion(PlanificacionTempDto planificacionTemp) {
             bool response = false;
+            string fechaInicio = planificacionTemp.FechaInicioPlanificacion.HasValue
+                ? $"'{planificacionTemp.FechaInicioPlanificacion.Value:yyyy-MM-dd}'"
+                : "NULL";
 
-            response = Conexion.ActualizarZeus("PLANIFICACION_TEMP", "DNI_PROFESORC= '" + planificacionTemp.DniProfesorc +
-                                        "', ID_ESPACIOS_FISICOS=" + planificacionTemp.IdEspaciosFisicos, " Where ID_SOLICITUD = " + planificacionTemp.IdSolicitud);
-
+            string fechaFin = planificacionTemp.FechaFinPlanificacion.HasValue
+                ? $"'{planificacionTemp.FechaFinPlanificacion.Value:yyyy-MM-dd}'"
+                : "NULL";
+            string campos = "DNI_PROFESORC= '" + planificacionTemp.DniProfesorc + "'" +
+                            ", ID_ESPACIOS_FISICOS=" + planificacionTemp.IdEspaciosFisicos +
+                            ", FECHA_INICIO_PLANIFICACION=" + fechaInicio +
+                            ", FECHA_FIN_PLANIFICACION=" + fechaFin;
+            response = Conexion.ActualizarZeus("PLANIFICACION_TEMP", campos, " WHERE ID_SOLICITUD = " + planificacionTemp.IdSolicitud);
             /*
              update PLANIFICACION_TEMP set DNI_PROFESORC='CEDPROFES',ID_ESPACIOS_FISICOS=123132132 where ID_SOLICITUD=15456
              */

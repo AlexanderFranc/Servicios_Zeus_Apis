@@ -7085,6 +7085,13 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasColumnName("UC");
+            entity.Property(e => e.FechaInicioPlanificacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_INICIO_PLANIFICACION");
+
+            entity.Property(e => e.FechaFinPlanificacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_FIN_PLANIFICACION");
 
             entity.HasOne(d => d.DniProfesorcNavigation).WithMany(p => p.Planificacions)
                 .HasForeignKey(d => d.DniProfesorc)
@@ -7218,6 +7225,12 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdPlanificacion).HasColumnName("ID_PLANIFICACION");
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
             entity.Property(e => e.IdTipoComponente).HasColumnName("ID_TIPO_COMPONENTE");
+            entity.Property(e => e.FechaInicioPlanificacion)
+            .HasColumnType("datetime")
+            .HasColumnName("FECHA_INICIO_PLANIFICACION");
+            entity.Property(e => e.FechaFinPlanificacion)
+            .HasColumnType("datetime")
+            .HasColumnName("FECHA_FIN_PLANIFICACION");
             entity.Property(e => e.Paralelo)
                 .HasMaxLength(10)
                 .IsUnicode(false)

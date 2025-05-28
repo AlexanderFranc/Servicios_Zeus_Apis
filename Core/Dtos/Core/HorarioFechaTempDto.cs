@@ -14,5 +14,7 @@ namespace Core.Dtos.Core
         public TimeOnly? HoraFin { get; set; }
         public int? OrdenFecha { get; set; }
         public Boolean? Activo { get; set; }
+        public int? IdEspacioFisico { get; set; }
+
     }
 }
