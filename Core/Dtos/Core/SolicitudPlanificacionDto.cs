@@ -56,6 +56,8 @@ namespace Core.Dtos.Core
         public string? motivo { get; set; }
         public int? IdPlanTemp { get; set; }
         public int? IdEmpNuevo { get; set; }
+        public DateTime? FechaInicioPlanificacion { get; set; }
+        public DateTime? FechaFinPlanificacion { get; set; }
 
 
         //public string? CodigoMalla { get; set; }
