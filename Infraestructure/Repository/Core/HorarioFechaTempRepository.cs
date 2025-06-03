@@ -74,8 +74,10 @@ namespace Infraestructure.Repository.Core
                     {
                         Conexion.ExecZeusCore("GuardarHorarioModularTemp",
                         idplanificacion + ",'" +
-                        Convert.ToDateTime(item.FechaI).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
-                        Convert.ToDateTime(item.FechaF).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        //Convert.ToDateTime(item.FechaI).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        //Convert.ToDateTime(item.FechaF).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        Convert.ToDateTime(item.FechaPlanificada).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        Convert.ToDateTime(item.FechaPlanificada).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
                         item.HoraI + "','" +
                         item.HoraF + "'," +
                         contador + "," +
@@ -100,6 +102,7 @@ namespace Infraestructure.Repository.Core
                     horario.HoraI = row["HORA_INI"].ToString();
                     horario.HoraF = row["HORA_FIN"].ToString();
                     horario.IdEspacioFisico= Convert.ToInt32(row["ID_ESPACIOS_FISICOS"]);
+                    horario.FechaPlanificada = Convert.ToDateTime(row["FECHA"].ToString());
                     lsthorario.Add(horario);
                     horario = new HorarioModularDto();
 
