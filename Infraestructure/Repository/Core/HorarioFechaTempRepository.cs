@@ -92,7 +92,7 @@ namespace Infraestructure.Repository.Core
         {
             List<HorarioModularDto> lsthorario = new List<HorarioModularDto>();
             HorarioModularDto horario = new HorarioModularDto();
-            DataSet ds_horario = Conexion.BuscarZEUS_ds("HORARIO_FECHA_TEMP", " * ", "where ID_PLAN_TEMP=" + idplanificacion + " order by FECHA asc ");
+            DataSet ds_horario = Conexion.BuscarZEUS_ds("HORARIO_FECHA_TEMP", " * ", "where ID_PLAN_TEMP=" + idplanificacion + " order by FECHA,HORA_INI asc ");
             if (ds_horario.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_horario.Tables[0].Rows)
