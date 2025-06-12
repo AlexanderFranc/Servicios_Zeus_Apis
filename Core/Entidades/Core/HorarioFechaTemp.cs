@@ -13,11 +13,11 @@ public partial class HorarioFechaTemp
 
     public TimeOnly HoraFin { get; set; }
 
-    public int OrdenFecha { get; set; }
+    public int? OrdenFecha { get; set; }
 
     public bool Activo { get; set; }
 
-    public int? IdEspacioFisico { get; set; }
+    public int IdEspaciosFisicos { get; set; }
 
     public virtual PlanificacionTemp IdPlanTempNavigation { get; set; } = null!;
 }

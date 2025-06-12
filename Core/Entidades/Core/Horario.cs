@@ -13,6 +13,8 @@ public partial class Horario
 
     public TimeOnly HoraFin { get; set; }
 
+    public int? IdEspaciosFisicos { get; set; }
+
     public virtual Dium IdDiaNavigation { get; set; } = null!;
 
     public virtual Planificacion IdPlanificacionNavigation { get; set; } = null!;

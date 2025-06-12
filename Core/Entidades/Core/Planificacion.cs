@@ -36,7 +36,8 @@ public partial class Planificacion
     public DateTime? Fa { get; set; }
     public DateTime? FechaInicioPlanificacion { get; set; }
     public DateTime? FechaFinPlanificacion { get; set; }
-    
+
+    public bool? ProfesorS { get; set; }
 
     public virtual Profesor DniProfesorcNavigation { get; set; } = null!;
 
@@ -49,4 +50,6 @@ public partial class Planificacion
     public virtual Periodicidad IdPeriodicidadPlanificacionNavigation { get; set; } = null!;
 
     public virtual Periodo IdPeriodoNavigation { get; set; } = null!;
+
+    public virtual ICollection<Profesor1> Profesor1s { get; } = new List<Profesor1>();
 }
