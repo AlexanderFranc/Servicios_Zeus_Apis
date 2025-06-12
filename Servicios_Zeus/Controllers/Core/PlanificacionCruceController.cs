@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 using Servicios_Zeus.Helpers.Errors;
@@ -32,6 +33,19 @@ namespace Servicios_Zeus.Controllers.Core
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(data);
+        }
+
+
+
+        [Route("PlanificacionCruceModular/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}")]
+        [HttpPost]
+        public async Task<ActionResult<Provincium>> PlanificacionCruceModular(string opcion,int idperiodo, string codprofe,[FromBody] List<HorarioModularDto> horarioTabla, int idPlanificacion)
+        {
+            var data = _irepository.GetPlanificacionCruceModular(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+            
         }
     }
 }

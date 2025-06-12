@@ -39,7 +39,14 @@ namespace Infraestructure.Repository.Core
                 //"ACTIVO=" + (componenteDto.Activo === true) ? 1 : 0 + "," +
                 "ACTIVO=" + activo + "," +
                 "UA='" + componenteDto.UA + "'," +
-                "FA=getdate()"
+                "FA=getdate(),"+
+                // FECHAS MANEJADAS CON NULOS
+                "FECHA_INICIO_PLANIFICACION=" + (componenteDto.FechaInicioPlanificacion.HasValue
+                    ? "convert(datetime,'" + componenteDto.FechaInicioPlanificacion.Value.ToString("yyyy-MM-dd HH:mm:ss") + "')"
+                    : "null") + "," +
+                "FECHA_FIN_PLANIFICACION=" + (componenteDto.FechaFinPlanificacion.HasValue
+                    ? "convert(datetime,'" + componenteDto.FechaFinPlanificacion.Value.ToString("yyyy-MM-dd HH:mm:ss") + "')"
+                    : "null")
                 //"FA= convert(DateTime,'" + Convert.ToDateTime(componenteDto.FA).ToString("yyyy-MM-dd HH:mm:ss") + "')"
                 , " WHERE ID_PLANIFICACION=" + idplanificacion);
 

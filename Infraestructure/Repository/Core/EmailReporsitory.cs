@@ -33,7 +33,7 @@ namespace Infraestructure.Repository.Core
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
-            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus", System.Text.Encoding.UTF8);
+            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus - PRUEBAS", System.Text.Encoding.UTF8);
             correo.Subject = emaildata.subject;
             correo.SubjectEncoding = System.Text.Encoding.UTF8;
             correo.BodyEncoding = System.Text.Encoding.UTF8;
@@ -198,7 +198,7 @@ namespace Infraestructure.Repository.Core
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
-            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus", System.Text.Encoding.UTF8);
+            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus - PRUEBAS", System.Text.Encoding.UTF8);
             correo.Subject = emaildata.subject;
             correo.SubjectEncoding = System.Text.Encoding.UTF8;
             correo.BodyEncoding = System.Text.Encoding.UTF8;
@@ -350,7 +350,7 @@ namespace Infraestructure.Repository.Core
             correo.Bcc.Add("edwin.villalobos@uisek.edu.ec");
             correo.Bcc.Add("franklin.onofa@uisek.edu.ec");
 
-            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus", System.Text.Encoding.UTF8);
+            correo.From = new MailAddress("no.reply@uisek.edu.ec", "Notificación Zeus - PRUEBAS", System.Text.Encoding.UTF8);
             correo.Subject = "Notificación nueva solicitud de planificación";
             correo.SubjectEncoding = System.Text.Encoding.UTF8;
             correo.BodyEncoding = System.Text.Encoding.UTF8;

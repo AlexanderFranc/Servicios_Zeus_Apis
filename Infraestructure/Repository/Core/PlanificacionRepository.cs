@@ -4,6 +4,7 @@ using Core.Interfaces.Core;
 using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,13 @@ namespace Infraestructure.Repository.Core
         {
             ComponentesPlanificacionDto planificacion = new ComponentesPlanificacionDto();
             List<ComponentesPlanificacionDto> listaPlanificacion = new List<ComponentesPlanificacionDto>();
-            DataSet ds_planificacion = Conexion.BuscarZEUS_ds("PLANIFICACION pln inner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO inner join MALLA m on m.ID_MALLA = pln.ID_MALLA inner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO \r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA\r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO\r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC\r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD\r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS inner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA \r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE ", "pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO   ", "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio); 
+            DataSet ds_planificacion = Conexion.BuscarZEUS_ds("PLANIFICACION pln inner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO inner join MALLA m on m.ID_MALLA = pln.ID_MALLA inner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO \r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA\r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO\r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC\r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD\r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS inner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA \r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE ", "pln.FECHA_INICIO_PLANIFICACION,pln.FECHA_FIN_PLANIFICACION,pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO   ", "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio); 
             if (ds_planificacion.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_planificacion.Tables[0].Rows)
                 {
+                    var fi = row["FECHA_INICIO_PLANIFICACION"].ToString();
+                    var ff = row["FECHA_FIN_PLANIFICACION"].ToString();
                     //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
                     planificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
                     planificacion.horasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
@@ -58,6 +61,8 @@ namespace Infraestructure.Repository.Core
                     planificacion.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
                     planificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
                     planificacion.activo = Convert.ToBoolean(row["ACTIVO"].ToString());
+                    planificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
+                    planificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
                     listaPlanificacion.Add(planificacion);
                     planificacion = new ComponentesPlanificacionDto();
                 }
@@ -221,6 +226,57 @@ namespace Infraestructure.Repository.Core
                 }
             }
             return listaPlanificacion;
+        }
+
+        public bool updateFcehas(FechasPlanificacionDto fechas, int id)
+        {
+            Conexion.ActualizarZeus("[PLANIFICACION]", "FECHA_INICIO_PLANIFICACION='" + fechas.FechaInicio + "', FECHA_FIN_PLANIFICACION='" + fechas.FechaFin + "'", "where ID_PLANIFICACION="+id);
+            return true;
+        }
+
+        public  List<FechasPlanificacionDto> obtenerFechasPlanificacion(int idplanificacion)
+        {
+            FechasPlanificacionDto planificacion = new FechasPlanificacionDto();
+            List<FechasPlanificacionDto> listaPlanificacion = new List<FechasPlanificacionDto>();
+            DataSet ds_planificacion = Conexion.BuscarZEUS_ds("PLANIFICACION","*", "where ID_PLANIFICACION="+idplanificacion);
+
+            if (ds_planificacion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
+                {
+                    planificacion.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
+                    planificacion.FechaFin = Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+                    listaPlanificacion.Add(planificacion);
+                    planificacion = new FechasPlanificacionDto();
+                }
+            }
+            return listaPlanificacion;
+
+        }
+
+        public ResponseDto DeletePlanificacion(int idplanidicacion)
+        {
+            ResponseDto response = new ResponseDto();
+
+            //string ds_data = Conexion.deleteZeus("HORARIO", "ID_PLANIFICACION=" + idplanidicacion + " and ID_DIA=" + dia + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
+            DataSet ds_planificacion = Conexion.ExecZeusCore("[EliminarPlanificacion]", "'EP'," + idplanidicacion  );
+
+            if (ds_planificacion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
+                {
+                    response.resultado = Convert.ToBoolean(row["RESULTADO"].ToString());
+                    response.mensaje = row["MENSAJE"].ToString();
+                }
+            }
+            else
+            {
+                response.resultado = false;
+                response.mensaje = "ERROR";
+            }
+
+            return response;
+
         }
     }
 }

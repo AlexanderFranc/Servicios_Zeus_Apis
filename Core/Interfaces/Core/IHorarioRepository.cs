@@ -17,5 +17,7 @@ namespace Core.Interfaces.Core
         List<HorarioModularDto> GetHorarioFechasPlanificado(int idplanificacion);
         List<HorarioModularDto> GetHorarioModularPlanificado(int idplanificacion);
 
+        bool delete(HorarioModularDto item);
+
     }
 }

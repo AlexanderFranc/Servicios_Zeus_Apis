@@ -93,5 +93,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
 
         }
+
+        [Route("delete")]
+        [HttpPost]
+        public async Task<ActionResult<List<HorarioModularDto>>> GetHorarioModularPlanificado([FromBody] HorarioModularDto item)
+        {
+            var data = _ihorario.delete(item);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+
+        }
     }
 }

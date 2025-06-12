@@ -34,6 +34,9 @@ public partial class Planificacion
     public string? Ua { get; set; }
 
     public DateTime? Fa { get; set; }
+    public DateTime? FechaInicioPlanificacion { get; set; }
+    public DateTime? FechaFinPlanificacion { get; set; }
+    
 
     public virtual Profesor DniProfesorcNavigation { get; set; } = null!;
 

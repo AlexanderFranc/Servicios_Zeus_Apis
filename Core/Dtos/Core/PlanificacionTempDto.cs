@@ -21,6 +21,8 @@ namespace Core.Dtos.Core
         public int? IdEspaciosFisicos { get; set; }
         public int? Cupo { get; set; }
         public Boolean? Activo { get; set; }
+        public DateTime? FechaInicioPlanificacion { get; set; }
+        public DateTime? FechaFinPlanificacion { get; set; }
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using Core.Dtos.Core;
 using Core.Interfaces.Generico;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,10 @@ namespace Core.Interfaces.Core
 
         bool validarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria);
         List<ComponentesPlanificacionDto> obtenerPlanificacionTH(int idperiodo, int idFacultad);
+        List<FechasPlanificacionDto> obtenerFechasPlanificacion(int idplanificacion);
+
+        bool updateFcehas(FechasPlanificacionDto fechas, int id);
+
+        ResponseDto DeletePlanificacion(int idplanidicacion);
     }
 }

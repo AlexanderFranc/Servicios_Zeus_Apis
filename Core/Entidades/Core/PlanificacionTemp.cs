@@ -32,6 +32,8 @@ public partial class PlanificacionTemp
     public bool Activo { get; set; }
 
     public string? Tipod { get; set; }
+    public DateTime? FechaInicioPlanificacion { get; set; }
+    public DateTime? FechaFinPlanificacion { get; set; }
 
     public virtual Solicitud IdSolicitudNavigation { get; set; } = null!;
 }

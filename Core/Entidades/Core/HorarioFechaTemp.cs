@@ -17,5 +17,7 @@ public partial class HorarioFechaTemp
 
     public bool Activo { get; set; }
 
+    public int? IdEspacioFisico { get; set; }
+
     public virtual PlanificacionTemp IdPlanTempNavigation { get; set; } = null!;
 }

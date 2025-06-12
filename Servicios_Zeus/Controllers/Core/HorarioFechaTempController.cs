@@ -10,6 +10,7 @@ using AutoMapper;
 using Infraestructure.Mappers;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
+using Infraestructure.Configuration.Conexion.LoginDB;
 
 
 namespace Servicios_Zeus.Controllers.Core
@@ -93,5 +94,33 @@ namespace Servicios_Zeus.Controllers.Core
             await _iFechaTemp.SaveAsync();
             return horarioFechaTempDto;
         }
+        [Route("SaveHorarioFechasModular/{idplanificacion}")]
+        [HttpPost]
+        public bool SaveHorarioModular(int idplanificacion, [FromBody] List<HorarioModularDto> horariomodular)
+        {
+            bool correcto = _iFechaTemp.insertHorarioModularTemp(idplanificacion, horariomodular);
+            return correcto;
+        }
+        [Route("GetHorarioModularPlanificado/{idplanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<List<HorarioModularDto>>> GetHorarioModularPlanificado(int idplanificacion)
+        {
+            var data = _iFechaTemp.GetHorarioFechasPlanificadoTemp(idplanificacion);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+
+        }
+        [Route("delete")]
+        [HttpDelete]
+        public async Task<ActionResult<List<HorarioModularDto>>> GetHorarioModularPlanificado([FromBody] HorarioFechaTempDto item)
+        {
+            var data = _iFechaTemp.delete(item);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+
+        }
+
     }
 }
