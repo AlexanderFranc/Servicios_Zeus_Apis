@@ -13,5 +13,7 @@ public partial class TipoEmpleado
 
     public bool? ActivoTipoEmp { get; set; }
 
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
+
     public virtual ICollection<Empleado> Empleados { get; } = new List<Empleado>();
 }

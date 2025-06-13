@@ -42,13 +42,13 @@ namespace Infraestructure.Repository.Core
 
                 if (contacto.IdContactoEmergencia == 0)
                 {
-                    response = Conexion.InsertarZeusCore("CONTACTO_EMERGENCIA", "ID_EMP, CONTACTO, TELEFONO, CELULAR, RELACION",
-                                               contacto.IdEmp + ", '" + contacto.Contacto + "', '" + contacto.Telefono + "', '" + contacto.Celular + "', '" + contacto.Relacion + "'");
+                    response = Conexion.InsertarZeusCore("CONTACTO_EMERGENCIA", "ID_EMP, CONTACTO, TELEFONO, CELULAR, RELACION,UC,FC",
+                                               contacto.IdEmp + ", '" + contacto.Contacto + "', '" + contacto.Telefono + "', '" + contacto.Celular + "', '" + contacto.Relacion + "','" + contacto.Uc + "',GETDATE()");
                 }
                 else
                 {
                     response = Conexion.ActualizarZeus("CONTACTO_EMERGENCIA", "ID_EMP = " + contacto.IdEmp + ", CONTACTO = '" + contacto.Contacto + "', TELEFONO = '" + contacto.Telefono +
-                                                "', CELULAR = '" + contacto.Celular + "', RELACION = '" + contacto.Relacion + "'", " WHERE ID_CONTACTO_EMERGENCIA = " + contacto.IdContactoEmergencia);
+                                                "', CELULAR = '" + contacto.Celular + "', RELACION = '" + contacto.Relacion + "',FA=GETDATE(), UA='" + contacto.Ua + "'", " WHERE ID_CONTACTO_EMERGENCIA = " + contacto.IdContactoEmergencia);
                 }
             
             return response;

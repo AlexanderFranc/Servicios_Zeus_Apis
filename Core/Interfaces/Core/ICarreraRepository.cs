@@ -1,4 +1,5 @@
-﻿using Core.Entidades.Core;
+﻿using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Generico;
 
 namespace Core.Interfaces.Core
@@ -7,6 +8,7 @@ namespace Core.Interfaces.Core
     {
         Task<List<Carrera>> GetByCodCarreraAsync(string cod);
         Task<List<Carrera>> GetByIdFacultadAsync(int id);
+        List<CarreraDto> getCarreraByFacultadCoordinador(string identificacion, int idFacultad);
 
     }
 }

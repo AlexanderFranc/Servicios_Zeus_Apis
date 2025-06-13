@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var logger=new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
-//builder.Logging.ClearProviders();//descomentar en produccion para omitir codigos de error
-builder.Services.ConfigureRateLimitiong();
+builder.Logging.ClearProviders();//descomentar en produccion para omitir codigos de error
+//builder.Services.ConfigureRateLimitiong();
 builder.Logging.AddSerilog(logger);
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 
@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
-app.UseIpRateLimiting();
+//app.UseIpRateLimiting();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -52,6 +52,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-//app.Urls.Add("http://localhost:5000");
-//app.Urls.Add("https://localhost:5001");
+app.Urls.Add("http://localhost:5000");
+app.Urls.Add("https://localhost:5001");
 app.Run();

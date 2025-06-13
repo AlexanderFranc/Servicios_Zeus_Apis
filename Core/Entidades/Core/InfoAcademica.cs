@@ -25,7 +25,5 @@ public partial class InfoAcademica
 
     public virtual Pai IdCiudadNavigation { get; set; } = null!;
 
-    public virtual Empleado IdEmpNavigation { get; set; } = null!;
-
     public virtual NivelAcademico IdNivelAcademicoNavigation { get; set; } = null!;
 }

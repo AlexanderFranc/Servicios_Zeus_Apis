@@ -34,11 +34,11 @@ namespace Servicios_Zeus.Extensions
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy", builder =>
-             //builder.AllowAnyOrigin()
-             //builder.WithOrigins("https://zeustest3.uisek.edu.ec", "http://zeustest3.uisek.edu.ec")
-             builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
-            //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
-            //builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
+            //builder.AllowAnyOrigin()
+            builder.WithOrigins("https://zeustest3.uisek.edu.ec", "http://zeustest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "https://eidtest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "http://eidtest3.uisek.edu.ec", "http://evaluacionestest.uisek.edu.ec")
+             //builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
+             //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
+             //builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
             .AllowAnyHeader()
             .AllowAnyMethod());
         });
@@ -122,6 +122,18 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<ISolicitudRepository, SolicitudRepository>();
             services.AddScoped<IHorarioTempRepository, HorarioTempRepository>();
             services.AddScoped<IHorarioFechaTempRepository, HorarioFechaTempRepository>();
+            services.AddScoped<IPlanificacionCruceRepository, PlanificacionCruceRepository>();
+            services.AddScoped<IEmpleadoTempNuevoRepository, EmpleadoTempNuevoRepository>();
+            services.AddScoped<IEmpleadoTempArchivoRepository, EmpleadoTempArchivoRepository>();
+            services.AddScoped<IDedicacionNRepository, DedicacionNRepository>();
+            services.AddScoped<ITipoContratoNRepository, TipoContratoNRepository>();
+            services.AddScoped<ITitularidadEmpRepository, TitularidadEmpRepository>();
+            services.AddScoped<IFormaPagoEmpRepository, FormaPagoEmpRepository>();
+            services.AddScoped<ICategoriaEmpRepository, CategoriaEmpRepository>();
+            services.AddScoped<IEmailReporsitory, EmailReporsitory>();
+            services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
+            services.AddScoped<IMateriasMatriculadasEstudianteRepository, MateriasMatriculadasEstudianteRepository>();
+            services.AddScoped<IAulaRepository, AulaRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
@@ -182,6 +194,7 @@ namespace Servicios_Zeus.Extensions
                 options.StackBlockedRequests = false;
                 options.HttpStatusCode = 429;
                 options.RealIpHeader = "X-Real-IP";
+                
                 options.GeneralRules = new List<RateLimitRule>
                 {
                     new RateLimitRule

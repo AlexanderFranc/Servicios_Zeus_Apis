@@ -31,6 +31,16 @@ public partial class Periodo
 
     public bool? ActivoPeriodo { get; set; }
 
+    public bool? ActivoPeriodoSilabo { get; set; }
+
+    public int? AnoPeriodo { get; set; }
+
+    public bool? ActivoPeriodoPlanificacion { get; set; }
+
+    public bool? ActivoPeriodoVinculacion { get; set; }
+
+    public bool? ActivoPeriodoCambParal { get; set; }
+
     public virtual EstadoPeriodo IdEstadoPeriodoNavigation { get; set; } = null!;
 
     public virtual ModalidadPeriodo IdModalidadNavigation { get; set; } = null!;

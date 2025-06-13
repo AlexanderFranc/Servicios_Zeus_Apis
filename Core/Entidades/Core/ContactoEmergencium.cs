@@ -16,4 +16,18 @@ public partial class ContactoEmergencium
     public string? Celular { get; set; }
 
     public string Relacion { get; set; } = null!;
+
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+
+    public string? UAprueba { get; set; }
+
+    public DateTime? FAprueba { get; set; }
+
+    public bool? AprobadoTh { get; set; }
 }

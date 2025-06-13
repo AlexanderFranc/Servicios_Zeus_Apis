@@ -93,6 +93,18 @@ public partial class Empleado
 
     public string? Cdc { get; set; }
 
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+
+    public bool? AceptaPd { get; set; }
+
+    public DateTime? FechaAceptaPd { get; set; }
+
     public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
     public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();
@@ -127,7 +139,7 @@ public partial class Empleado
 
     public virtual ICollection<Idioma> Idiomas { get; } = new List<Idioma>();
 
-    public virtual ICollection<InfoAcademica> InfoAcademicas { get; } = new List<InfoAcademica>();
+    public virtual ICollection<InfoAcademicaNew> InfoAcademicaNews { get; } = new List<InfoAcademicaNew>();
 
     public virtual ICollection<InfoExperiencium> InfoExperiencia { get; } = new List<InfoExperiencium>();
 

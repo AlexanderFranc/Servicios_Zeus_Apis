@@ -11,6 +11,8 @@ namespace Core.Interfaces.Core
 {
     public interface IPlanificacionTempRepository : IGenericRepository<PlanificacionTemp>
     {
-        
+        bool EditPlanificacion(PlanificacionTempDto planificacionTemp);
+
+
     }
 }

@@ -35,6 +35,8 @@ public partial class Facultad
 
     public virtual ICollection<DesignacionesFacultad> DesignacionesFacultads { get; } = new List<DesignacionesFacultad>();
 
+    public virtual ICollection<EmpleadoTempNuevo> EmpleadoTempNuevos { get; } = new List<EmpleadoTempNuevo>();
+
     public virtual ICollection<HistoricoFacultad> HistoricoFacultads { get; } = new List<HistoricoFacultad>();
 
     public virtual Campus? IdCampusNavigation { get; set; }

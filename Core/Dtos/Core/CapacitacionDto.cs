@@ -30,5 +30,12 @@ namespace Core.Dtos.Core
         public string? Certificado { get; set; }
 
         public List<SubirFtpArchivosBytesDto> FtpCapacitacion { get; set; } = new List<SubirFtpArchivosBytesDto>();
+        public string? UC { get; set; }
+        public DateTime? FC { get; set; }
+        public string? UA { get; set; }
+        public DateTime? FA { get; set; }
+        public string? UAprueba { get; set; }
+        public DateTime? FAprueba { get; set; }
+        public bool? AprobadoTH { get; set; }
     }
 }

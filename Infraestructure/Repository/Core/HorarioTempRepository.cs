@@ -1,5 +1,7 @@
-﻿using Core.Entidades.Core;
+﻿using Core.Dtos.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Core;
+using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +60,37 @@ namespace Infraestructure.Repository.Core
                                     .ToListAsync();
 
             return (totalRegistros, registros);
+        }
+        public bool insertHorarioSemestral(List<HorarioTempDto> lisHorariosemestral)
+        {
+            int activo;
+            foreach (var horariosemestral in lisHorariosemestral)
+            {
+                activo = horariosemestral.Activo == true ? 1 : 0;
+                Conexion.InsertarZeusCore("HORARIO_TEMP", "ID_PLAN_TEMP,ID_DIA,HORA_INI,HORA_FIN,ACTIVO",
+                    horariosemestral.IdPlanTemp + "," + horariosemestral.IdDia + ",'" + horariosemestral.HoraIni + "','" + horariosemestral.HoraFin + "'," + activo);
+            }
+                return true;
+        }
+
+        public bool editHorarioSemestral(int idplanificacion, List<HorarioTempDto> lisHorariosemestral)
+        {
+            int activo;
+
+            if (lisHorariosemestral.Count > 0)
+            {
+                string eliminado = Conexion.deleteZeus("[HORARIO_TEMP]", "ID_PLAN_TEMP=" + idplanificacion);
+                if (eliminado == "1")
+                {
+                    foreach (var horariosemestral in lisHorariosemestral)
+                    {
+                        activo = horariosemestral.Activo == true ? 1 : 0;
+                        Conexion.InsertarZeusCore("HORARIO_TEMP", "ID_PLAN_TEMP,ID_DIA,HORA_INI,HORA_FIN,ACTIVO",
+                            horariosemestral.IdPlanTemp + "," + horariosemestral.IdDia + ",'" + horariosemestral.HoraIni + "','" + horariosemestral.HoraFin + "'," + activo);
+                    }
+                }
+            }
+            return true;
         }
     }
 }

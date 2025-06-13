@@ -1,4 +1,6 @@
-﻿namespace Servicios_Zeus.Helpers.Errors
+﻿using System.Diagnostics.Tracing;
+
+namespace Servicios_Zeus.Helpers.Errors
 {
     public class ApiResponse
     {
@@ -10,7 +12,10 @@
             this.Statuscode = statuscode;
             this.Message = message ?? GetDefaultMessage(statuscode);
         }
-
+        private string GetError(string statuscode)
+        {
+            return statuscode;
+        }
         private string GetDefaultMessage(int statuscode)
         {
             return statuscode switch

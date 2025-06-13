@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/periodo")]
     [ApiController]
@@ -117,6 +117,16 @@ namespace Servicios_Zeus.Controllers.Core
             await _iperiodo.SaveAsync();
 
             return NoContent();
+        }
+
+        [Route("getCambioParalelo")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IEnumerable<Periodo>> GetCambioParalelo()
+        {
+            var _period = await _iperiodo.getCambioParalelo();
+            return _period;
         }
     }
 }

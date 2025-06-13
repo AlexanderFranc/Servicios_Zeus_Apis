@@ -26,7 +26,7 @@ namespace Core.Dtos.Core
         public string? CodigoTextoPeriodo { get; set; }
 
         public string? DescripcionPeriodo { get; set; }
-
+        public bool? ActivoPeriodoPlani { get; set; }
         public DateTime? FechaInicioPeriodo { get; set; }
 
         public DateTime? FechaFinPeriodo { get; set; }
@@ -36,6 +36,7 @@ namespace Core.Dtos.Core
         public DateTime? FechaActualizaPeriodo { get; set; }
 
         public bool? ActivoPeriodo { get; set; }
+
 
         public virtual ICollection<ControlesPeriodo> ControlesPeriodos { get; set; } = new List<ControlesPeriodo>();
 

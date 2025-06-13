@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/carrera")]
     [ApiController]
@@ -112,6 +112,16 @@ namespace Servicios_Zeus.Controllers.Core
             _irepository.Update(_carreradto);
             await _irepository.SaveAsync();
             return carreradto;
+        }
+
+        [Route("getCarreraByFacultadCoordinador/{identificacion}/{idFacultad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FacultadDto>>> getCarreraByFacultadCoordinador(string identificacion, int idFacultad)
+        {
+            var data = _irepository.getCarreraByFacultadCoordinador(identificacion,idFacultad);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
         }
     }
 }

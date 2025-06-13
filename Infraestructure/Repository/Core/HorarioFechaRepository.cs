@@ -22,6 +22,13 @@ namespace Infraestructure.Repository.Core
         {
 
         }
+
+        public bool delete(HorarioModularDto item)
+        {
+           Conexion.deleteZeus("[HORARIO_FECHA]", " ID_PLANIFICACION=" + item.IdPlanificacion + " and HORA_INI='" + item.HoraI + "' and HORA_FIN='" + item.HoraF + "' and ID_ESPACIOS_FISICOS="+item.IdEspacioFisico);
+            return true;
+        }
+
         //SERVICIO CAMBIADO
         public async Task<IEnumerable<HorarioFecha>> GetAll(int idplanestudio, int idperiodo, int idmodalidad, string dniprofesor, int idtipocomponente, string paralelo, int idespaciofisico, int idmateria)
         {
@@ -60,7 +67,7 @@ namespace Infraestructure.Repository.Core
         {
             List<HorarioModularDto> lsthorario = new List<HorarioModularDto>();
             HorarioModularDto horario = new HorarioModularDto();
-            DataSet ds_horario = Conexion.BuscarZEUS_ds("HORARIO_FECHA", " ID_PLANIFICACION,ORDEN_FECHA,MIN(FECHA) AS FECHA_INI,MAX(FECHA) AS FECHA_FIN,MIN(HORA_INI) AS HORA_INI,MAX(HORA_FIN)AS HORA_FIN ", "where ID_PLANIFICACION="+idplanificacion+" group by ID_PLANIFICACION,ORDEN_FECHA ORDER BY ORDEN_FECHA ASC");
+            DataSet ds_horario = Conexion.BuscarZEUS_ds("HORARIO_FECHA", "ID_ESPACIOS_FISICOS, ID_PLANIFICACION,ORDEN_FECHA,FECHA AS FECHA_INI,FECHA AS FECHA_FIN,HORA_INI AS HORA_INI,HORA_FIN AS HORA_FIN ", "where ID_PLANIFICACION="+idplanificacion+ " ORDER BY FECHA ,HORA_INI asc");
             if (ds_horario.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_horario.Tables[0].Rows)
@@ -69,11 +76,12 @@ namespace Infraestructure.Repository.Core
                     horario.FechaF = Convert.ToDateTime(row["FECHA_FIN"].ToString());
                     horario.HoraI = row["HORA_INI"].ToString();
                     horario.HoraF = row["HORA_FIN"].ToString();
+                    horario.IdEspacioFisico = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
+                    horario.FechaPlanificada = Convert.ToDateTime(row["FECHA_INI"].ToString());
                     lsthorario.Add(horario);
                     horario = new HorarioModularDto();
 
                 }
-
             }
             return lsthorario;
 
@@ -89,7 +97,15 @@ namespace Infraestructure.Repository.Core
                 {
                     foreach(var item in horariomodular)
                     {
-                        Conexion.ExecZeusCore("GuardarHorarioModular", idplanificacion + ",'" + Convert.ToDateTime(item.FechaI).Date + "','" + Convert.ToDateTime(item.FechaF) + "','" + item.HoraI+ "','" + item.HoraF+ "',"+contador);
+                        //Conexion.ExecZeusCore("GuardarHorarioModular", idplanificacion + ",'" + Convert.ToDateTime(item.FechaI).Date + "','" + Convert.ToDateTime(item.FechaF) + "','" + item.HoraI+ "','" + item.HoraF+ "',"+contador);
+                        Conexion.ExecZeusCore("GuardarHorarioModular",
+                        idplanificacion + ",'" +
+                        Convert.ToDateTime(item.FechaPlanificada).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        Convert.ToDateTime(item.FechaPlanificada).ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                        item.HoraI + "','" +
+                        item.HoraF + "'," +
+                        contador+","+
+                        item.IdEspacioFisico);
                         contador ++;
                     }
                 }

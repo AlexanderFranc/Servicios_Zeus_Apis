@@ -90,6 +90,18 @@ namespace Core.Dtos.Core
 
         public string? CarnetArchivo { get; set; }
 
+        public string? Cargo { get; set; }
+
+        public string? Tipo { get; set; }
+
+        public string? Cdc { get; set; }
+        public string? UC { get; set; }
+        public DateTime? FC { get; set; } = null;
+        public string? UA { get; set; }
+        public DateTime? FA { get; set; } = null;
+        public bool? AceptaPd { get; set; } = null;
+        public DateTime? FechaAceptaPd { get; set; } = null;
+
         //public virtual ICollection<Capacitacion> Capacitacions { get; } = new List<Capacitacion>();
 
         //public virtual ICollection<Contrato> Contratos { get; } = new List<Contrato>();

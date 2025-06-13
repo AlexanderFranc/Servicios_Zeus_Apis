@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Infraestructure.Configuration.Zeus.Core;
@@ -23,6 +24,7 @@ namespace Infraestructure.Repository.Core
                                 .Include(x => x.IdEstadoPeriodoNavigation)
                                 .Include(y => y.IdModalidadNavigation)
                                 .Include(a => a.IdTipoPeriodoNavigation)
+                                .OrderByDescending(z => z.CodigoPeriodo)
                                 .ToListAsync();
         }
         //SERVICIO CAMBIADO
@@ -65,6 +67,13 @@ namespace Infraestructure.Repository.Core
                                     .ToListAsync();
 
             return (totalRegistros, registros);
+        }
+
+        public async Task<IEnumerable<Periodo>> getCambioParalelo()
+        {
+            var query = await _context.Periodos.AsNoTracking().Where(x => x.ActivoPeriodoCambParal == true).ToListAsync();
+            return query;
+
         }
     }
 }

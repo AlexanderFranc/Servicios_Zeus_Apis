@@ -88,11 +88,11 @@ namespace Infraestructure.Repository.Core
                 string fechaFinSQL = infoLab.FechaFin != null ? "'" + Convert.ToDateTime(infoLab.FechaFin).ToString("yyyy-MM-dd") + "'" : "null";
                 string fechaInicioSQL = infoLab.FechaInicio != null ? "'" + Convert.ToDateTime(infoLab.FechaInicio).ToString("yyyy-MM-dd") + "'" : "null";
 
-                response = Conexion.InsertarZeusCore("EXPERIENCIA_LABORAL", "ID_EMP, INSTITUCION, CARGO, FECHA_INICIO, FECHA_FIN, ACTUALMENTE,SUELDO, RAZON_SALIDA, CONTACTO, CARGO_CONTACTO, TELEFONO_CONTACTO, CERTIFICADO",
+                response = Conexion.InsertarZeusCore("EXPERIENCIA_LABORAL", "ID_EMP, INSTITUCION, CARGO, FECHA_INICIO, FECHA_FIN, ACTUALMENTE,SUELDO, RAZON_SALIDA, CONTACTO, CARGO_CONTACTO, TELEFONO_CONTACTO, CERTIFICADO,UC,FC",
                                                infoLab.IdEmp + ",'" + infoLab.Institucion + "','" + infoLab.Cargo + "'," +
                                                fechaInicioSQL + "," +
                                                fechaFinSQL + "," +
-                                               Convert.ToInt32(infoLab.Actualmente) + "," + (infoLab.Sueldo != null ? infoLab.Sueldo.ToString() : "null") + ",'" + infoLab.RazonSalida + "','" + infoLab.Contacto + "','" + infoLab.CargoContacto + "','" + infoLab.TelefonoContacto + "','" + infoLab.Certificado + "'");
+                                               Convert.ToInt32(infoLab.Actualmente) + "," + (infoLab.Sueldo != null ? infoLab.Sueldo.ToString() : "null") + ",'" + infoLab.RazonSalida + "','" + infoLab.Contacto + "','" + infoLab.CargoContacto + "','" + infoLab.TelefonoContacto + "','" + infoLab.Certificado + "','" + infoLab.UC + "',GETDATE()" );
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace Infraestructure.Repository.Core
 
                 response = Conexion.ActualizarZeus("EXPERIENCIA_LABORAL", "ID_EMP = " + infoLab.IdEmp + ", INSTITUCION = '" + infoLab.Institucion + "', CARGO = '" + infoLab.Cargo + "', FECHA_INICIO = " + fechaInicioSQL +
                                             ", FECHA_FIN = "+ fechaFinSQL + ", ACTUALMENTE = " +Convert.ToInt32(infoLab.Actualmente) + ", SUELDO = " + (infoLab.Sueldo != null ? infoLab.Sueldo.ToString() : "null") + ", RAZON_SALIDA = '" + infoLab.RazonSalida +"', CONTACTO = '" + infoLab.Contacto + "', CARGO_CONTACTO = '" + infoLab.CargoContacto +
-                                            "', TELEFONO_CONTACTO =' " + infoLab.TelefonoContacto + "', CERTIFICADO = '" + infoLab.Certificado + "'", " Where ID_EXPERIENCIA_LABORAL = " + infoLab.IdExperienciaLaboral);
+                                            "', TELEFONO_CONTACTO =' " + infoLab.TelefonoContacto + "', CERTIFICADO = '" + infoLab.Certificado + "', FA=GETDATE(), UA='"+ infoLab.UA +"'", " Where ID_EXPERIENCIA_LABORAL = " + infoLab.IdExperienciaLaboral);
 
 
             }
@@ -117,7 +117,7 @@ namespace Infraestructure.Repository.Core
             {
                 response = Conexion.ActualizarZeus("EXPERIENCIA_LABORAL", "ID_EMP = " + infoLab.IdEmp + ", INSTITUCION = " + infoLab.Institucion + ", CARGO = " + infoLab.Cargo + "', FECHA_INICIO = '" + Convert.ToDateTime(infoLab.FechaInicio).Date.ToString("yyyy-MM-dd") +
                                             "', FECHA_FIN = '" + Convert.ToDateTime(infoLab.FechaFin).Date.ToString("yyyy-MM-dd") + "', ACTUALMENTE = '" + infoLab.Actualmente + "', SUELDO = '" + infoLab.Sueldo + ", RAZON_SALIDA = " + infoLab.RazonSalida + ", CONTACTO = " + infoLab.Contacto + ", CARGO_CONTACTO = " + infoLab.CargoContacto +
-                                            ", TELEFONO_CONTACTO = " + infoLab.TelefonoContacto + ", CERTIFICADO = " + infoLab.Certificado + "'", " Where ID_EXPERIENCIA_LABORAL = " + infoLab.IdExperienciaLaboral);
+                                            ", TELEFONO_CONTACTO = " + infoLab.TelefonoContacto + ", CERTIFICADO = " + infoLab.Certificado + "', FA=GETDATE(), UA='"+ infoLab.UA + "'", " Where ID_EXPERIENCIA_LABORAL = " + infoLab.IdExperienciaLaboral);
             }
             return response;
         }

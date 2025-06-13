@@ -122,7 +122,7 @@ namespace Infraestructure.Repository.Ftp
         }
         public async Task<byte[]> descargarArchivoFtp(string pathremoto)
         {
-            using (var client = new SftpClient(_ftpConfiguration.Server, _ftpConfiguration.Port, _ftpConfiguration.Username, _ftpConfiguration.Password))
+            using (var client = new SftpClient(_ftpConfiguration.Server, 22, _ftpConfiguration.Username, _ftpConfiguration.Password))
             {
                 client.Connect();
 
@@ -147,6 +147,8 @@ namespace Infraestructure.Repository.Ftp
                 }
             }
         }
+
+
 
 
         public bool verificarDirectorio(string pathremoto)

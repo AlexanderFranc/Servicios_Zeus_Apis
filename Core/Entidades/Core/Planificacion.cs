@@ -25,6 +25,19 @@ public partial class Planificacion
 
     public int IdPlanificacion { get; set; }
 
+    public bool? Activo { get; set; }
+
+    public string? Uc { get; set; }
+
+    public DateTime? Fc { get; set; }
+
+    public string? Ua { get; set; }
+
+    public DateTime? Fa { get; set; }
+    public DateTime? FechaInicioPlanificacion { get; set; }
+    public DateTime? FechaFinPlanificacion { get; set; }
+    
+
     public virtual Profesor DniProfesorcNavigation { get; set; } = null!;
 
     public virtual EspaciosFisico IdEspaciosFisicosNavigation { get; set; } = null!;

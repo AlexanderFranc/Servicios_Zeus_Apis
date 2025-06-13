@@ -232,7 +232,7 @@ namespace Infraestructure.Repository.Core
         {
             List<ComponenteMateriaMallaDto> lista = new List<ComponenteMateriaMallaDto>();
             ComponenteMateriaMallaDto componenteMateria = new ComponenteMateriaMallaDto();
-            DataSet ds_componenteMateriaMalla = Conexion.BuscarZEUS_ds("COMPONENTE c\r\ninner join PLANIFICACION p\r\non  c.ID_SUBTIPO_COMPONENTE<>p.ID_TIPO_COMPONENTE\r\ninner join SUBTIPO_COMPONENTE s\r\non s.ID_SUBTIPO_COMPONENTE = c.ID_SUBTIPO_COMPONENTE", "distinct c.ID_PLAN_ESTUDIO,\r\nc.ID_MATERIA,\r\nc.ID_SUBTIPO_COMPONENTE,\r\nc.CODIGO_COMPONENTE,\r\nisnull(c.HORAS_COMPONENTE,0) HORAS_COMPONENTE,\r\nisnull(c.PESO_COMPONENTE,0) PESO_COMPONENTE,\r\ns.CODIGO_SUBTIPO_COMPONENTE,\r\ns.nombre_subtipo_componente,p.ID_PERIODO ", "where p.ID_PERIODO=" + idPeriodo + " and c.ID_PLAN_ESTUDIO=" + idPlanEstudio + " and c.id_materia=" + idMateria);
+            DataSet ds_componenteMateriaMalla = Conexion.BuscarZEUS_ds("COMPONENTE c\r\ninner join SUBTIPO_COMPONENTE s\r\non s.ID_SUBTIPO_COMPONENTE = c.ID_SUBTIPO_COMPONENTE", "distinct c.ID_PLAN_ESTUDIO,\r\nc.ID_MATERIA,\r\nc.ID_SUBTIPO_COMPONENTE,\r\nc.CODIGO_COMPONENTE,\r\nisnull(c.HORAS_COMPONENTE,0) HORAS_COMPONENTE,\r\nisnull(c.PESO_COMPONENTE,0) PESO_COMPONENTE,\r\ns.CODIGO_SUBTIPO_COMPONENTE,\r\ns.nombre_subtipo_componente", "where c.ID_PLAN_ESTUDIO=" + idPlanEstudio + " and c.id_materia=" + idMateria);
             if (ds_componenteMateriaMalla.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_componenteMateriaMalla.Tables[0].Rows)
@@ -246,7 +246,7 @@ namespace Infraestructure.Repository.Core
                     componenteMateria.NombreSubtipoComponente = row["nombre_subtipo_componente"].ToString();
                     componenteMateria.HorasComponente = Convert.ToInt32(row["horas_componente"].ToString());
                     componenteMateria.PesoComponente = Convert.ToDouble(row["peso_componente"].ToString());
-                    componenteMateria.IdPeriodo = Convert.ToInt32(row["id_periodo"].ToString());
+                    //componenteMateria.IdPeriodo = Convert.ToInt32(row["id_periodo"].ToString());
                     lista.Add(componenteMateria);
 
                     componenteMateria = new ComponenteMateriaMallaDto();
@@ -258,7 +258,7 @@ namespace Infraestructure.Repository.Core
         {
             List<ComponenteMateriaMallaDto> lista = new List<ComponenteMateriaMallaDto>();
             ComponenteMateriaMallaDto componenteMateria = new ComponenteMateriaMallaDto();
-            DataSet ds_componenteMateriaMalla = Conexion.BuscarZEUS_ds("COMPONENTE c\r\ninner join PLANIFICACION p\r\non  c.ID_SUBTIPO_COMPONENTE<>p.ID_TIPO_COMPONENTE\r\ninner join SUBTIPO_COMPONENTE s\r\non s.ID_SUBTIPO_COMPONENTE = c.ID_SUBTIPO_COMPONENTE", "distinct c.ID_PLAN_ESTUDIO,\r\nc.ID_MATERIA,\r\nc.ID_SUBTIPO_COMPONENTE,\r\nc.CODIGO_COMPONENTE,\r\nisnull(c.HORAS_COMPONENTE,0) HORAS_COMPONENTE,\r\nisnull(c.PESO_COMPONENTE,0) PESO_COMPONENTE,\r\ns.CODIGO_SUBTIPO_COMPONENTE,\r\ns.nombre_subtipo_componente,p.ID_PERIODO ", "where p.ID_PERIODO=" + idPeriodo + " and c.ID_PLAN_ESTUDIO=" + idPlanEstudio);
+            DataSet ds_componenteMateriaMalla = Conexion.BuscarZEUS_ds("COMPONENTE c\r\ninner join SUBTIPO_COMPONENTE s\r\non s.ID_SUBTIPO_COMPONENTE = c.ID_SUBTIPO_COMPONENTE", "distinct c.ID_PLAN_ESTUDIO,\r\nc.ID_MATERIA,\r\nc.ID_SUBTIPO_COMPONENTE,\r\nc.CODIGO_COMPONENTE,\r\nisnull(c.HORAS_COMPONENTE,0) HORAS_COMPONENTE,\r\nisnull(c.PESO_COMPONENTE,0) PESO_COMPONENTE,\r\ns.CODIGO_SUBTIPO_COMPONENTE,\r\ns.nombre_subtipo_componente", "where c.ID_PLAN_ESTUDIO=" + idPlanEstudio);
             if (ds_componenteMateriaMalla.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_componenteMateriaMalla.Tables[0].Rows)
@@ -272,7 +272,7 @@ namespace Infraestructure.Repository.Core
                     componenteMateria.NombreSubtipoComponente = row["nombre_subtipo_componente"].ToString();
                     componenteMateria.HorasComponente = Convert.ToInt32(row["horas_componente"].ToString());
                     componenteMateria.PesoComponente = Convert.ToDouble(row["peso_componente"].ToString());
-                    componenteMateria.IdPeriodo = Convert.ToInt32(row["id_periodo"].ToString());
+                    componenteMateria.IdPeriodo = idPeriodo;
                     lista.Add(componenteMateria);
 
                     componenteMateria = new ComponenteMateriaMallaDto();

@@ -9,7 +9,7 @@ using Servicios_Zeus.Helpers.Errors;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/planificacion")]
     [ApiController]
@@ -33,6 +33,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(planestudio);
         }
+        [Route("GetById/{idPlanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> GetById(int idPlanificacion)
+        {
+            var planestudio = _iplan.getById(idPlanificacion);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
         [Route("Update/{id}")]
         [HttpPut]
         public void Put([FromBody] PlanificacionMallaDto planDto,int id)
@@ -47,6 +56,59 @@ namespace Servicios_Zeus.Controllers.Core
         {
             if (planDto != null)
                 _iplan.savePlanificacion(planDto);
+        }
+        /// <summary>
+        /// Verifica si se debe validar las horas a planificar en el registro de planificación
+        /// </summary>
+        /// <param name="codPeriodo"></param>
+        /// <param name="codPlan"></param>
+        /// <param name="idModalidad"></param>
+        /// <param name="codMateria"></param>
+        /// <returns>true si debe ser validado, false no debe ser validado</returns>
+        [Route("ValidarMateria/{codPeriodo}/{codPlan}/{idModalidad}/{codMateria}")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> ValidarMateria(string codPeriodo, string codPlan, int idModalidad, string codMateria)
+        {
+            var validar = _iplan.validarMateria(codPeriodo, codPlan, idModalidad, codMateria);
+            return Ok(!validar);
+        }
+        [Route("ObtenerPlanificacionTH/{idperiodo}/{idFacultad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> ObtenerPlanificacionTH(int idperiodo, int idFacultad)
+        {
+            var planestudio = _iplan.obtenerPlanificacionTH(idperiodo, idFacultad);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
+
+
+
+        [Route("UpdateFechas/{id}")]
+        [HttpPut]
+        public void PutFechas([FromBody] FechasPlanificacionDto fehas, int id)
+        {
+            if (fehas != null)
+                _iplan.updateFcehas(fehas, id);
+        }
+        [Route("obtenerFechasPlanificacion/{idplanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FechasPlanificacionDto>>> obtenerFechasPlanificacion(int idplanificacion)
+        {
+            var planestudio = _iplan.obtenerFechasPlanificacion(idplanificacion);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
+
+        [Route("Delete/{idplanificacion}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeletePlanificacion(int idplanificacion)
+        {
+            var response = _iplan.DeletePlanificacion(idplanificacion);
+            if (response == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(response);
         }
     }
 }

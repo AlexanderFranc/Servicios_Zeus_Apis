@@ -66,8 +66,8 @@ namespace Servicios_Zeus.Controllers.Core
             {
                 return BadRequest(new ApiResponse(400));
             }
-            planificacionTempDto.IdPlanificacion = _planificacionTemp.IdPlanificacion;
-            return CreatedAtAction(nameof(SavePlanificacionTemp), new { IdPlanificacion = planificacionTempDto.IdPlanificacion });
+            planificacionTempDto.IdPlanTemp = _planificacionTemp.IdPlanTemp;
+            return CreatedAtAction(nameof(SavePlanificacionTemp), new { IdPlanTemp = planificacionTempDto.IdPlanTemp });
         }
 
         [Route("Update/{id}")]
@@ -91,6 +91,12 @@ namespace Servicios_Zeus.Controllers.Core
             _iplanificaciontemp.Update(_planificacionTempDto);
             await _iplanificaciontemp.SaveAsync();
             return planificacionTempDto;
+        }
+        [Route("Edit")]
+        [HttpPost]
+        public bool EditPlanificacionTemp([FromBody] PlanificacionTempDto planificacionTempDto)
+        {
+            return _iplanificaciontemp.EditPlanificacion(planificacionTempDto);
         }
     }
 }

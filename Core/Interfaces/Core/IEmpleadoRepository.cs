@@ -13,7 +13,10 @@ namespace Core.Interfaces.Core
         Task<IEnumerable<Empleado>> getDocentesPlanificacionByFacu(int id);
         Task<IEnumerable<Empleado>> getDocentesPlanificacionByCarr(int id);
 
-        Task<List<EmpleadoDto>> GetEmployees();
+        Task<List<EmpleadoDto>> GetEmployees(); 
+        Task<List<EmpleadoDto>> ListarEmpleadosInactivos();
+        bool DatosPersonales(EmpleadoDatosPersonalesDto empleadoDatosPersonalesDto);
+        bool AceptadoDatosPersonales(string identificacionEmp);
 
     }
 }

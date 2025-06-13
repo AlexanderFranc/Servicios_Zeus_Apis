@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Dtos.Ftp;
-using Core.Entidades.Core;
-
-namespace Core.Dtos.Core
+﻿namespace Core.Dtos.Core
 {
     public  class InfoAcademicaNewDto
     {
@@ -35,6 +27,14 @@ namespace Core.Dtos.Core
         public string? CertificadoSenecyt { get; set; }
 
         public string? Ciudad { get; set; }
+        public string? UC { get; set; }
+        public DateTime? FC { get; set; }
+        public string? UA { get; set; }
+        public DateTime? FA { get; set; }
+        public string? UAprueba { get; set; }
+        public DateTime? FAprueba { get; set; }
+        public bool? AprobadoTH { get; set; }
+        public string? NumRegSenescyt { get; set; }
 
-}
+    }
 }

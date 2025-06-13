@@ -11,7 +11,7 @@ using Servicios_Zeus.Helpers.Errors;
 
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/materia-principal")]
     [ApiController]

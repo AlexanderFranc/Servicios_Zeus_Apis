@@ -19,5 +19,13 @@ namespace Core.Dtos.Core
         public int IdEspaciosFisicos { get; set; }
         public int? Cupo { get; set; }
         public int IdPlanificacion { get; set; }
+        public bool? Activo { get; set; }
+        public string? UC { get; set; } = null!;
+        public DateTime? FC { get; set; }
+        public string? UA { get; set; } = null!;
+        public DateTime? FA { get; set; }
+        public DateTime? FechaInicioPlanificacion { get; set; }
+        public DateTime? FechaFinPlanificacion { get; set; }
+
     }
 }

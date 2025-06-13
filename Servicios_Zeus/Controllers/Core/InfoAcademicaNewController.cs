@@ -53,7 +53,7 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<InfoAcademicaNew>> GetfindByDni(int id)
         {
-            var infoAcad = await _iinfoAcad.GetByIdEmpleado(id);
+            var infoAcad = _iinfoAcad.GetByIdEmpleado(id);
             if (infoAcad == null)
                 return NotFound(new ApiResponse(404));
             return Ok(infoAcad);
@@ -85,12 +85,20 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPost]
         public async Task<ActionResult<InfoAcademicaNew>> save([FromBody] InfoAcademicaNewDto infoDto)
         {
-            var config = new MapperConfiguration(cfg =>
+
+        var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<InfoAcademicaNewDto, InfoAcademicaNew>()
-                 .ForMember(dest => dest.IdInfoAcademica, opt => opt.Ignore());
+                 .ForMember(dest => dest.IdInfoAcademica, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdEmpNavigation, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdNivelAcademicoNavigation, opt => opt.Ignore())
+                 .ForMember(dest => dest.IdUnidadEducativaNavigation, opt => opt.Ignore());
               
             });
+            infoDto.FC = DateTime.Now;
+            infoDto.UA = "";
+            infoDto.FA = null;
+            infoDto.FAprueba = null;
             var _mapper = new Mapper(config);
             var _data = _mapper.Map<InfoAcademicaNew>(infoDto);
             _iinfoAcad.Add(_data);

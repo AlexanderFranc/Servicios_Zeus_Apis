@@ -57,7 +57,7 @@ namespace Infraestructure.Repository.Core
                 string idUnidadEducativaSQL = infoDoc.IdUnidadEducativa != null ? infoDoc.IdUnidadEducativa.ToString() : "null";
 
                 response = Conexion.InsertarZeusCore("EXPERIENCIA_DOCENTE",
-                                                    "ID_EMP, ID_UNIDAD_EDUCATIVA, INSTITUCION_SUPERIOR, INSTITUCION, FECHA_INICIO, FECHA_FIN, TITULAR, CERTIFICADO_LABORAL, CERTIFICADO_TITULARIDAD",
+                                                    "ID_EMP, ID_UNIDAD_EDUCATIVA, INSTITUCION_SUPERIOR, INSTITUCION, FECHA_INICIO, FECHA_FIN, TITULAR, CERTIFICADO_LABORAL, CERTIFICADO_TITULARIDAD,UC,FC",
                                                     infoDoc.IdEmp + "," +
                                                     idUnidadEducativaSQL + "," +
                                                     Convert.ToInt32(infoDoc.InstitucionSuperior) + ",'" +
@@ -66,7 +66,8 @@ namespace Infraestructure.Repository.Core
                                                     fechaFinSQL + "," +
                                                     Convert.ToInt32(infoDoc.Titular) + ",'" +
                                                     infoDoc.CertificadoLaboral + "','" +
-                                                    infoDoc.CertificadoTitularidad + "'");
+                                                    infoDoc.CertificadoTitularidad + "','" +
+                                                    infoDoc.UC + "',GETDATE()" );
 
             }
             else
@@ -84,7 +85,8 @@ namespace Infraestructure.Repository.Core
                                                    ", FECHA_FIN = " + fechaFinSQL +
                                                    ", TITULAR = " + Convert.ToInt32(infoDoc.Titular) +
                                                    ", CERTIFICADO_LABORAL = '" + infoDoc.CertificadoLaboral +
-                                                   "', CERTIFICADO_TITULARIDAD = '" + infoDoc.CertificadoTitularidad + "'",
+                                                   "', CERTIFICADO_TITULARIDAD = '" + infoDoc.CertificadoTitularidad +
+                                                   "', FA=GETDATE(), UA = '" + infoDoc.UA + "'",
                                                    " Where ID_EXPERIENCIA_DOCENTE = " + infoDoc.IdExperienciaDocente);
 
             }
@@ -100,7 +102,7 @@ namespace Infraestructure.Repository.Core
                 response = Conexion.ActualizarZeus("EXPERIENCIA_DOCENTE", "ID_EMP = " + infoDoc.IdEmp +
                         ", ID_UNIDAD_EDUCATIVA = " + infoDoc.IdUnidadEducativa + ", INSTITUCION_SUPERIOR = " + infoDoc.InstitucionSuperior + ", INSTITUCION = " + infoDoc.Institucion +
                         "', FECHA_INICIO = '" + Convert.ToDateTime(infoDoc.FechaInicio).Date.ToString("yyyy-MM-dd") + "', FECHA_FIN = '" + Convert.ToDateTime(infoDoc.FechaFin).Date.ToString("yyyy-MM-dd") + "', TITULAR = '" + infoDoc.Titular +
-                        " CERTIFICADO_LABORAL = " + infoDoc.CertificadoLaboral + " CERTIFICADO_TITULARIDAD = " + infoDoc.CertificadoTitularidad + "'", " Where ID_EXPERIENCIA_DOCENTE = " + infoDoc.IdExperienciaDocente);
+                        " CERTIFICADO_LABORAL = " + infoDoc.CertificadoLaboral + " CERTIFICADO_TITULARIDAD = " + infoDoc.CertificadoTitularidad + "', FA=GETDATE(), UA = '" + infoDoc.UA + "'", " Where ID_EXPERIENCIA_DOCENTE = " + infoDoc.IdExperienciaDocente);
             }
             return response;
         }
