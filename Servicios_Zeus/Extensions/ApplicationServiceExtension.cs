@@ -134,6 +134,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<ITitulosAcademicosRepository, TitulosAcademicosRepository>();
             services.AddScoped<IMateriasMatriculadasEstudianteRepository, MateriasMatriculadasEstudianteRepository>();
             services.AddScoped<IAulaRepository, AulaRepository>();
+            services.AddScoped<IProfesorSRepository, ProfesorSRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
