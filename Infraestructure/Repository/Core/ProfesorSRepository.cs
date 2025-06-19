@@ -76,6 +76,8 @@ namespace Infraestructure.Repository.Core
         public List<ProfesorSDto> GetAllByIdPlanificacion(int idPlanificacion)
         {
             ProfesorSDto profesorsDto;
+            DateTime fInicio;
+            DateTime fFin;
             List<ProfesorSDto> listprofesorsDto = new();
             var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_s a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion);
             if (ds_profesors.Tables[0].Rows.Count > 0)
@@ -86,6 +88,11 @@ namespace Infraestructure.Repository.Core
                     profesorsDto.IdPs = Convert.ToInt32(row["ID_PS"].ToString());
                     profesorsDto.IdPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
                     profesorsDto.Docente = row["DOCENTE"].ToString();
+                    fInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
+                    fFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
+
+                    profesorsDto.FechaInicio= DateOnly.FromDateTime(fInicio);
+                    profesorsDto.FechaFin= DateOnly.FromDateTime(fFin);
                     //profesorsDto.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
                     //profesorsDto.FechaFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
                     profesorsDto.Horas = Convert.ToDecimal(row["HORAS"].ToString());
@@ -103,13 +110,7 @@ namespace Infraestructure.Repository.Core
         {
             bool response = false;
             //string fechaInicioSQL = profesorsDto.FechaInicio != null ? "'" + Convert.ToDateTime(idio.FechaEmision).ToString("yyyy-MM-dd") + "'" : "null";
-            int activo = 0;
-
-            if (profesorsDto.Activo == true)
-            {
-                activo = 1;
-            }
-
+            int activo = profesorsDto.Activo == true ? 1 : 0;
 
             //if (idio.IdIdioma == 0)
             //{
@@ -126,6 +127,38 @@ namespace Infraestructure.Repository.Core
             //        "', FA=GETDATE(), UA='" + idio.UA + "'", " Where ID_IDIOMA = " + idio.IdIdioma);
             //}
 
+
+            return response;
+        }
+
+        public bool SaveProfesorSList(List<ProfesorSDto> lstProfesorsDto, int idPlanificacion)
+        {
+            bool response = false;
+            string ds_profesors = "";
+
+            try
+            {
+                //Eliminar
+                ds_profesors = Conexion.deleteZeus("PROFESOR_S", "ID_PLANIFICACION=" + idPlanificacion);
+            }
+            catch
+            {
+
+            }
+
+            foreach (ProfesorSDto profesorsDto in lstProfesorsDto)
+            {
+                if (profesorsDto.IdPs == 0)
+                {
+                   
+                    int activo = profesorsDto.Activo == true ? 1 : 0;
+
+                    response = Conexion.InsertarZeusCore("PROFESOR_S", "DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
+                                           "'" + profesorsDto.DniProfesorc + "'," + profesorsDto.IdPlanificacion + ",'" + profesorsDto.FechaInicio + "','" + profesorsDto.FechaFin + "','" +
+                                           profesorsDto.Horas + "','" +
+                                           profesorsDto.Tipo + "'," + activo + ",'" + profesorsDto.UC + "',GETDATE()");
+                }
+            }
 
             return response;
         }

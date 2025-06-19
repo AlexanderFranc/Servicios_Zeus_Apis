@@ -15,7 +15,7 @@ namespace Core.Dtos.Core
         public DateOnly FechaFin { get; set; }
         public decimal Horas { get; set; }
         public string Tipo { get; set; }
-        public bool? Activo { get; set; }
+        public bool Activo { get; set; }
         public string UC { get; set; } 
         public DateTime FC { get; set; }
         public string? UA { get; set; } = null!;

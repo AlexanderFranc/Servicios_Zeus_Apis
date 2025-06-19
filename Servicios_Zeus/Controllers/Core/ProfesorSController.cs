@@ -49,5 +49,12 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404));
             return Ok(profesors);
         }
+
+        [Route("SaveProfesorSList")]
+        [HttpPost]
+        public bool SaveProfesorSList([FromBody] List<ProfesorSDto> lstProfesorsDto, int idPlanificacion)
+        {
+            return _iiprofesors.SaveProfesorSList(lstProfesorsDto, idPlanificacion);
+        }
     }
 }

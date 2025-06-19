@@ -14,5 +14,6 @@ namespace Core.Interfaces.Core
         Task<List<Profesor1>> GetByIdPlanificacion(int idPlanificacion);
         List<ProfesorSDto> GetAllByIdPlanificacion(int idPlanificacion);
         bool SaveProfesorS(ProfesorSDto profesorsDto);
+        bool SaveProfesorSList(List<ProfesorSDto> lstProfesorsDto, int idPlanificacion);
     }
 }
