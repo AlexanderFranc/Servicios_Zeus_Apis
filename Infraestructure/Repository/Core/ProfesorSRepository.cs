@@ -79,7 +79,7 @@ namespace Infraestructure.Repository.Core
             DateTime fInicio;
             DateTime fFin;
             List<ProfesorSDto> listprofesorsDto = new();
-            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_s a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion);
+            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_s a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion + " order by fecha_inicio,fecha_fin");
             if (ds_profesors.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_profesors.Tables[0].Rows)
@@ -134,6 +134,8 @@ namespace Infraestructure.Repository.Core
         public bool SaveProfesorSList(List<ProfesorSDto> lstProfesorsDto, int idPlanificacion)
         {
             bool response = false;
+
+            bool responseUpdate = false;
             string ds_profesors = "";
 
             try
@@ -157,7 +159,14 @@ namespace Infraestructure.Repository.Core
                                            "'" + profesorsDto.DniProfesorc + "'," + profesorsDto.IdPlanificacion + ",'" + profesorsDto.FechaInicio + "','" + profesorsDto.FechaFin + "','" +
                                            profesorsDto.Horas + "','" +
                                            profesorsDto.Tipo + "'," + activo + ",'" + profesorsDto.UC + "',GETDATE()");
+                    
                 }
+            }
+
+            if (response == true)
+            {
+                responseUpdate = Conexion.ActualizarZeus("PLANIFICACION", "PROFESOR_S = 1", " Where ID_PLANIFICACION = " + idPlanificacion);
+
             }
 
             return response;
