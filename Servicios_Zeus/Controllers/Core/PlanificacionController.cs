@@ -110,5 +110,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404));
             return Ok(response);
         }
+
+        [Route("GetAllSimultaneo/{idperiodo}/{idfacultad}/{idcarrera}/{profesors}/{idplan}/{idmodalidad}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> GetAllSimultaneo(int idperiodo,int idfacultad, int idcarrera , int profesors, int idplan, int idmodalidad)
+        {
+            var planestudio = _iplan.getPlanificacionSimultaneo(idperiodo, idfacultad, idcarrera, profesors, idplan, idmodalidad);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
     }
 }
