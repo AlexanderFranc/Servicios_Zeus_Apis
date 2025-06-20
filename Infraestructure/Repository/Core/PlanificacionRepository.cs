@@ -307,6 +307,7 @@ namespace Infraestructure.Repository.Core
                     planificacion.nombresEmp = row["NOMBRES_EMP"].ToString();
                     planificacion.apellidoEmp = row["APELLIDO_EMP"].ToString();
                     planificacion.idModalidadPlanificacion = Convert.ToInt32(row["ID_MODALIDAD_PLANIFICACION"].ToString());
+                    planificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
                     planificacion.NombreModalidadPe = row["NOMBRE_MODALIDAD_PE"].ToString();
                     planificacion.NombreModalidadp = row["NOMBRE_MODALIDADP"].ToString();
                     planificacion.codigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
