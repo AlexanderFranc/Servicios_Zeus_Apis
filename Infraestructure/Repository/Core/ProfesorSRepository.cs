@@ -151,17 +151,18 @@ namespace Infraestructure.Repository.Core
 
             foreach (ProfesorSDto profesorsDto in lstProfesorsDto)
             {
-                if (profesorsDto.IdPs == 0)
-                {
-                   
-                    int activo = profesorsDto.Activo == true ? 1 : 0;
+                int activo = profesorsDto.Activo == true ? 1 : 0;
 
-                    response = Conexion.InsertarZeusCore("PROFESOR_S", "DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
-                                           "'" + profesorsDto.DniProfesorc + "'," + profesorsDto.IdPlanificacion + ",'" + profesorsDto.FechaInicio + "','" + profesorsDto.FechaFin + "','" +
-                                           profesorsDto.Horas + "','" +
-                                           profesorsDto.Tipo + "'," + activo + ",'" + profesorsDto.UC + "',GETDATE()");
-                    
-                }
+                string fechaInicio = profesorsDto.FechaInicio != null ? "'" + profesorsDto.FechaInicio.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") + "'" : "null";
+                string fechaFin = profesorsDto.FechaFin != null ? "'" + profesorsDto.FechaFin.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") + "'" : "null";
+
+                //string fechaInicio = profesorsDto.FechaInicio != null ? "'" + Convert.ToDateTime(profesorsDto.FechaInicio).ToString("yyyy-MM-dd") + "'" : "null";
+                //string fechaFin = profesorsDto.FechaFin != null ? "'" + Convert.ToDateTime(profesorsDto.FechaFin).ToString("yyyy-MM-dd") + "'" : "null";
+                response = Conexion.InsertarZeusCore("PROFESOR_S", "DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
+                                       "'" + profesorsDto.DniProfesorc + "'," + profesorsDto.IdPlanificacion + "," + fechaInicio + "," + fechaFin + ",'" +
+                                       profesorsDto.Horas + "','" +
+                                       profesorsDto.Tipo + "'," + activo + ",'" + profesorsDto.UC + "',GETDATE()");
+
             }
 
             if (response == true)
