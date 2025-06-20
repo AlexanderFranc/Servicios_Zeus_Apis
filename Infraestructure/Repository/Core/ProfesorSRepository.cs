@@ -87,7 +87,8 @@ namespace Infraestructure.Repository.Core
                     profesorsDto = new();
                     profesorsDto.IdPs = Convert.ToInt32(row["ID_PS"].ToString());
                     profesorsDto.IdPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
-                    profesorsDto.Docente = row["DOCENTE"].ToString();
+                    profesorsDto.Docente = row["DOCENTE"].ToString() ?? string.Empty;
+                    profesorsDto.DniProfesorc = row["DNI_PROFESORC"].ToString() ?? string.Empty;
                     fInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
                     fFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
 

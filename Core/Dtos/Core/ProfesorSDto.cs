@@ -16,8 +16,8 @@ namespace Core.Dtos.Core
         public decimal Horas { get; set; }
         public string Tipo { get; set; }
         public bool Activo { get; set; }
-        public string UC { get; set; } 
-        public DateTime FC { get; set; }
+        public string? UC { get; set; } 
+        public DateTime? FC { get; set; }
         public string? UA { get; set; } = null!;
         public DateTime? FA { get; set; }
 
