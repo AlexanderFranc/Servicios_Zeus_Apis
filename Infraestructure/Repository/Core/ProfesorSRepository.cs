@@ -170,5 +170,30 @@ namespace Infraestructure.Repository.Core
 
             return response;
         }
+
+        public ResponseDto DeleteProfesorS(int idplanidicacion, string usuario)
+        {
+            ResponseDto response = new ResponseDto();
+
+            //string ds_data = Conexion.deleteZeus("HORARIO", "ID_PLANIFICACION=" + idplanidicacion + " and ID_DIA=" + dia + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
+            DataSet ds_profesorS = Conexion.ExecZeusCore("[EliminarProfesorS]", "'EP'," + idplanidicacion);
+
+            if (ds_profesorS.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_profesorS.Tables[0].Rows)
+                {
+                    response.resultado = Convert.ToBoolean(row["RESULTADO"].ToString());
+                    response.mensaje = row["MENSAJE"].ToString();
+                }
+            }
+            else
+            {
+                response.resultado = false;
+                response.mensaje = "ERROR";
+            }
+
+            return response;
+
+        }
     }
 }

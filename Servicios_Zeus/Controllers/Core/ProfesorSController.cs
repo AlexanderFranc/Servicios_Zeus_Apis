@@ -56,5 +56,15 @@ namespace Servicios_Zeus.Controllers.Core
         {
             return _iiprofesors.SaveProfesorSList(lstProfesorsDto, idPlanificacion);
         }
+
+        [Route("Delete/{idplanificacion}/{usuario}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProfesorS(int idplanificacion, string usuario)
+        {
+            var response = _iiprofesors.DeleteProfesorS(idplanificacion,usuario);
+            if (response == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(response);
+        }
     }
 }

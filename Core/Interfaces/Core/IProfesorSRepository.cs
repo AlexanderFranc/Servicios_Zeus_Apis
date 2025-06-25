@@ -15,5 +15,6 @@ namespace Core.Interfaces.Core
         List<ProfesorSDto> GetAllByIdPlanificacion(int idPlanificacion);
         bool SaveProfesorS(ProfesorSDto profesorsDto);
         bool SaveProfesorSList(List<ProfesorSDto> lstProfesorsDto, int idPlanificacion);
+        ResponseDto DeleteProfesorS(int idplanidicacion, string usuario);
     }
 }
