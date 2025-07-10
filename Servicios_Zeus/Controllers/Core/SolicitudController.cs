@@ -52,22 +52,29 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPost]
         public async Task<ActionResult<Solicitud>> SaveSolicitud([FromBody] SolicitudDto solicitudDto)
         {
-            var config = new MapperConfiguration(cfg =>
+            try
             {
-                cfg.CreateMap<SolicitudDto, Solicitud>();
-            });
-            solicitudDto.FechaSolicitud = DateTime.Now;
-            solicitudDto.FC = DateTime.Now;
-            var _mapper = new Mapper(config);
-            var _solicitud = _mapper.Map<Solicitud>(solicitudDto);
-            _iSolicitud.Add(_solicitud);
-            await _iSolicitud.SaveAsync();
-            if (_solicitud == null)
-            {
-                return BadRequest(new ApiResponse(400));
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<SolicitudDto, Solicitud>();
+                });
+                solicitudDto.FechaSolicitud = DateTime.Now;
+                solicitudDto.FC = DateTime.Now;
+                var _mapper = new Mapper(config);
+                var _solicitud = _mapper.Map<Solicitud>(solicitudDto);
+                _iSolicitud.Add(_solicitud);
+                await _iSolicitud.SaveAsync();
+                if (_solicitud == null)
+                {
+                    return BadRequest(new ApiResponse(400));
+                }
+                solicitudDto.IdSolicitud = _solicitud.IdSolicitud;
+                return CreatedAtAction(nameof(SaveSolicitud), new { IdSolicitud = solicitudDto.IdSolicitud });
             }
-            solicitudDto.IdSolicitud = _solicitud.IdSolicitud;
-            return CreatedAtAction(nameof(SaveSolicitud), new { IdSolicitud = solicitudDto.IdSolicitud });
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         [Route("SaveSolicitudPlanEmp")]
