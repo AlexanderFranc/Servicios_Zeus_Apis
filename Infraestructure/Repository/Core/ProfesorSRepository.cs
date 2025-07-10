@@ -176,7 +176,7 @@ namespace Infraestructure.Repository.Core
             ResponseDto response = new ResponseDto();
 
             //string ds_data = Conexion.deleteZeus("HORARIO", "ID_PLANIFICACION=" + idplanidicacion + " and ID_DIA=" + dia + " and HORA_INI='" + horaI + "' and HORA_FIN='" + horaF + "'");
-            DataSet ds_profesorS = Conexion.ExecZeusCore("[EliminarProfesorS]", "'EP'," + idplanidicacion);
+            DataSet ds_profesorS = Conexion.ExecZeusCore("[EliminarProfesorS]", "'EP'," + idplanidicacion + ",'" + usuario + "'");
 
             if (ds_profesorS.Tables[0].Rows.Count > 0)
             {
