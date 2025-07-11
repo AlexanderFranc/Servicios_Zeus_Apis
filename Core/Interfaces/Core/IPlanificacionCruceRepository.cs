@@ -13,5 +13,7 @@ namespace Core.Interfaces.Core
         List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe);
 
         List<PlanificacionCruceDto> GetPlanificacionCruceModular(string opcion, int idperiodo, string codprofe, List<HorarioModularDto> horarioTabla, int idPlanificacion);
+
+        List<PlanificacionCruceDto> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, List<HorarioSemDto> horarioTabla, int idPlanificacion);
     }
 }

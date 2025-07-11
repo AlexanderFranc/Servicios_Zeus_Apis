@@ -47,5 +47,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
             
         }
+
+        [Route("PlanificacionCruceSemMod/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}")]
+        [HttpPost]
+        public async Task<ActionResult<Provincium>> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, [FromBody] List<HorarioSemDto> horarioTabla, int idPlanificacion)
+        {
+            var data = _irepository.GetPlanificacionCruceSemMod(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(data);
+
+        }
     }
 }
