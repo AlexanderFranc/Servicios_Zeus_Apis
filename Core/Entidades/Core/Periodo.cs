@@ -41,6 +41,10 @@ public partial class Periodo
 
     public bool? ActivoPeriodoCambParal { get; set; }
 
+    public DateTime? FechaInicioValidacion { get; set; }
+
+    public DateTime? FechaFinValidacion { get; set; }
+
     public virtual EstadoPeriodo IdEstadoPeriodoNavigation { get; set; } = null!;
 
     public virtual ModalidadPeriodo IdModalidadNavigation { get; set; } = null!;

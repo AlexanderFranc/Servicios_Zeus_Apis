@@ -1081,6 +1081,9 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("SIGLAS_CARRERA");
+            entity.Property(e => e.Tipov)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("TIPOV");
             entity.Property(e => e.TituloCarrera)
                 .HasMaxLength(200)
                 .IsUnicode(false)
@@ -6704,9 +6707,15 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.FechaFinPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_FIN_PERIODO");
+            entity.Property(e => e.FechaFinValidacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_FIN_VALIDACION");
             entity.Property(e => e.FechaInicioPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_INICIO_PERIODO");
+            entity.Property(e => e.FechaInicioValidacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_INICIO_VALIDACION");
             entity.Property(e => e.FechaRegistroPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_REGISTRO_PERIODO");
