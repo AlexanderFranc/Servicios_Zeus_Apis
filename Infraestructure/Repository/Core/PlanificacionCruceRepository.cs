@@ -148,7 +148,7 @@ namespace Infraestructure.Repository.Core
 
             var dtTablaHorario = new DataTable();
             dtTablaHorario.Columns.Add("Id_Espacio_fisico", typeof(int));
-            dtTablaHorario.Columns.Add("Dia", typeof(DateTime));
+            dtTablaHorario.Columns.Add("IdDia", typeof(int));
             dtTablaHorario.Columns.Add("HoraI", typeof(string));
             dtTablaHorario.Columns.Add("HoraF", typeof(string));
             foreach (var item in horarioTabla)
