@@ -130,6 +130,7 @@ namespace Infraestructure.Repository.Core
                     cruce.Dia = row["DIA"].ToString();
                     cruce.HoraIni = row["HORA_INI"].ToString();
                     cruce.HoraFin = row["HORA_FIN"].ToString();
+                    cruce.Periodo = row["CODIGO_PERIODO"].ToString();
 
 
                     listaCruce.Add(cruce);
@@ -219,6 +220,7 @@ namespace Infraestructure.Repository.Core
                     cruce.Dia = row["DIA"].ToString();
                     cruce.HoraIni = row["HORA_INI"].ToString();
                     cruce.HoraFin = row["HORA_FIN"].ToString();
+                    cruce.Periodo = row["CODIGO_PERIODO"].ToString();
 
 
                     listaCruce.Add(cruce);

@@ -19,6 +19,7 @@ namespace Core.Dtos.Core
         public string? Dia { get; set; }
         public string? HoraIni { get; set; }
         public string? HoraFin { get; set; }
+        public string? Periodo { get; set; }
 
     }
 }
