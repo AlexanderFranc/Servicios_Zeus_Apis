@@ -786,13 +786,15 @@ namespace Infraestructure.Repository.Core
                     {
                     solicitudDto.FechaSolicitud = DateTime.Now;
                     string fechaSolicitud = solicitudDto.FechaSolicitud != null ? "'" + Convert.ToDateTime(solicitudDto.FechaSolicitud).ToString("yyyy-MM-dd") + "'" : "null";
+                    int profesorS = (bool)solicitudDto.profesorS ? 1 : 0;
                     //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
                     //solicitudDto.FC = DateTime.Now;
-                    response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC",
+                    response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC,ID_PS,DNI_PROFESORS,PROFESORS",
                                                    "'" + solicitudDto.TipoSolicitud + "',convert(date," + fechaSolicitud + ")," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
                                                    solicitudDto.IdEstado + ",'" +
-                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()");
+                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()," +
+                                                   solicitudDto.idPS + ",'" + solicitudDto.dniProfesorS + "'," + profesorS);
                     }
                 }
             //}
