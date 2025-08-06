@@ -169,7 +169,7 @@ namespace Infraestructure.Repository.Core
                 myConnection.Open();
 
             //string sql = "exec " + sp + " " + campos + ";";}
-            var cmd = new SqlCommand("sp_ValidaCruceHorarioFechas", myConnection)
+            var cmd = new SqlCommand("sp_ValidaCruceHorarioSemestral", myConnection)
             {
                 CommandType = CommandType.Text,
                 CommandTimeout = 99999999
