@@ -179,7 +179,7 @@ namespace Infraestructure.Repository.Core
             cmd.Parameters.AddWithValue("@opcion", opcion);
             cmd.Parameters.AddWithValue("@id_periodo", idperiodo);
             cmd.Parameters.AddWithValue("@codprof", codprofe);
-            cmd.Parameters.AddWithValue("@horariof", dtTablaHorario);
+            cmd.Parameters.AddWithValue("@horarioS", dtTablaHorario);
             cmd.Parameters.AddWithValue("@idPlanificacion", idPlani);
 
 
