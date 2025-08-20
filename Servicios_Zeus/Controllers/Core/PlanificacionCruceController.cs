@@ -25,11 +25,11 @@ namespace Servicios_Zeus.Controllers.Core
             _mapper = mapper;
         }
 
-        [Route("GetPlanificacionCruce/{opcion}/{idplanificacion}/{idperiodo}/{idespaciosfisicos}/{ceduladocente}")]
+        [Route("GetPlanificacionCruce/{opcion}/{idplanificacion}/{idperiodo}/{idespaciosfisicos}/{ceduladocente}/{idMalla}")]
         [HttpGet]
-        public async Task<ActionResult<List<PlanificacionCruceDto>>> GetPlanificacionCruce(string opcion,int idplanificacion, int idperiodo, int idespaciosfisicos, string ceduladocente)
+        public async Task<ActionResult<List<PlanificacionCruceDto>>> GetPlanificacionCruce(string opcion,int idplanificacion, int idperiodo, int idespaciosfisicos, string ceduladocente, int idMalla)
         {
-            var data = _irepository.GetPlanificacionCruce(opcion,idplanificacion, idperiodo, idespaciosfisicos, ceduladocente);
+            var data = _irepository.GetPlanificacionCruce(opcion,idplanificacion, idperiodo, idespaciosfisicos, ceduladocente, idMalla);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(data);
@@ -37,22 +37,22 @@ namespace Servicios_Zeus.Controllers.Core
 
 
 
-        [Route("PlanificacionCruceModular/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}")]
+        [Route("PlanificacionCruceModular/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}/{idMalla}")]
         [HttpPost]
-        public async Task<ActionResult<Provincium>> PlanificacionCruceModular(string opcion,int idperiodo, string codprofe,[FromBody] List<HorarioModularDto> horarioTabla, int idPlanificacion)
+        public async Task<ActionResult<Provincium>> PlanificacionCruceModular(string opcion,int idperiodo, string codprofe,[FromBody] List<HorarioModularDto> horarioTabla, int idPlanificacion, int idMalla)
         {
-            var data = _irepository.GetPlanificacionCruceModular(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion);
+            var data = _irepository.GetPlanificacionCruceModular(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion,idMalla);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(data);
             
         }
 
-        [Route("PlanificacionCruceSemMod/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}")]
+        [Route("PlanificacionCruceSemMod/{opcion}/{idperiodo}/{codprofe}/{idPlanificacion}/{idMalla}")]
         [HttpPost]
-        public async Task<ActionResult<Provincium>> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, [FromBody] List<HorarioSemDto> horarioTabla, int idPlanificacion)
+        public async Task<ActionResult<Provincium>> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, [FromBody] List<HorarioSemDto> horarioTabla, int idPlanificacion, int idMalla)
         {
-            var data = _irepository.GetPlanificacionCruceSemMod(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion);
+            var data = _irepository.GetPlanificacionCruceSemMod(opcion, idperiodo, codprofe, horarioTabla, idPlanificacion, idMalla);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(data);

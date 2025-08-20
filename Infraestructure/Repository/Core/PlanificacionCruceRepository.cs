@@ -23,11 +23,11 @@ namespace Infraestructure.Repository.Core
         {
         }
 
-        public List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe) 
+        public List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe, int idMalla) 
         {
             PlanificacionCruceDto cruce = new PlanificacionCruceDto();
             List<PlanificacionCruceDto> listaCruce = new List<PlanificacionCruceDto>();
-            DataSet ds_cruce = Conexion.ExecZeusCore("sp_ValidaCruceHorario", "'V'," + idplanificacion + "," + idperiodo + "," + idespaciosfisicos + "," + "'" + codprofe + "'" );
+            DataSet ds_cruce = Conexion.ExecZeusCore("sp_ValidaCruceHorario", "'V'," + idplanificacion + "," + idperiodo + "," + idespaciosfisicos + "," + "'" + codprofe + "',"+idMalla);
             if (ds_cruce.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_cruce.Tables[0].Rows)
@@ -52,7 +52,7 @@ namespace Infraestructure.Repository.Core
             return listaCruce;
         }
 
-        public List<PlanificacionCruceDto> GetPlanificacionCruceModular(string opcion, int idperiodo, string codprofe, List<HorarioModularDto> horarioTabla, int idPlanificacion)
+        public List<PlanificacionCruceDto> GetPlanificacionCruceModular(string opcion, int idperiodo, string codprofe, List<HorarioModularDto> horarioTabla, int idPlanificacion, int idMalla)
         {
             PlanificacionCruceDto cruce = new PlanificacionCruceDto();
             List<PlanificacionCruceDto> listaCruce = new List<PlanificacionCruceDto>();
@@ -91,8 +91,9 @@ namespace Infraestructure.Repository.Core
             cmd.Parameters.AddWithValue("@codprof", codprofe);
             cmd.Parameters.AddWithValue("@horariof", dtTablaHorario);
             cmd.Parameters.AddWithValue("@idPlanificacion", idPlani);
+            cmd.Parameters.AddWithValue("@idMalla", idMalla);
 
-            
+
             SqlDataAdapter lector = default(SqlDataAdapter);
             try
             {
@@ -141,7 +142,7 @@ namespace Infraestructure.Repository.Core
         }
 
 
-        public List<PlanificacionCruceDto> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, List<HorarioSemDto> horarioTabla, int idPlanificacion)
+        public List<PlanificacionCruceDto> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, List<HorarioSemDto> horarioTabla, int idPlanificacion, int idMalla)
         {
             PlanificacionCruceDto cruce = new PlanificacionCruceDto();
             List<PlanificacionCruceDto> listaCruce = new List<PlanificacionCruceDto>();
@@ -181,6 +182,7 @@ namespace Infraestructure.Repository.Core
             cmd.Parameters.AddWithValue("@codprof", codprofe);
             cmd.Parameters.AddWithValue("@horarioS", dtTablaHorario);
             cmd.Parameters.AddWithValue("@idPlanificacion", idPlani);
+            cmd.Parameters.AddWithValue("@idMalla", idMalla);
 
 
             SqlDataAdapter lector = default(SqlDataAdapter);
