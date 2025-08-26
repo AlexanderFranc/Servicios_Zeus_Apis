@@ -20,5 +20,9 @@ namespace Core.Dtos.Core
         public DateTime? FC { get; set; }
         public string? UA { get; set; } = null!;
         public DateTime? FA { get; set; }
+
+        public int? idPS { get; set; }
+        public string? dniProfesorS { get; set; }
+        public bool? profesorS { get; set; }
     }
 }
