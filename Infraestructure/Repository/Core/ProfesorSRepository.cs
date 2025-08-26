@@ -157,7 +157,7 @@ namespace Infraestructure.Repository.Core
                 string fechaFin = profesorsDto.FechaFin != null ? "'" + profesorsDto.FechaFin.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") + "'" : "null";
                 response = Conexion.InsertarZeusCore("PROFESOR_S", "DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
                                        "'" + profesorsDto.DniProfesorc + "'," + profesorsDto.IdPlanificacion + "," + fechaInicio + "," + fechaFin + ",'" +
-                                       profesorsDto.Horas + "','" +
+                                       profesorsDto.Horas.ToString().Replace(',','.') + "','" +
                                        profesorsDto.Tipo + "'," + activo + ",'" + profesorsDto.UC + "',GETDATE()");
 
             }

@@ -10,8 +10,10 @@ namespace Core.Interfaces.Core
 {
     public interface IPlanificacionCruceRepository : IGenericRepository<PlanificacionCruceDto>
     {
-        List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe);
+        List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe, int idMalla);
 
-        List<PlanificacionCruceDto> GetPlanificacionCruceModular(string opcion, int idperiodo, string codprofe, List<HorarioModularDto> horarioTabla, int idPlanificacion);
+        List<PlanificacionCruceDto> GetPlanificacionCruceModular(string opcion, int idperiodo, string codprofe, List<HorarioModularDto> horarioTabla, int idPlanificacion, int idMalla);
+
+        List<PlanificacionCruceDto> GetPlanificacionCruceSemMod(string opcion, int idperiodo, string codprofe, List<HorarioSemDto> horarioTabla, int idPlanificacion, int idMalla);
     }
 }

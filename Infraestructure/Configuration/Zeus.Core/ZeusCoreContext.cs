@@ -397,6 +397,8 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<RelacionContrato> RelacionContratos { get; set; }
 
+    public virtual DbSet<RelacionFam> RelacionFams { get; set; }
+
     public virtual DbSet<RequisitosEgresamientoPe> RequisitosEgresamientoPes { get; set; }
 
     public virtual DbSet<RequisitosTipoContrato> RequisitosTipoContratos { get; set; }
@@ -1081,6 +1083,9 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("SIGLAS_CARRERA");
+            entity.Property(e => e.Tipov)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("TIPOV");
             entity.Property(e => e.TituloCarrera)
                 .HasMaxLength(200)
                 .IsUnicode(false)
@@ -6704,9 +6709,15 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.FechaFinPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_FIN_PERIODO");
+            entity.Property(e => e.FechaFinValidacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_FIN_VALIDACION");
             entity.Property(e => e.FechaInicioPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_INICIO_PERIODO");
+            entity.Property(e => e.FechaInicioValidacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_INICIO_VALIDACION");
             entity.Property(e => e.FechaRegistroPeriodo)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_REGISTRO_PERIODO");
@@ -7631,6 +7642,26 @@ public partial class ZeusCoreContext : DbContext
             entity.HasOne(d => d.IdTipoContratoNavigation).WithMany(p => p.RelacionContratos)
                 .HasForeignKey(d => d.IdTipoContrato)
                 .HasConstraintName("FK_RELACION_FK_RELACI_TIPO_CON");
+        });
+
+        modelBuilder.Entity<RelacionFam>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__RELACION__3214EC2793169A49");
+
+            entity.ToTable("RELACION_FAM");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Activo)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("ACTIVO");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("DESCRIPCION");
+            entity.Property(e => e.Relacion)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("RELACION");
         });
 
         modelBuilder.Entity<RequisitosEgresamientoPe>(entity =>

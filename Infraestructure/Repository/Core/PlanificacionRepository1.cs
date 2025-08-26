@@ -42,10 +42,10 @@ namespace Infraestructure.Repository.Core
                 "FA=getdate(),"+
                 // FECHAS MANEJADAS CON NULOS
                 "FECHA_INICIO_PLANIFICACION=" + (componenteDto.FechaInicioPlanificacion.HasValue
-                    ? "convert(datetime,'" + componenteDto.FechaInicioPlanificacion.Value.ToString("yyyy-MM-dd HH:mm:ss") + "')"
+                    ? "convert(date,'" + componenteDto.FechaInicioPlanificacion.Value.ToString("yyyy-MM-dd") + "')"
                     : "null") + "," +
                 "FECHA_FIN_PLANIFICACION=" + (componenteDto.FechaFinPlanificacion.HasValue
-                    ? "convert(datetime,'" + componenteDto.FechaFinPlanificacion.Value.ToString("yyyy-MM-dd HH:mm:ss") + "')"
+                    ? "convert(date,'" + componenteDto.FechaFinPlanificacion.Value.ToString("yyyy-MM-dd") + "')"
                     : "null")
                 //"FA= convert(DateTime,'" + Convert.ToDateTime(componenteDto.FA).ToString("yyyy-MM-dd HH:mm:ss") + "')"
                 , " WHERE ID_PLANIFICACION=" + idplanificacion);
