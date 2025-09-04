@@ -55,38 +55,46 @@ namespace Infraestructure.Repository.Ftp
 
         public void SubirArchivoFtp(byte[] archivoBytes, string pathRemoto, string nombreArchivo)
         {
-            using (var client = new SftpClient(_ftpConfiguration.Server, _ftpConfiguration.Port, _ftpConfiguration.Username, _ftpConfiguration.Password))
+            try
             {
-                client.Connect();
-
-                if (archivoBytes != null && archivoBytes.Length > 0)
+                using (var client = new SftpClient(_ftpConfiguration.Server, _ftpConfiguration.Port, _ftpConfiguration.Username, _ftpConfiguration.Password))
                 {
-                    try
-                    {
-                        bool existeDirectorio = verificarDirectorio(pathRemoto);
-                        //if (!existeDirectorio)
-                        //{
-                        //    client.CreateDirectory(pathRemoto);
-                        //}
+                    client.Connect();
 
-                        using (var memoryStream = new MemoryStream(archivoBytes))
+                    if (archivoBytes != null && archivoBytes.Length > 0)
+                    {
+                        try
                         {
-                            client.UploadFile(memoryStream, Path.Combine(pathRemoto, nombreArchivo));
+                            bool existeDirectorio = verificarDirectorio(pathRemoto);
+                            //if (!existeDirectorio)
+                            //{
+                            //    client.CreateDirectory(pathRemoto);
+                            //}
+
+                            using (var memoryStream = new MemoryStream(archivoBytes))
+                            {
+                                client.UploadFile(memoryStream, Path.Combine(pathRemoto, nombreArchivo));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Error al cargar el archivo" + ex.Message);
+                        }
+                        finally
+                        {
+                            client.Disconnect();
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        throw new Exception("Error al cargar el archivo" + ex.Message);
-                    }
-                    finally
-                    {
-                        client.Disconnect();
+                        throw new Exception("No se proporcionó un archivo válido.");
                     }
                 }
-                else
-                {
-                    throw new Exception("No se proporcionó un archivo válido.");
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al cargar el archivo" + ex.Message);
+
             }
         }
         //metodo para descargar en una ruta absoluta

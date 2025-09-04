@@ -52,6 +52,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.Urls.Add("http://localhost:5000");
-app.Urls.Add("https://localhost:5001");
+//app.Urls.Add("http://localhost:5000");
+//app.Urls.Add("https://localhost:5001");
 app.Run();
