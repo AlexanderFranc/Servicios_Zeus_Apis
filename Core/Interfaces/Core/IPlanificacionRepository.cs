@@ -24,5 +24,7 @@ namespace Core.Interfaces.Core
         bool updateFcehas(FechasPlanificacionDto fechas, int id);
 
         ResponseDto DeletePlanificacion(int idplanidicacion);
+
+        List<ComponentesPlanificacionDto> getPlanificacionSimultaneo(int idperiodo, int idfacultad, int idcarrera,int profesors, int idplanestudio, int idmodalidadplanificacio);
     }
 }

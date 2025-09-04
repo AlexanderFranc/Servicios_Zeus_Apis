@@ -21,13 +21,21 @@ public partial class InfoPlanificacion
 
     public string? CodigoPlanEstudioMalla { get; set; }
 
-    public string Modalidad { get; set; } = null!;
+    public string ModPlan { get; set; } = null!;
+
+    public string TipoPlan { get; set; } = null!;
+
+    public string TipoPlanificacion { get; set; } = null!;
 
     public string? CodigoMateria { get; set; }
 
     public string? NombreMateria { get; set; }
 
     public int? NivelMateria { get; set; }
+
+    public double? CreditosMateria { get; set; }
+
+    public int? HorasSemestralesMateria { get; set; }
 
     public string DniProfesorc { get; set; } = null!;
 
@@ -37,13 +45,19 @@ public partial class InfoPlanificacion
 
     public string? CodigoEspaciosFisicos { get; set; }
 
-    public string? NombreDia { get; set; }
+    public string? PDia { get; set; }
 
-    public string? HIni { get; set; }
+    public string? PHIni { get; set; }
 
-    public string? HFin { get; set; }
+    public string? PHFin { get; set; }
+
+    public DateTime? MFecha { get; set; }
+
+    public string? MHIni { get; set; }
+
+    public string? MHFin { get; set; }
 
     public string? CodigoSubtipoComponente { get; set; }
 
-    public string? NombreSubtipoComponente { get; set; }
+    public int? HorasComponente { get; set; }
 }

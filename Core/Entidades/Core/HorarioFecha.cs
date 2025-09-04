@@ -14,4 +14,6 @@ public partial class HorarioFecha
     public TimeOnly? HoraFin { get; set; }
 
     public int? OrdenFecha { get; set; }
+
+    public int? IdEspaciosFisicos { get; set; }
 }

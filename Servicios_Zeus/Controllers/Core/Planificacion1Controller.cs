@@ -34,21 +34,29 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpPost]
         public async Task<ActionResult<Planificacion>> Save([FromBody] PlanificacionDto1 planificacionDto)
         {
-            var config = new MapperConfiguration(cfg =>
+            try
             {
-                cfg.CreateMap<PlanificacionDto1, Planificacion>();
-            });
-            var _mapper = new Mapper(config);
-            var _planificacion = _mapper.Map<Planificacion>(planificacionDto);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<PlanificacionDto1, Planificacion>();
+                });
+                var _mapper = new Mapper(config);
+                var _planificacion = _mapper.Map<Planificacion>(planificacionDto);
 
-            _irepository.Add(_planificacion);
-            await _irepository.SaveAsync();
-            if (planificacionDto == null)
-            {
-                return BadRequest(new ApiResponse(400));
+                _irepository.Add(_planificacion);
+                await _irepository.SaveAsync();
+                if (planificacionDto == null)
+                {
+                    return BadRequest(new ApiResponse(400));
+                }
+                planificacionDto.IdPlanificacion = _planificacion.IdPlanificacion;
+                return CreatedAtAction(nameof(Save), new { IdPlanificacion = planificacionDto.IdPlanificacion });
             }
-            planificacionDto.IdPlanificacion = _planificacion.IdPlanificacion;
-            return CreatedAtAction(nameof(Save), new { IdPlanificacion = planificacionDto.IdPlanificacion });
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         //[Route("Update/{id}")]

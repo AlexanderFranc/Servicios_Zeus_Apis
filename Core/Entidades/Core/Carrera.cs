@@ -39,6 +39,8 @@ public partial class Carrera
 
     public int? IdCd { get; set; }
 
+    public bool? Tipov { get; set; }
+
     public virtual ICollection<AutoridadesCarrera> AutoridadesCarreras { get; } = new List<AutoridadesCarrera>();
 
     public virtual ICollection<DesignacionesCarrera> DesignacionesCarreras { get; } = new List<DesignacionesCarrera>();

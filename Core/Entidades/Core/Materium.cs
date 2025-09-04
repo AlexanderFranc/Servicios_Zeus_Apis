@@ -29,6 +29,8 @@ public partial class Materium
 
     public int? RefCred { get; set; }
 
+    public int? TipoMat { get; set; }
+
     public virtual ICollection<Componente> Componentes { get; } = new List<Componente>();
 
     public virtual TipoAprobacion? IdTipoAprobacionNavigation { get; set; }
