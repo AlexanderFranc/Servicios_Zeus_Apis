@@ -54,18 +54,24 @@ namespace Infraestructure.Repository.Public
                 cfg.CreateMap<UsuarioPerfil, UsuarioPerfilDto2>();
             });
 
+            var idAplicacion = _context.Aplicacions.Where(x => x.NombreAplicacion == nameaplication).Select(x => x.IdAplicacion).FirstOrDefault();
+
 
             var mapper = new Mapper(config);
 
-            var query = from c in _context.Menus.AsQueryable()
-                        join d in _context.MenuPerfils.AsQueryable() on c.IdMenu equals d.IdMenu
-                        join e in _context.UsuarioPerfils.AsQueryable() on d.IdPerfil equals e.IdPerfil
-                        join f in _context.Aplicacions on d.IdAplicacion equals f.IdAplicacion
-                        where e.NombreUsuario == username && c.IdMenuPadre == null && c.ActivoMenu == true
-                        && f.NombreAplicacion == nameaplication && e.ActivoPerfilUsuario==true 
-                        orderby c.OrdenMenu ascending
-
-                        select mapper.Map<MenuDto>(c);
+            var query = (from c in _context.Menus.AsQueryable()
+                         join d in _context.MenuPerfils.AsQueryable() on c.IdMenu equals d.IdMenu
+                         join e in _context.UsuarioPerfils.AsQueryable() on d.IdPerfil equals e.IdPerfil
+                         join f in _context.Aplicacions on d.IdAplicacion equals f.IdAplicacion
+                         where e.NombreUsuario == username
+                               && c.IdMenuPadre == null
+                               && c.ActivoMenu == true
+                               && f.NombreAplicacion == nameaplication
+                               && e.ActivoPerfilUsuario == true
+                               && e.IdAplicacion == idAplicacion
+                         orderby c.OrdenMenu ascending
+                         select mapper.Map<MenuDto>(c))
+                        .Distinct();
 
 
             return await query.ToListAsync();
@@ -79,19 +85,21 @@ namespace Infraestructure.Repository.Public
                 cfg.CreateMap<Autorizacion, AutorizacionDto>();
                 cfg.CreateMap<UsuarioPerfil, UsuarioPerfilDto2>();
             });
+            var idAplicacion = _context.Aplicacions.Where(x => x.NombreAplicacion == nameaplication).Select(x => x.IdAplicacion).FirstOrDefault();
 
 
             var mapper = new Mapper(config);
 
-            var query = from c in _context.Menus.AsQueryable()
+            var query = (from c in _context.Menus.AsQueryable()
                         join d in _context.MenuPerfils.AsQueryable() on c.IdMenu equals d.IdMenu
                         join e in _context.UsuarioPerfils.AsQueryable() on d.IdPerfil equals e.IdPerfil
                         join f in _context.Aplicacions on d.IdAplicacion equals f.IdAplicacion
                         where e.NombreUsuario == username && c.IdMenuPadre == idmenupadre && c.ActivoMenu == true 
-                        && f.NombreAplicacion == nameaplication && e.ActivoPerfilUsuario == true
+                        && f.NombreAplicacion == nameaplication && e.ActivoPerfilUsuario == true && e.IdAplicacion == idAplicacion
                         orderby c.OrdenMenu ascending
-
-                        select mapper.Map<MenuDto>(c);
+                        
+            select mapper.Map<MenuDto>(c))
+            .Distinct();
 
 
             return await query.ToListAsync();
@@ -136,12 +144,12 @@ namespace Infraestructure.Repository.Public
             ICollection<MenuDto> lspadre = await menuPadreByUser(username, nameaplication);
             ICollection<ItemMenuDto> lst = new List<ItemMenuDto>();
 
-            HashSet<string> existingMenus = new HashSet<string>(); // Para evitar duplicados
+            HashSet<string> existingMenus = new HashSet<string>();
 
             foreach (MenuDto obj in lspadre)
             {
                 if (existingMenus.Contains(obj.NombreMenu))
-                    continue; // Si ya existe, lo saltamos
+                    continue; 
 
                 ItemMenuDto menu = new ItemMenuDto();
                 ItemDto item = new ItemDto();
@@ -166,7 +174,7 @@ namespace Infraestructure.Repository.Public
                     menu.ItemsDTO = listItemHijo;
 
                 lst.Add(menu);
-                existingMenus.Add(obj.NombreMenu); // Agregamos el menú a la lista de existentes
+                existingMenus.Add(obj.NombreMenu); 
             }
 
             return lst;
