@@ -760,7 +760,7 @@ namespace Infraestructure.Repository.Core
             return response;
         }
 
-        public bool SaveSolicitudPlanEmp(List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        public bool SaveSolicitudPlanEmp(List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo, List<ProfesorSDto> lstProfesorSDto)
         {
             bool response = false;
             string ds_planTemp = "";
@@ -771,7 +771,8 @@ namespace Infraestructure.Repository.Core
             {
                 //Eliminar
                 ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD WHERE ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
-                ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);                
+                ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);
+                ds_solicitud = Conexion.deleteZeus("a from PROFESOR_S_TEMP a inner join SOLICITUD b on a.ID_PLANIFICACION = b.ID_ASOCIADO", "b.ID_EMP_TEMP_N=" + idEmpleadoNuevo);
             }
             catch
             {
@@ -798,6 +799,29 @@ namespace Infraestructure.Repository.Core
                     }
                 }
             //}
+
+            if (lstProfesorSDto.Count > 0)
+            {
+                foreach (ProfesorSDto profesorSDto in lstProfesorSDto)
+                {
+                    //if (profesorSDto.IdSolicitud == 0)
+                    //{
+                        //profesorSDto.FechaSolicitud = DateTime.Now;
+                        string fechaInicio = profesorSDto.FechaInicio != null ? "'" + Convert.ToDateTime(profesorSDto.FechaInicio).ToString("yyyy-MM-dd") + "'" : "null";
+                        string fechaFin = profesorSDto.FechaFin != null ? "'" + Convert.ToDateTime(profesorSDto.FechaFin).ToString("yyyy-MM-dd") + "'" : "null";
+                        
+                        int activo = (bool)profesorSDto.Activo ? 1 : 0;
+                    //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
+                    //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
+                    //solicitudDto.FC = DateTime.Now;
+                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
+                                                   profesorSDto.IdPs + ",'" + profesorSDto.DniProfesorc + "'," + profesorSDto.IdPlanificacion +
+                                                   ",convert(date," + fechaInicio + "),convert(date," + fechaInicio + "),'" +
+                                                   profesorSDto.Horas + "','" + profesorSDto.Tipo + "'," + activo + ",'" + profesorSDto.UC + "',GETDATE()");
+                    //}
+                }
+
+            }
             
 
 
