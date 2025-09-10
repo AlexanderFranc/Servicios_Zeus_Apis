@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
+using Microsoft.AspNetCore.Mvc;
 using Servicios_Zeus.Helpers.Errors;
-using Core.Dtos.Core;
-using AutoMapper;
+using System.Collections.Generic;
 
 
 namespace Servicios_Zeus.Controllers.Core
@@ -79,9 +80,9 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("SaveSolicitudPlanEmp")]
         [HttpPost]
-        public bool SaveSolicitudPlanEmp([FromBody] List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        public bool SaveSolicitudPlanEmp([FromBody] SaveSolicitudPlanEmpDto saveSolicitudPlanEmpDto)
         {
-            return _iSolicitud.SaveSolicitudPlanEmp(lstSolicitudDto, idEmpleadoNuevo);
+            return _iSolicitud.SaveSolicitudPlanEmp(saveSolicitudPlanEmpDto.lstSolicitudDto, saveSolicitudPlanEmpDto.idEmpleadoNuevo, saveSolicitudPlanEmpDto.lstProfesorSDto);
         }
 
         [Route("Update/{id}")]
