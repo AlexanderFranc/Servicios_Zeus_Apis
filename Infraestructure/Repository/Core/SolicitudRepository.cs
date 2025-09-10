@@ -363,6 +363,8 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
                     solicitudPlanificacion.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
 
+                    solicitudPlanificacion.profesorS = Convert.ToBoolean(row["PROFESOR_S"].ToString());
+
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();
                 }

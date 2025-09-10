@@ -59,6 +59,8 @@ namespace Core.Dtos.Core
         public DateTime? FechaInicioPlanificacion { get; set; }
         public DateTime? FechaFinPlanificacion { get; set; }
 
+        public bool profesorS { get; set; }
+
 
         //public string? CodigoMalla { get; set; }
         //public string? CodigoMateria { get; set; }
