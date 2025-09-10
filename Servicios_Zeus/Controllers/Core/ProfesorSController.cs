@@ -50,6 +50,26 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(profesors);
         }
 
+        [Route("GetAllByIdPlanificacionTemp/{idPlanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<ProfesorSDto>> GetAllByIdPlanificacionTemp(int idPlanificacion)
+        {
+            var profesors = _iiprofesors.GetAllByIdPlanificacionTemp(idPlanificacion);
+            if (profesors == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(profesors);
+        }
+
+        [Route("GetAllByIdEmpNPlanificacionTemp/{idEmpN}")]
+        [HttpGet]
+        public async Task<ActionResult<ProfesorSDto>> GetAllByIdEmpNPlanificacionTemp(int idEmpN)
+        {
+            var profesors = _iiprofesors.GetAllByIdEmpNPlanificacionTemp(idEmpN);
+            if (profesors == null)
+                return NotFound(new ApiResponse(404));
+            return Ok(profesors);
+        }
+
         [Route("SaveProfesorSList")]
         [HttpPost]
         public bool SaveProfesorSList([FromBody] List<ProfesorSDto> lstProfesorsDto, int idPlanificacion)
