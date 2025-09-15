@@ -11,5 +11,6 @@ namespace Core.Interfaces
     public interface IMateriaEquivalenteRepository : IGenericRepository<MateriaEquivalenteDto>
     {
         List<MateriaEquivalenteDto> getPlanificacionEquivalente(string periodo, int idMallaEquiv);
+        List<ComponentesPlanificacionDto> getPlanificacionE(string periodo, int idMallaEquiv);
     }
 }

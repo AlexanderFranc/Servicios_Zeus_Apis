@@ -36,5 +36,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);
         }
+
+        [Route("getPlanificacionE/{periodo}/{idMallaEquiv}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ComponentesPlanificacionDto>>> getPlanificacionE(string periodo, int idMallaEquiv)
+        {
+            var data = _iMateriaEquivalente.getPlanificacionE(periodo, idMallaEquiv);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
     }
 }
