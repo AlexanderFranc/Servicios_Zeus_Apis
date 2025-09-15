@@ -70,6 +70,7 @@ namespace Infraestructure.Repository.Core
                     planificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
                     planificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
                     planificacion.codigoPeriodo = row["CODIGO_PERIODO"].ToString();
+                    planificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
                     planificacion.idMateria = Convert.ToInt32(row["ID_MATERIA"].ToString());
                     planificacion.codigoMateria = row["CODIGO_MATERIA"].ToString();
                     planificacion.nombreMateria = row["NOMBRE_MATERIA"].ToString();
