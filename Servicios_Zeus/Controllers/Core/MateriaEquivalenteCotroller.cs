@@ -14,13 +14,13 @@ namespace Servicios_Zeus.Controllers.Core
     [ApiController]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class MateriaEquivalenteCotroller : Controller
+    public class MateriaEquivalenteController : Controller
     {
         private readonly IMateriaEquivalenteRepository _iMateriaEquivalente;
         private readonly IMapper _mapper;
         private IEmailReporsitory _emailRepo;
 
-        public MateriaEquivalenteCotroller(IMateriaEquivalenteRepository materiaequivRepo, IMapper mapper, IEmailReporsitory emailRepo)
+        public MateriaEquivalenteController(IMateriaEquivalenteRepository materiaequivRepo, IMapper mapper, IEmailReporsitory emailRepo)
         {
             _iMateriaEquivalente = materiaequivRepo;
             _mapper = mapper;
