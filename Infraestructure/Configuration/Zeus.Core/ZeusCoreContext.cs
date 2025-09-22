@@ -379,6 +379,8 @@ public partial class ZeusCoreContext : DbContext
 
     public virtual DbSet<Profesor1> Profesors1 { get; set; }
 
+    public virtual DbSet<ProfesorSTemp> ProfesorSTemps { get; set; }
+
     public virtual DbSet<Provincium> Provincia { get; set; }
 
     public virtual DbSet<ProyectoInvestigacion> ProyectoInvestigacions { get; set; }
@@ -5887,10 +5889,12 @@ public partial class ZeusCoreContext : DbContext
             entity.ToTable("MATERIA_EQUIVALENTE");
 
             entity.Property(e => e.IdMateriaEquivalente).HasColumnName("ID_MATERIA_EQUIVALENTE");
-            entity.Property(e => e.ActivoMateriaEquivalente).HasColumnName("ACTIVO_MATERIA_EQUIVALENTE");
+            entity.Property(e => e.ActivoMateriaEquivalente)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("ACTIVO_MATERIA_EQUIVALENTE");
             entity.Property(e => e.AutorizacionMateriaEquivalente).HasColumnName("AUTORIZACION_MATERIA_EQUIVALENTE");
             entity.Property(e => e.IdMalla).HasColumnName("ID_MALLA");
-            entity.Property(e => e.MalIdMalla).HasColumnName("MAL_ID_MALLA");
+            entity.Property(e => e.IdMallaEquiv).HasColumnName("ID_MALLA_EQUIV");
             entity.Property(e => e.ObservacionesMateriaEquivalente)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -5899,13 +5903,18 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("PATHAUTORIZACION_MATERIA_EQUIVALENTE");
+            entity.Property(e => e.PorcEquiv)
+                .HasColumnType("decimal(5, 2)")
+                .HasColumnName("PORC_EQUIV");
 
             entity.HasOne(d => d.IdMallaNavigation).WithMany(p => p.MateriaEquivalenteIdMallaNavigations)
                 .HasForeignKey(d => d.IdMalla)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MATERIA_EQUIVALENTE_MALLA");
 
-            entity.HasOne(d => d.MalIdMallaNavigation).WithMany(p => p.MateriaEquivalenteMalIdMallaNavigations)
-                .HasForeignKey(d => d.MalIdMalla)
+            entity.HasOne(d => d.IdMallaEquivNavigation).WithMany(p => p.MateriaEquivalenteIdMallaEquivNavigations)
+                .HasForeignKey(d => d.IdMallaEquiv)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MATERIA_EQUIVALENTE_MALLA1");
         });
 
@@ -7115,6 +7124,7 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasColumnName("DNI_PROFESORC");
+            entity.Property(e => e.Equivalente).HasColumnName("EQUIVALENTE");
             entity.Property(e => e.Fa)
                 .HasColumnType("datetime")
                 .HasColumnName("FA");
@@ -7128,7 +7138,12 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdModalidadPlanificacion).HasColumnName("ID_MODALIDAD_PLANIFICACION");
             entity.Property(e => e.IdPeriodicidadPlanificacion).HasColumnName("ID_PERIODICIDAD_PLANIFICACION");
             entity.Property(e => e.IdPeriodo).HasColumnName("ID_PERIODO");
+            entity.Property(e => e.IdPlaniEquiv).HasColumnName("ID_PLANI_EQUIV");
             entity.Property(e => e.IdTipoComponente).HasColumnName("ID_TIPO_COMPONENTE");
+            entity.Property(e => e.Observacion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("OBSERVACION");
             entity.Property(e => e.Paralelo)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -7283,6 +7298,9 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("PARALELO");
+            entity.Property(e => e.ProfesorS)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("PROFESOR_S");
             entity.Property(e => e.Tipod)
                 .HasMaxLength(1)
                 .IsUnicode(false)
@@ -7446,6 +7464,54 @@ public partial class ZeusCoreContext : DbContext
                 .HasForeignKey(d => d.IdPlanificacion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PROFESOR_S_PLANIFICACION");
+        });
+
+        modelBuilder.Entity<ProfesorSTemp>(entity =>
+        {
+            entity.HasKey(e => e.IdPsTemp).HasName("PK__PROFESOR__BE217936B3F0D4FF");
+
+            entity.ToTable("PROFESOR_S_TEMP");
+
+            entity.Property(e => e.IdPsTemp).HasColumnName("ID_PS_TEMP");
+            entity.Property(e => e.Activo)
+                .IsRequired()
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("ACTIVO");
+            entity.Property(e => e.DniProfesorc)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("DNI_PROFESORC");
+            entity.Property(e => e.Fa)
+                .HasColumnType("datetime")
+                .HasColumnName("FA");
+            entity.Property(e => e.Fc)
+                .HasColumnType("datetime")
+                .HasColumnName("FC");
+            entity.Property(e => e.FechaFin).HasColumnName("FECHA_FIN");
+            entity.Property(e => e.FechaInicio).HasColumnName("FECHA_INICIO");
+            entity.Property(e => e.Horas)
+                .HasColumnType("decimal(5, 2)")
+                .HasColumnName("HORAS");
+            entity.Property(e => e.IdPlanificacion).HasColumnName("ID_PLANIFICACION");
+            entity.Property(e => e.IdPs).HasColumnName("ID_PS");
+            entity.Property(e => e.Tipo)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("TIPO");
+            entity.Property(e => e.Ua)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("UA");
+            entity.Property(e => e.Uc)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("UC");
+
+            entity.HasOne(d => d.DniProfesorcNavigation).WithMany(p => p.ProfesorSTemps)
+                .HasPrincipalKey(p => p.IdentificacionEmp)
+                .HasForeignKey(d => d.DniProfesorc)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PROFESOR_S_TEMP_EMPLEADO");
         });
 
         modelBuilder.Entity<Provincium>(entity =>
@@ -7807,6 +7873,11 @@ public partial class ZeusCoreContext : DbContext
             });
 
             entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
+            entity.Property(e => e.DniProfesors)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("DNI_PROFESORS");
+            entity.Property(e => e.Equivalente).HasColumnName("EQUIVALENTE");
             entity.Property(e => e.Fa)
                 .HasColumnType("datetime")
                 .HasColumnName("FA");
@@ -7821,6 +7892,8 @@ public partial class ZeusCoreContext : DbContext
             entity.Property(e => e.IdEstado)
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("ID_ESTADO");
+            entity.Property(e => e.IdMallaEquiv).HasColumnName("ID_MALLA_EQUIV");
+            entity.Property(e => e.IdPs).HasColumnName("ID_PS");
             entity.Property(e => e.Motivo)
                 .HasMaxLength(500)
                 .IsUnicode(false)
@@ -7829,6 +7902,7 @@ public partial class ZeusCoreContext : DbContext
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("OBSERVACION");
+            entity.Property(e => e.Profesors).HasColumnName("PROFESORS");
             entity.Property(e => e.TipoSolicitud)
                 .HasMaxLength(15)
                 .IsUnicode(false)

@@ -23,11 +23,11 @@ namespace Infraestructure.Repository.Core
         {
         }
 
-        public List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe, int idMalla) 
+        public List<PlanificacionCruceDto> GetPlanificacionCruce(string opcion, int idplanificacion, int idperiodo, int idespaciosfisicos, string codprofe, int idMalla)
         {
             PlanificacionCruceDto cruce = new PlanificacionCruceDto();
             List<PlanificacionCruceDto> listaCruce = new List<PlanificacionCruceDto>();
-            DataSet ds_cruce = Conexion.ExecZeusCore("sp_ValidaCruceHorario", "'V'," + idplanificacion + "," + idperiodo + "," + idespaciosfisicos + "," + "'" + codprofe + "',"+idMalla);
+            DataSet ds_cruce = Conexion.ExecZeusCore("sp_ValidaCruceHorario", "'V'," + idplanificacion + "," + idperiodo + "," + idespaciosfisicos + "," + "'" + codprofe + "'," + idMalla);
             if (ds_cruce.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_cruce.Tables[0].Rows)
@@ -43,7 +43,7 @@ namespace Infraestructure.Repository.Core
                     cruce.Dia = row["DIA"].ToString();
                     cruce.HoraIni = row["HORA_INI"].ToString();
                     cruce.HoraFin = row["HORA_FIN"].ToString();
-
+                    cruce.Periodo = row["CODIGO_PERIODO"].ToString();
 
                     listaCruce.Add(cruce);
                     cruce = new PlanificacionCruceDto();
@@ -80,11 +80,12 @@ namespace Infraestructure.Repository.Core
                 myConnection.Open();
 
             //string sql = "exec " + sp + " " + campos + ";";}
-            var cmd = new SqlCommand("sp_ValidaCruceHorarioFechas", myConnection) {
+            var cmd = new SqlCommand("sp_ValidaCruceHorarioFechas", myConnection)
+            {
                 CommandType = CommandType.Text,
                 CommandTimeout = 99999999
             };
-            string? idPlani = idPlanificacion == 0 ? null : ""+idPlanificacion;
+            string? idPlani = idPlanificacion == 0 ? null : "" + idPlanificacion;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@opcion", opcion);
             cmd.Parameters.AddWithValue("@id_periodo", idperiodo);

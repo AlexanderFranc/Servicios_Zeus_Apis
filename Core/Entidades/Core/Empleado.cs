@@ -147,5 +147,7 @@ public partial class Empleado
 
     public virtual ICollection<Profesor1> Profesor1s { get; } = new List<Profesor1>();
 
+    public virtual ICollection<ProfesorSTemp> ProfesorSTemps { get; } = new List<ProfesorSTemp>();
+
     public virtual ICollection<Publicacion> Publicacions { get; } = new List<Publicacion>();
 }

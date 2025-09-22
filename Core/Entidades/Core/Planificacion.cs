@@ -34,10 +34,18 @@ public partial class Planificacion
     public string? Ua { get; set; }
 
     public DateTime? Fa { get; set; }
+
     public DateTime? FechaInicioPlanificacion { get; set; }
+
     public DateTime? FechaFinPlanificacion { get; set; }
 
     public bool? ProfesorS { get; set; }
+
+    public bool? Equivalente { get; set; }
+
+    public int? IdPlaniEquiv { get; set; }
+
+    public string? Observacion { get; set; }
 
     public virtual Profesor DniProfesorcNavigation { get; set; } = null!;
 

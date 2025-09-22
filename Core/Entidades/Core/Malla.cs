@@ -35,9 +35,9 @@ public partial class Malla
 
     public virtual PlanEstudio IdPlanEstudioNavigation { get; set; } = null!;
 
-    public virtual ICollection<MateriaEquivalente> MateriaEquivalenteIdMallaNavigations { get; } = new List<MateriaEquivalente>();
+    public virtual ICollection<MateriaEquivalente> MateriaEquivalenteIdMallaEquivNavigations { get; } = new List<MateriaEquivalente>();
 
-    public virtual ICollection<MateriaEquivalente> MateriaEquivalenteMalIdMallaNavigations { get; } = new List<MateriaEquivalente>();
+    public virtual ICollection<MateriaEquivalente> MateriaEquivalenteIdMallaNavigations { get; } = new List<MateriaEquivalente>();
 
     public virtual ICollection<Planificacion> Planificacions { get; } = new List<Planificacion>();
 
