@@ -892,7 +892,7 @@ namespace Infraestructure.Repository.Core
                     //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
                     //solicitudDto.FC = DateTime.Now;
-                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC,ID_PS_TEMP",
+                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC,ID_EMP_TEMP_N",
                                                    profesorSDto.IdPs + ",'" + profesorSDto.DniProfesorc + "'," + profesorSDto.IdPlanificacion +
                                                    ",convert(date," + fechaInicio + "),convert(date," + fechaInicio + "),'" +
                                                    profesorSDto.Horas + "','" + profesorSDto.Tipo + "'," + activo + ",'" + profesorSDto.UC + "',GETDATE()," + idEmpleadoNuevo);
