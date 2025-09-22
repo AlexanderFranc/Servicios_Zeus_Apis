@@ -178,6 +178,7 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
                     solicitudPlanificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
                     solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
 
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();
