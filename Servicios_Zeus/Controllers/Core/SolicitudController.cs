@@ -118,6 +118,16 @@ namespace Servicios_Zeus.Controllers.Core
             return Ok(data);
         }
 
+        [Route("getSolicitudPlanificacionEquivalente/{idperiodo}/{idplanestudio}/{idmodalidadplanificacio}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionEquivalente(int idperiodo, int idplanestudio, int idmodalidadplanificacio)
+        {
+            var data = _iSolicitud.getSolicitudPlanificacionEquivalente(idperiodo, idplanestudio, idmodalidadplanificacio);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
         [Route("getSolicitudPlanificacionVice/{idperiodo}/{idfacultad}/{idcarrera}/{estado}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionVice(int idperiodo, int idfacultad, int idcarrera, string estado)

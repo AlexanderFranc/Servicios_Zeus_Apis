@@ -24,5 +24,9 @@ namespace Core.Dtos.Core
         public int? idPS { get; set; }
         public string? dniProfesorS { get; set; }
         public bool? profesorS { get; set; }
+
+        public bool? equivalente { get; set; }
+
+        public int? IdMallaEquiv { get; set; }
     }
 }
