@@ -147,7 +147,7 @@ namespace Infraestructure.Repository.Core
             DateTime fInicio;
             DateTime fFin;
             List<ProfesorSDto> listprofesorsDto = new();
-            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_S_TEMP a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP inner join zeus_new.dbo.SOLICITUD c on a.ID_PLANIFICACION = c.ID_ASOCIADO", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE C.ID_EMP_TEMP_N=" + idEmpN + " order by fecha_inicio,fecha_fin");
+            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_S_TEMP a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP inner join zeus_new.dbo.SOLICITUD c on a.ID_PLANIFICACION = c.ID_ASOCIADO AND A.ID_EMP_TEMP_N = C.ID_EMP_TEMP_N ", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE C.ID_EMP_TEMP_N=" + idEmpN + " order by fecha_inicio,fecha_fin");
             if (ds_profesors.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_profesors.Tables[0].Rows)

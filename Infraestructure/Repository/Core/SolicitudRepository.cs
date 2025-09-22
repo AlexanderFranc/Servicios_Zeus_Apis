@@ -840,7 +840,7 @@ namespace Infraestructure.Repository.Core
                 //Eliminar
                 ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD WHERE ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
                 ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);
-                ds_solicitud = Conexion.deleteZeus("a from PROFESOR_S_TEMP a inner join SOLICITUD b on a.ID_PLANIFICACION = b.ID_ASOCIADO", "b.ID_EMP_TEMP_N=" + idEmpleadoNuevo);
+                ds_solicitud = Conexion.deleteZeus("a from PROFESOR_S_TEMP a inner join SOLICITUD b on a.ID_PLANIFICACION = b.ID_ASOCIADO AND A.ID_EMP_TEMP_N=B.ID_EMP_TEMP_N ", "b.ID_EMP_TEMP_N=" + idEmpleadoNuevo);
             }
             catch
             {
@@ -892,10 +892,10 @@ namespace Infraestructure.Repository.Core
                     //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
                     //solicitudDto.FC = DateTime.Now;
-                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC",
+                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC,ID_PS_TEMP",
                                                    profesorSDto.IdPs + ",'" + profesorSDto.DniProfesorc + "'," + profesorSDto.IdPlanificacion +
                                                    ",convert(date," + fechaInicio + "),convert(date," + fechaInicio + "),'" +
-                                                   profesorSDto.Horas + "','" + profesorSDto.Tipo + "'," + activo + ",'" + profesorSDto.UC + "',GETDATE()");
+                                                   profesorSDto.Horas + "','" + profesorSDto.Tipo + "'," + activo + ",'" + profesorSDto.UC + "',GETDATE()," + idEmpleadoNuevo);
                     //}
                 }
 
