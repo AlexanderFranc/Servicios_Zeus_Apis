@@ -13,6 +13,8 @@ namespace Core.Interfaces.Core
     {
         //List<SolicitudPlanificacionDto> getSolicitudes(string opcion, string tipo,string periodo, string codfac, string codcar, string estado);
         List<SolicitudPlanificacionDto> getSolicitudPlanificacion(int idperiodo, int idplanestudio, int idmodalidadplanificacio);
+        
+        List<SolicitudPlanificacionDto> getSolicitudPlanificacionEquivalente(int idperiodo, int idplanestudio, int idmodalidadplanificacio);
 
         List<SolicitudPlanificacionDto> getSolicitudPlanificacionVice(int idperiodo, int idfacultad, int idcarrera, string estado);
 
@@ -25,7 +27,7 @@ namespace Core.Interfaces.Core
         List<EmpNuevoObservacionLogDto> getLogObservacionesSolicitudNEmp(int idEmpNuevo);
         bool EditSolicitudEstado(SolicitudDto solicitudDto, int idSolicitud);
         bool EditSolicitudEmpleadoEstado(SolicitudEmpleadoDto solicitudEmpleadoDto, int idEmpleadoN);
-        bool SaveSolicitudPlanEmp(List<SolicitudDto> solicitudDto, int idEmpleadoNuevo);
+        bool SaveSolicitudPlanEmp(List<SolicitudDto> solicitudDto, int idEmpleadoNuevo, List<ProfesorSDto> lstProfesorSDto);
         bool EditSolicitud(SolicitudDto solicitudDto);
 
     }

@@ -68,7 +68,7 @@ namespace Infraestructure.Repository.Core
             SolicitudPlanificacionDto solicitudPlanificacion = new SolicitudPlanificacionDto();
             List<SolicitudPlanificacionDto> listaSolicitudPlanificacion = new List<SolicitudPlanificacionDto>();
             DataSet ds_solicitud = Conexion.BuscarZEUS_ds("PLANIFICACION_TEMP pln \r\ninner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO \r\ninner join MALLA m on m.ID_MALLA = pln.ID_MALLA \r\ninner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO\r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA and m.id_materia =mat.id_materia\r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO and ple.ID_PLAN_ESTUDIO=m.ID_PLAN_ESTUDIO\r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC\r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD\r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS \r\ninner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA\r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE \r\ninner join SOLICITUD s on S.ID_SOLICITUD = PLN.ID_SOLICITUD and s.TIPO_SOLICITUD like '%PLAN'\r\ninner join ESTADO_SOLICITUD es on S.ID_ESTADO=ES.ID_ESTADO",
-                "pln.ID_PLAN_TEMP,pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO,S.TIPO_SOLICITUD,convert(varchar(20),s.FECHA_SOLICITUD, 23) FECHA_SOLICITUD,ES.ESTADO,S.ID_SOLICITUD,ES.ID_ESTADO,pln.FECHA_INICIO_PLANIFICACION,pln.FECHA_FIN_PLANIFICACION  ", 
+                "pln.ID_PLAN_TEMP,pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO,S.TIPO_SOLICITUD,convert(varchar(20),s.FECHA_SOLICITUD, 23) FECHA_SOLICITUD,ES.ESTADO,S.ID_SOLICITUD,ES.ID_ESTADO,pln.FECHA_INICIO_PLANIFICACION,pln.FECHA_FIN_PLANIFICACION, pln.PROFESOR_S  ",
                 "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio);
             //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
             if (ds_solicitud.Tables[0].Rows.Count > 0)
@@ -115,6 +115,70 @@ namespace Infraestructure.Repository.Core
                     solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
                     solicitudPlanificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
                     solicitudPlanificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
+
+                    listaSolicitudPlanificacion.Add(solicitudPlanificacion);
+                    solicitudPlanificacion = new SolicitudPlanificacionDto();
+                }
+            }
+            return listaSolicitudPlanificacion;
+        }
+
+
+        public List<SolicitudPlanificacionDto> getSolicitudPlanificacionEquivalente(int idperiodo, int idplanestudio, int idmodalidadplanificacio)
+        {
+            SolicitudPlanificacionDto solicitudPlanificacion = new SolicitudPlanificacionDto();
+            List<SolicitudPlanificacionDto> listaSolicitudPlanificacion = new List<SolicitudPlanificacionDto>();
+            DataSet ds_solicitud = Conexion.BuscarZEUS_ds("PLANIFICACION pln  \r\ninner join SOLICITUD s on S.ID_ASOCIADO = PLN.ID_PLANIFICACION and s.TIPO_SOLICITUD like '%EQUIV' \r\ninner join ESTADO_SOLICITUD es on S.ID_ESTADO=ES.ID_ESTADO             \t\t\t\t\r\ninner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO  \r\ninner join MALLA m on m.ID_MALLA = s.ID_MALLA_EQUIV\r\ninner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO\r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA and m.id_materia =mat.id_materia \r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO and ple.ID_PLAN_ESTUDIO=m.ID_PLAN_ESTUDIO \r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC \r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD \r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS  \r\ninner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA \r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE ",
+                "pln.ID_PLANIFICACION,pln.ID_MALLA, mat.HORAS_SEMESTRALES_MATERIA, mat.CREDITOS_MATERIA, per.ID_PERIODO, per.CODIGO_PERIODO, mat.ID_MATERIA, mat.CODIGO_MATERIA, \r\nmat.NOMBRE_MATERIA, PARALELO,CUPO, pln.DNI_PROFESORC, pro.NOMBRES_EMP, pro.APELLIDO_EMP, pln.ID_MODALIDAD_PLANIFICACION, mo.NOMBRE_MODALIDAD_PE, mope.NOMBRE_MODALIDADP, \r\nef.CODIGO_ESPACIOS_FISICOS,  ple.ID_PLAN_ESTUDIO, ple.CODIGO_PLAN_ESTUDIO_MALLA, ID_PLANIFICACION, pln.ID_TIPO_COMPONENTE, pln.ID_PERIODICIDAD_PLANIFICACION, \r\nef.ID_ESPACIOS_FISICOS, per.ID_MODALIDAD, per.ID_ESTADO_PERIODO, ef.ID_NIVEL_INFRAESTRUCTURA, inf.ID_INFRAESTRUCTURA, scpt.CODIGO_SUBTIPO_COMPONENTE, \r\npln.ACTIVO,S.TIPO_SOLICITUD,convert(varchar(20),s.FECHA_SOLICITUD, 23) FECHA_SOLICITUD,ES.ESTADO,S.ID_SOLICITUD,ES.ID_ESTADO,pln.FECHA_INICIO_PLANIFICACION,pln.FECHA_FIN_PLANIFICACION, pln.PROFESOR_S  ",
+                "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio);
+            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            if (ds_solicitud.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_solicitud.Tables[0].Rows)
+                {
+                    var fi = row["FECHA_INICIO_PLANIFICACION"].ToString();
+                    var ff = row["FECHA_FIN_PLANIFICACION"].ToString();
+
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    solicitudPlanificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
+                    solicitudPlanificacion.horasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
+                    solicitudPlanificacion.creditosMateria = float.Parse(row["CREDITOS_MATERIA"].ToString());
+                    solicitudPlanificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
+                    solicitudPlanificacion.codigoPeriodo = row["CODIGO_PERIODO"].ToString();
+                    solicitudPlanificacion.idMateria = Convert.ToInt32(row["ID_MATERIA"].ToString());
+                    solicitudPlanificacion.codigoMateria = row["CODIGO_MATERIA"].ToString();
+                    solicitudPlanificacion.nombreMateria = row["NOMBRE_MATERIA"].ToString();
+                    solicitudPlanificacion.paralelo = row["PARALELO"].ToString();
+                    solicitudPlanificacion.cupo = Convert.ToInt32(row["CUPO"].ToString());
+                    solicitudPlanificacion.dniProfesorc = row["DNI_PROFESORC"].ToString();
+                    solicitudPlanificacion.nombresEmp = row["NOMBRES_EMP"].ToString();
+                    solicitudPlanificacion.apellidoEmp = row["APELLIDO_EMP"].ToString();
+                    solicitudPlanificacion.idModalidadPlanificacion = Convert.ToInt32(row["ID_MODALIDAD_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.NombreModalidadPe = row["NOMBRE_MODALIDAD_PE"].ToString();
+                    solicitudPlanificacion.NombreModalidadp = row["NOMBRE_MODALIDADP"].ToString();
+                    solicitudPlanificacion.codigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
+                    solicitudPlanificacion.idPlanEstudio = Convert.ToInt32(row["ID_PLAN_ESTUDIO"].ToString());
+                    solicitudPlanificacion.idTipoComponente = Convert.ToInt32(row["ID_TIPO_COMPONENTE"].ToString());
+                    solicitudPlanificacion.idPeriodicidad = Convert.ToInt32(row["ID_PERIODICIDAD_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.idEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
+                    solicitudPlanificacion.idModalidad = Convert.ToInt32(row["ID_MODALIDAD"].ToString());
+                    solicitudPlanificacion.IdEstadoPeriodo = Convert.ToInt32(row["ID_ESTADO_PERIODO"].ToString());
+                    solicitudPlanificacion.IdNivelInfraestructura = Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString());
+                    solicitudPlanificacion.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
+                    solicitudPlanificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
+                    solicitudPlanificacion.activo = Convert.ToBoolean(row["ACTIVO"].ToString());
+                    solicitudPlanificacion.TipoSolicitud = row["TIPO_SOLICITUD"].ToString();
+                    solicitudPlanificacion.FechaSolicitud = row["FECHA_SOLICITUD"].ToString();
+                    solicitudPlanificacion.Estado = row["ESTADO"].ToString();
+                    solicitudPlanificacion.IdSolicitud = Convert.ToInt32(row["ID_SOLICITUD"].ToString());
+                    solicitudPlanificacion.IdEstado = Convert.ToInt32(row["ID_ESTADO"].ToString());
+                    solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    solicitudPlanificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
 
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();
@@ -183,6 +247,8 @@ namespace Infraestructure.Repository.Core
                     var ff = row["FECHA_FIN_PLANIFICACION"].ToString();
                     solicitudPlanificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
                     solicitudPlanificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+
+                    solicitudPlanificacion.profesorS = Convert.ToBoolean(row["PROFESOR_S"].ToString());
 
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();
@@ -315,7 +381,7 @@ namespace Infraestructure.Repository.Core
         {
             SolicitudPlanificacionDto solicitudPlanificacion = new SolicitudPlanificacionDto();
             List<SolicitudPlanificacionDto> listaSolicitudPlanificacion = new List<SolicitudPlanificacionDto>();
-            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'PSE','PLAN',null,null,null,null,"+ idEmpleadoN);
+            DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'PSE','PLAN',null,null,null,null," + idEmpleadoN);
             //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
             if (ds_solicitud.Tables[0].Rows.Count > 0)
             {
@@ -362,6 +428,8 @@ namespace Infraestructure.Repository.Core
 
                     solicitudPlanificacion.IdPlanTemp = Convert.ToInt32(row["ID_PLAN_TEMP"].ToString());
                     solicitudPlanificacion.IdEmpNuevo = Convert.ToInt32(row["ID_EMP_NUEVO"].ToString());
+
+                    solicitudPlanificacion.profesorS = Convert.ToBoolean(row["PROFESOR_S"].ToString());
 
                     listaSolicitudPlanificacion.Add(solicitudPlanificacion);
                     solicitudPlanificacion = new SolicitudPlanificacionDto();
@@ -434,7 +502,7 @@ namespace Infraestructure.Repository.Core
         {
             EmpNuevoObservacionLogDto empNuevoObsLog = new EmpNuevoObservacionLogDto();
             List<EmpNuevoObservacionLogDto> listaempNuevoObsLog = new List<EmpNuevoObservacionLogDto>();
-            DataSet ds_empNuevoObsLog = Conexion.BuscarZEUS_ds("LOG_OBSERVACION_SOLICITUD_EMP A\r\nINNER JOIN EMPLEADO B\r\nON A.UC = B.IDENTIFICACION_EMP", "A.ID,A.FC,A.UC,B.APELLIDO_EMP +' ' + B.NOMBRES_EMP USUARIO,A.OBSERVACION ", "WHERE A.ID_EMP_NUEVO="+ idEmpNuevo + " ORDER BY FC");
+            DataSet ds_empNuevoObsLog = Conexion.BuscarZEUS_ds("LOG_OBSERVACION_SOLICITUD_EMP A\r\nINNER JOIN EMPLEADO B\r\nON A.UC = B.IDENTIFICACION_EMP", "A.ID,A.FC,A.UC,B.APELLIDO_EMP +' ' + B.NOMBRES_EMP USUARIO,A.OBSERVACION ", "WHERE A.ID_EMP_NUEVO=" + idEmpNuevo + " ORDER BY FC");
             //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
             if (ds_empNuevoObsLog.Tables[0].Rows.Count > 0)
             {
@@ -743,8 +811,8 @@ namespace Infraestructure.Repository.Core
         {
             bool response = false;
 
-            response = Conexion.ActualizarZeus("SOLICITUD", "ID_ESTADO = " + solicitudDto.IdEstado + 
-                                        ", OBSERVACION = '" + solicitudDto.Observacion + "', FA=GETDATE(), UA='" + solicitudDto.UA +"'", " Where ID_SOLICITUD = " + idSolicitud);
+            response = Conexion.ActualizarZeus("SOLICITUD", "ID_ESTADO = " + solicitudDto.IdEstado +
+                                        ", OBSERVACION = '" + solicitudDto.Observacion + "', FA=GETDATE(), UA='" + solicitudDto.UA + "'", " Where ID_SOLICITUD = " + idSolicitud);
 
             return response;
         }
@@ -755,23 +823,24 @@ namespace Infraestructure.Repository.Core
             bool response = false;
 
             response = Conexion.ActualizarZeus("EMPLEADO_TEMP_NUEVO", "ID_ESTADO = " + solicitudEmpleadoDto.IdEstado +
-                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "', FA=GETDATE(), UA='" + solicitudEmpleadoDto.UA +"'" , " Where ID_EMP_NUEVO = " + idEmpleadoN);
+                                        ", OBSERVACION = '" + solicitudEmpleadoDto.Observacion + "', FA=GETDATE(), UA='" + solicitudEmpleadoDto.UA + "'", " Where ID_EMP_NUEVO = " + idEmpleadoN);
 
             return response;
         }
 
-        public bool SaveSolicitudPlanEmp(List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        public bool SaveSolicitudPlanEmp(List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo, List<ProfesorSDto> lstProfesorSDto)
         {
             bool response = false;
             string ds_planTemp = "";
             string ds_solicitud = "";
-            
 
-            try 
+
+            try
             {
                 //Eliminar
                 ds_planTemp = Conexion.deleteZeus("PLANIFICACION_TEMP", "ID_SOLICITUD IN (SELECT ID_SOLICITUD FROM SOLICITUD WHERE ID_EMP_TEMP_N= " + idEmpleadoNuevo + ")");
-                ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);                
+                ds_solicitud = Conexion.deleteZeus("SOLICITUD", "ID_EMP_TEMP_N=" + idEmpleadoNuevo);
+                ds_solicitud = Conexion.deleteZeus("a from PROFESOR_S_TEMP a inner join SOLICITUD b on a.ID_PLANIFICACION = b.ID_ASOCIADO AND A.ID_EMP_TEMP_N=B.ID_EMP_TEMP_N ", "b.ID_EMP_TEMP_N=" + idEmpleadoNuevo);
             }
             catch
             {
@@ -780,30 +849,66 @@ namespace Infraestructure.Repository.Core
 
             //if (ds_planTemp == "1" && ds_solicitud == "1")
             //{ 
-                foreach (SolicitudDto solicitudDto in lstSolicitudDto)
+            foreach (SolicitudDto solicitudDto in lstSolicitudDto)
+            {
+                if (solicitudDto.IdSolicitud == 0)
                 {
-                    if (solicitudDto.IdSolicitud == 0)
-                    {
                     solicitudDto.FechaSolicitud = DateTime.Now;
                     string fechaSolicitud = solicitudDto.FechaSolicitud != null ? "'" + Convert.ToDateTime(solicitudDto.FechaSolicitud).ToString("yyyy-MM-dd") + "'" : "null";
+                    int profesorS = (bool)solicitudDto.profesorS ? 1 : 0;
                     //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
                     //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
                     //solicitudDto.FC = DateTime.Now;
-                    response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC",
+                    string idPs = "";
+                    if (string.IsNullOrEmpty(solicitudDto.idPS.ToString()))
+                    {
+                        idPs = "null";
+                    }
+                    else
+                    {
+                        idPs = solicitudDto.idPS.ToString();
+                    }
+                    response = Conexion.InsertarZeusCore("SOLICITUD", "TIPO_SOLICITUD, FECHA_SOLICITUD, ID_ASOCIADO, ID_EMP_TEMP_N, ID_ESTADO, MOTIVO, OBSERVACION,UC,FC,ID_PS,DNI_PROFESORS,PROFESORS",
                                                    "'" + solicitudDto.TipoSolicitud + "',convert(date," + fechaSolicitud + ")," + solicitudDto.IdAsociado + "," + solicitudDto.IdEmpTempN + "," +
                                                    solicitudDto.IdEstado + ",'" +
-                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()");
-                    }
+                                                   solicitudDto.Motivo + "','" + solicitudDto.Observacion + "','" + solicitudDto.UC + "',GETDATE()," +
+                                                   idPs + ",'" + solicitudDto.dniProfesorS + "'," + profesorS);
                 }
+            }
             //}
-            
+
+            if (lstProfesorSDto.Count > 0)
+            {
+                foreach (ProfesorSDto profesorSDto in lstProfesorSDto)
+                {
+                    //if (profesorSDto.IdSolicitud == 0)
+                    //{
+                    //profesorSDto.FechaSolicitud = DateTime.Now;
+                    //string fechaInicio = profesorSDto.FechaInicio != null ? "'" + Convert.ToDateTime(profesorSDto.FechaInicio).ToString("yyyy-MM-dd") + "'" : "null";
+                    //string fechaFin = profesorSDto.FechaFin != null ? "'" + Convert.ToDateTime(profesorSDto.FechaFin).ToString("yyyy-MM-dd") + "'" : "null";
+                    string fechaInicio = "'" + profesorSDto.FechaInicio.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") + "'";
+                    string fechaFin = "'" + profesorSDto.FechaFin.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd") + "'";
+                    int activo = (bool)profesorSDto.Activo ? 1 : 0;
+                    //string fechaCrea = solicitudDto.FC != null ? "'" + Convert.ToDateTime(solicitudDto.FC).ToString("yyyy-MM-dd") + "'" : "null";
+                    //string fechaActualiza = solicitudDto.FA != null ? "'" + Convert.ToDateTime(solicitudDto.FA).ToString("yyyy-MM-dd") + "'" : "null";
+                    //solicitudDto.FC = DateTime.Now;
+                    response = Conexion.InsertarZeusCore("PROFESOR_S_TEMP", "ID_PS,DNI_PROFESORC,ID_PLANIFICACION,FECHA_INICIO,FECHA_FIN,HORAS,TIPO,ACTIVO,UC,FC,ID_EMP_TEMP_N",
+                                                   profesorSDto.IdPs + ",'" + profesorSDto.DniProfesorc + "'," + profesorSDto.IdPlanificacion +
+                                                   ",convert(date," + fechaInicio + "),convert(date," + fechaInicio + "),'" +
+                                                   profesorSDto.Horas + "','" + profesorSDto.Tipo + "'," + activo + ",'" + profesorSDto.UC + "',GETDATE()," + idEmpleadoNuevo);
+                    //}
+                }
+
+            }
+
 
 
 
             return response;
         }
 
-        public bool EditSolicitud(SolicitudDto solicitudDto) {
+        public bool EditSolicitud(SolicitudDto solicitudDto)
+        {
 
             bool response = false;
 

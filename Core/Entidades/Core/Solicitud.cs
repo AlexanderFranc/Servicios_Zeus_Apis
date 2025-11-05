@@ -29,6 +29,16 @@ public partial class Solicitud
 
     public DateTime? Fa { get; set; }
 
+    public int? IdPs { get; set; }
+
+    public string? DniProfesors { get; set; }
+
+    public bool? Profesors { get; set; }
+
+    public bool? Equivalente { get; set; }
+
+    public int? IdMallaEquiv { get; set; }
+
     public virtual EstadoSolicitud IdEstadoNavigation { get; set; } = null!;
 
     public virtual ICollection<PlanificacionTemp> PlanificacionTemps { get; } = new List<PlanificacionTemp>();

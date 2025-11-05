@@ -79,7 +79,7 @@ namespace Infraestructure.Repository.Core
             DateTime fInicio;
             DateTime fFin;
             List<ProfesorSDto> listprofesorsDto = new();
-            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_s a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion + " order by fecha_inicio,fecha_fin");
+            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_S a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion + " order by fecha_inicio,fecha_fin");
             if (ds_profesors.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_profesors.Tables[0].Rows)
@@ -94,6 +94,74 @@ namespace Infraestructure.Repository.Core
 
                     profesorsDto.FechaInicio= DateOnly.FromDateTime(fInicio);
                     profesorsDto.FechaFin= DateOnly.FromDateTime(fFin);
+                    //profesorsDto.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
+                    //profesorsDto.FechaFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
+                    profesorsDto.Horas = Convert.ToDecimal(row["HORAS"].ToString());
+                    profesorsDto.Tipo = row["TIPO"].ToString();
+
+
+                    listprofesorsDto.Add(profesorsDto);
+                }
+            }
+            return listprofesorsDto;
+
+        }
+
+        public List<ProfesorSDto> GetAllByIdPlanificacionTemp(int idPlanificacion)
+        {
+            ProfesorSDto profesorsDto;
+            DateTime fInicio;
+            DateTime fFin;
+            List<ProfesorSDto> listprofesorsDto = new();
+            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_S_TEMP a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE A.ID_PLANIFICACION=" + idPlanificacion + " order by fecha_inicio,fecha_fin");
+            if (ds_profesors.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_profesors.Tables[0].Rows)
+                {
+                    profesorsDto = new();
+                    profesorsDto.IdPs = Convert.ToInt32(row["ID_PS"].ToString());
+                    profesorsDto.IdPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    profesorsDto.Docente = row["DOCENTE"].ToString() ?? string.Empty;
+                    profesorsDto.DniProfesorc = row["DNI_PROFESORC"].ToString() ?? string.Empty;
+                    fInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
+                    fFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
+
+                    profesorsDto.FechaInicio = DateOnly.FromDateTime(fInicio);
+                    profesorsDto.FechaFin = DateOnly.FromDateTime(fFin);
+                    //profesorsDto.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
+                    //profesorsDto.FechaFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
+                    profesorsDto.Horas = Convert.ToDecimal(row["HORAS"].ToString());
+                    profesorsDto.Tipo = row["TIPO"].ToString();
+
+
+                    listprofesorsDto.Add(profesorsDto);
+                }
+            }
+            return listprofesorsDto;
+
+        }
+
+        public List<ProfesorSDto> GetAllByIdEmpNPlanificacionTemp(int idEmpN)
+        {
+            ProfesorSDto profesorsDto;
+            DateTime fInicio;
+            DateTime fFin;
+            List<ProfesorSDto> listprofesorsDto = new();
+            var ds_profesors = Conexion.BuscarZEUS_ds("zeus_new.dbo.PROFESOR_S_TEMP a inner join zeus_new.dbo.EMPLEADO b on a.dni_profesorc = b.IDENTIFICACION_EMP inner join zeus_new.dbo.SOLICITUD c on a.ID_PLANIFICACION = c.ID_ASOCIADO AND A.ID_EMP_TEMP_N = C.ID_EMP_TEMP_N ", "a.ID_PS,A.ID_PLANIFICACION,a.DNI_PROFESORC,b.APELLIDO_EMP +' ' +b.NOMBRES_EMP DOCENTE,a.FECHA_INICIO,a.FECHA_FIN,a.HORAS,a.TIPO,a.ACTIVO", "WHERE C.ID_EMP_TEMP_N=" + idEmpN + " order by fecha_inicio,fecha_fin");
+            if (ds_profesors.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_profesors.Tables[0].Rows)
+                {
+                    profesorsDto = new();
+                    profesorsDto.IdPs = Convert.ToInt32(row["ID_PS"].ToString());
+                    profesorsDto.IdPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    profesorsDto.Docente = row["DOCENTE"].ToString() ?? string.Empty;
+                    profesorsDto.DniProfesorc = row["DNI_PROFESORC"].ToString() ?? string.Empty;
+                    fInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
+                    fFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
+
+                    profesorsDto.FechaInicio = DateOnly.FromDateTime(fInicio);
+                    profesorsDto.FechaFin = DateOnly.FromDateTime(fFin);
                     //profesorsDto.FechaInicio = Convert.ToDateTime(row["FECHA_INICIO"].ToString());
                     //profesorsDto.FechaFin = Convert.ToDateTime(row["FECHA_FIN"].ToString());
                     profesorsDto.Horas = Convert.ToDecimal(row["HORAS"].ToString());

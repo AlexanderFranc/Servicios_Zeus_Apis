@@ -13,6 +13,9 @@ namespace Core.Interfaces.Core
     {
         Task<List<Profesor1>> GetByIdPlanificacion(int idPlanificacion);
         List<ProfesorSDto> GetAllByIdPlanificacion(int idPlanificacion);
+
+        List<ProfesorSDto> GetAllByIdPlanificacionTemp(int idPlanificacion);
+        List<ProfesorSDto> GetAllByIdEmpNPlanificacionTemp(int idEmpN);
         bool SaveProfesorS(ProfesorSDto profesorsDto);
         bool SaveProfesorSList(List<ProfesorSDto> lstProfesorsDto, int idPlanificacion);
         ResponseDto DeleteProfesorS(int idplanidicacion, string usuario);

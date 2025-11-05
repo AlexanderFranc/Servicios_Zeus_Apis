@@ -7,9 +7,11 @@ public partial class MateriaEquivalente
 {
     public int IdMateriaEquivalente { get; set; }
 
-    public int? IdMalla { get; set; }
+    public int IdMalla { get; set; }
 
-    public int? MalIdMalla { get; set; }
+    public int IdMallaEquiv { get; set; }
+
+    public decimal PorcEquiv { get; set; }
 
     public string? ObservacionesMateriaEquivalente { get; set; }
 
@@ -19,7 +21,7 @@ public partial class MateriaEquivalente
 
     public bool? ActivoMateriaEquivalente { get; set; }
 
-    public virtual Malla? IdMallaNavigation { get; set; }
+    public virtual Malla IdMallaEquivNavigation { get; set; } = null!;
 
-    public virtual Malla? MalIdMallaNavigation { get; set; }
+    public virtual Malla IdMallaNavigation { get; set; } = null!;
 }

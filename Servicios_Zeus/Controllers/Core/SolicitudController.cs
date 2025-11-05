@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
+using Microsoft.AspNetCore.Mvc;
 using Servicios_Zeus.Helpers.Errors;
-using Core.Dtos.Core;
-using AutoMapper;
+using System.Collections.Generic;
 
 
 namespace Servicios_Zeus.Controllers.Core
@@ -79,9 +80,9 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("SaveSolicitudPlanEmp")]
         [HttpPost]
-        public bool SaveSolicitudPlanEmp([FromBody] List<SolicitudDto> lstSolicitudDto, int idEmpleadoNuevo)
+        public bool SaveSolicitudPlanEmp([FromBody] SaveSolicitudPlanEmpDto saveSolicitudPlanEmpDto)
         {
-            return _iSolicitud.SaveSolicitudPlanEmp(lstSolicitudDto, idEmpleadoNuevo);
+            return _iSolicitud.SaveSolicitudPlanEmp(saveSolicitudPlanEmpDto.lstSolicitudDto, saveSolicitudPlanEmpDto.idEmpleadoNuevo, saveSolicitudPlanEmpDto.lstProfesorSDto);
         }
 
         [Route("Update/{id}")]
@@ -112,6 +113,16 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacion(int idperiodo, int idplanestudio, int idmodalidadplanificacio)
         {
             var data = _iSolicitud.getSolicitudPlanificacion(idperiodo,idplanestudio,idmodalidadplanificacio);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
+
+        [Route("getSolicitudPlanificacionEquivalente/{idperiodo}/{idplanestudio}/{idmodalidadplanificacio}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SolicitudPlanificacionDto>>> getSolicitudPlanificacionEquivalente(int idperiodo, int idplanestudio, int idmodalidadplanificacio)
+        {
+            var data = _iSolicitud.getSolicitudPlanificacionEquivalente(idperiodo, idplanestudio, idmodalidadplanificacio);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
             return Ok(data);

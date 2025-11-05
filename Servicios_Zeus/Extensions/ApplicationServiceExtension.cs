@@ -3,6 +3,7 @@ using Core.Dtos.Ftp;
 using Core.Dtos.Public;
 using Core.Entidades.Core;
 using Core.Entidades.Public;
+using Core.Interfaces;
 using Core.Interfaces.Core;
 using Core.Interfaces.Ftp;
 using Core.Interfaces.Generico;
@@ -136,6 +137,7 @@ namespace Servicios_Zeus.Extensions
             services.AddScoped<IAulaRepository, AulaRepository>();
             services.AddScoped<IProfesorSRepository, ProfesorSRepository>();
             services.AddScoped<IRelacionFamRepository, RelacionFamRepository>();
+            services.AddScoped<IMateriaEquivalenteRepository, MateriaEquivalenteRepository>();
 
         }
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
