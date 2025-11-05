@@ -95,50 +95,17 @@ namespace Infraestructure.Repository.Public
                         join e in _context.UsuarioPerfils.AsQueryable() on d.IdPerfil equals e.IdPerfil
                         join f in _context.Aplicacions on d.IdAplicacion equals f.IdAplicacion
                         where e.NombreUsuario == username && c.IdMenuPadre == idmenupadre && c.ActivoMenu == true 
-                        && f.NombreAplicacion == nameaplication && e.ActivoPerfilUsuario == true && e.IdAplicacion == idAplicacion
-                        orderby c.OrdenMenu ascending
-                        
-            select mapper.Map<MenuDto>(c))
+                        && f.NombreAplicacion == nameaplication && e.ActivoPerfilUsuario == true && e.IdAplicacion == idAplicacion                     
+            select c)
             .Distinct();
+            var menus= await query.ToListAsync();
 
+            var menuDtos = menus.Select(c => mapper.Map<MenuDto>(c)).ToList();
 
-            return await query.ToListAsync();
+            return menuDtos.OrderBy(x=>x.OrdenMenu).ToList();
         }
 
 
-
-
-        //public async Task<ICollection<ItemMenuDto>> findMenuItems(string username, string nameaplication)
-        //{
-
-        //    ICollection<MenuDto> lspadre=await menuPadreByUser(username,nameaplication);
-        //    ICollection<ItemMenuDto> lst = new List<ItemMenuDto>();
-        //    foreach (MenuDto obj in lspadre)
-        //    {
-        //        ItemMenuDto menu = new ItemMenuDto();
-        //        ItemDto item = new ItemDto();
-        //        item.label=obj.NombreMenu;
-        //        item.icon=obj.IconoMenu;
-        //        item.url=obj.UrlMenu;
-
-        //        ICollection<MenuDto> lstHijo =await menuHijoByUser(obj.IdMenu, username,nameaplication);
-        //        List<ItemDto> listItemHijo = new List<ItemDto>();
-        //        foreach (MenuDto objHijo in lstHijo)
-        //        {
-        //            ItemDto itemHijo = new ItemDto();
-        //            itemHijo.label=objHijo.NombreMenu;
-        //            itemHijo.icon=objHijo.IconoMenu;
-        //            itemHijo.routerLink=objHijo.UrlMenu;
-        //            listItemHijo.Add(itemHijo);
-        //        }
-
-        //        menu.ItemDTO=item;
-        //        if (lstHijo.Count > 0)
-        //            menu.ItemsDTO=listItemHijo;
-        //        lst.Add(menu);
-        //    }
-        //    return lst;
-        //}
         public async Task<ICollection<ItemMenuDto>> findMenuItems(string username, string nameaplication)
         {
             ICollection<MenuDto> lspadre = await menuPadreByUser(username, nameaplication);
