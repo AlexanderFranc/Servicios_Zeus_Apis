@@ -246,5 +246,42 @@ namespace Infraestructure.Repository.Core
 
             return lstcontenedorhoras;
         }
+
+
+        public List<AulasDto> GetAulas(int activo)
+        {
+            AulasDto aula = new AulasDto();
+            List<AulasDto> listaAulas = new List<AulasDto>();
+            DataSet ds_aulas = Conexion.BuscarZEUS_ds(
+                "ESPACIOS_FISICOS ef\r\ninner join nivel_infraestructura ni\r\non ef.id_nivel_infraestructura = ni.id_nivel_infraestructura\r\ninner join infraestructura i\r\non ni.id_infraestructura = i.id_infraestructura\r\ninner join campus c\r\non i.id_campus = c.id_campus\r\ninner join tipo_espacio te\r\non ef.id_tipo_Espacio = te.id_tipo_espacio  ",
+                "c.ID_CAMPUS,c.NOMBRE_CAMPUS,i.ID_INFRAESTRUCTURA,i.CODIGO_INFRAESTRUCTURA,i.NOMBRE_INFRAESTRUCTURA,ni.ID_NIVEL_INFRAESTRUCTURA,\r\nni.CODIGO_NIVEL_INFRAESTRUCTURA,ni.NOMBRE_NIVEL_INFRAESTRUCTURA,ef.ID_ESPACIOS_FISICOS,ef.CODIGO_ESPACIOS_FISICOS,te.CODIGO_TIPO_ESPACIO,te.NOMBRE_TIPO_ESPACIO,ef.CAPACIDAD_TOTAL_ESPACIOS_FISICOS,ef.ACTIVO_ESPACIOS_FISICOS",
+                "where ef.ACTIVO_ESPACIOS_FISICOS = case when   " + activo + " <0 then ef.ACTIVO_ESPACIOS_FISICOS else "+  activo + " end order by 1,2,3,4,5,6");
+            //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
+            if (ds_aulas.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_aulas.Tables[0].Rows)
+                {                   
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    aula.IdCampus = Convert.ToInt32(row["ID_CAMPUS"].ToString());
+                    aula.NombreCampus = row["NOMBRE_CAMPUS"].ToString();
+                    aula.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
+                    aula.CodigoInfraestructura = row["CODIGO_INFRAESTRUCTURA"].ToString();
+                    aula.NombreInfraestructura = row["NOMBRE_INFRAESTRUCTURA"].ToString();
+                    aula.IdNivelInfraestructura = Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString());
+                    aula.CodigoNivelInfraestructura = row["CODIGO_NIVEL_INFRAESTRUCTURA"].ToString();
+                    aula.NombreNivelInfraestructura = row["NOMBRE_NIVEL_INFRAESTRUCTURA"].ToString();
+                    aula.IdEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
+                    aula.CodigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
+                    aula.CodigoTipoEspacio = row["CODIGO_TIPO_ESPACIO"].ToString();
+                    aula.NombreTipoEspacio = row["NOMBRE_TIPO_ESPACIO"].ToString();
+                    aula.CapacidadTotalEspaciosFisicos = Convert.ToInt32(row["CAPACIDAD_TOTAL_ESPACIOS_FISICOS"].ToString());
+
+
+                    listaAulas.Add(aula);
+                    aula = new AulasDto();
+                }
+            }
+            return listaAulas;
+        }
     }
 }

@@ -30,5 +30,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(data);
         }
+
+        [Route("getAulas/{activo}")]
+        [HttpGet]
+        public async Task<ActionResult<List<AulasDto>>> GetAulas(int activo)
+        {
+            var data = _iAulaRepository.GetAulas(activo);
+            if (data == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
+            return Ok(data);
+        }
     }
 }
