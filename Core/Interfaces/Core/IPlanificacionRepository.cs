@@ -26,5 +26,7 @@ namespace Core.Interfaces.Core
         ResponseDto DeletePlanificacion(int idplanidicacion);
 
         List<ComponentesPlanificacionDto> getPlanificacionSimultaneo(int idperiodo, int idfacultad, int idcarrera,int profesors, int idplanestudio, int idmodalidadplanificacio);
+
+        List<ReportePlanificacionDto> getReportePlanificacion(int idperiodo, int idfacultad, int idcarrera, int idplanestudio, string tipoPlanificacion);
     }
 }

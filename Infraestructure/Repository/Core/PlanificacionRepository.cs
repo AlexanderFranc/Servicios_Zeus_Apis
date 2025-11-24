@@ -330,5 +330,50 @@ namespace Infraestructure.Repository.Core
             }
             return listaPlanificacion;
         }
+
+
+        public List<ReportePlanificacionDto> getReportePlanificacion(int idperiodo, int idfacultad, int idcarrera, int idplanestudio, string tipoPlanificacion)
+        {
+            ReportePlanificacionDto planificacion = new ReportePlanificacionDto();
+            List<ReportePlanificacionDto> listaPlanificacion = new List<ReportePlanificacionDto>();
+            DataSet ds_planificacion = Conexion.ExecZeusCore("[sp_ReportePlanificacion]", "'P'," + idperiodo + "," + idfacultad + "," + idcarrera + "," + idplanestudio + ",'" +tipoPlanificacion + "'");
+            if (ds_planificacion.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
+                {
+                    //var fi = row["FECHA_INICIO_PLANIFICACION"].ToString();
+                    //var ff = row["FECHA_FIN_PLANIFICACION"].ToString();
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    //planificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
+
+                    planificacion.CodigoPeriodo = row["CODIGO_PERIODO"].ToString();
+                    planificacion.CodigoTextoPeriodo = row["CODIGO_TEXTO_PERIODO"].ToString();
+                    planificacion.CodigoFacultad = row["CODIGO_FACULTAD"].ToString();
+                    planificacion.NombreFacultad = row["NOMBRE_FACULTAD"].ToString();
+                    planificacion.CodigoCarrera = row["CODIGO_CARRERA"].ToString();
+                    planificacion.NombreCarrera = row["NOMBRE_CARRERA"].ToString();
+                    planificacion.CodigoPlanEstudioMalla = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
+                    planificacion.ModalidadPlane = row["MODALIDAD_PLANE"].ToString();
+                    planificacion.ModalidadPlanificacion = row["MODALIDAD_PLANIFICACION"].ToString();
+                    planificacion.PeriodicidadPlanificacion = row["PERIODICIDAD_PLANIFICACION"].ToString();
+                    planificacion.NivelMateria = Convert.ToInt32(row["NIVEL_MATERIA"].ToString());
+                    planificacion.CodigoMateria = row["CODIGO_MATERIA"].ToString();
+                    planificacion.NombreMateria = row["NOMBRE_MATERIA"].ToString();
+                    planificacion.Paralelo = row["PARALELO"].ToString();
+                    planificacion.CreditosMateria = Convert.ToDouble(row["CREDITOS_MATERIA"].ToString());
+                    planificacion.HorasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
+                    planificacion.DniProfesorc = row["DNI_PROFESORC"].ToString();
+                    planificacion.Profesor = row["PROFESOR"].ToString();
+                    planificacion.PlanificacionCupo = Convert.ToInt32(row["PLANIFICACION_CUPO"].ToString());
+                    planificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
+                    planificacion.HorasComponente = Convert.ToInt32(row["HORAS_COMPONENTE"].ToString());
+
+
+                    listaPlanificacion.Add(planificacion);
+                    planificacion = new ReportePlanificacionDto();
+                }
+            }
+            return listaPlanificacion;
+        }
     }
 }
