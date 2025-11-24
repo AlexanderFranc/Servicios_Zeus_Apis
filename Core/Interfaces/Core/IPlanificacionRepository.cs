@@ -28,5 +28,7 @@ namespace Core.Interfaces.Core
         List<ComponentesPlanificacionDto> getPlanificacionSimultaneo(int idperiodo, int idfacultad, int idcarrera,int profesors, int idplanestudio, int idmodalidadplanificacio);
 
         List<ReportePlanificacionDto> getReportePlanificacion(int idperiodo, int idfacultad, int idcarrera, int idplanestudio, string tipoPlanificacion);
+
+        List<ReportePlanificacionDto> getReportePlanificacionHorario(int idperiodo, int idfacultad, int idcarrera, int idplanestudio, string tipoPlanificacion);
     }
 }

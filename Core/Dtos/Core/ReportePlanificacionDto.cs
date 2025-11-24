@@ -30,5 +30,16 @@ namespace Core.Dtos.Core
         public string CodigoSubtipoComponente { get; set; } = null!;
         public int HorasComponente { get; set; }
 
+        public int IdEspaciosFisicos { get; set; }
+        public string CodigoEspaciosFisicos { get; set; } = null!;
+        public int AulaCapacidad { get; set; }
+        public string PDia { get; set; } = null!;
+        public string PHIni { get; set; } = null!;
+        public string PHFin { get; set; } = null!;
+        public string MFecha { get; set; } = null!;
+        public string MHIni { get; set; } = null!;
+        public string MHFin { get; set; } = null!;
+
+
     }
 }

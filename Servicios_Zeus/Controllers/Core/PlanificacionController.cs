@@ -130,5 +130,15 @@ namespace Servicios_Zeus.Controllers.Core
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             return Ok(planestudio);
         }
+
+        [Route("GetReportePlanificacionHorario/{idperiodo}/{idfacultad}/{idcarrera}/{idplanestudio}/{tipoPlanificacion}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ReportePlanificacionDto>>> getReportePlanificacionHorario(int idperiodo, int idfacultad, int idcarrera, int idplanestudio, string tipoPlanificacion)
+        {
+            var planestudio = _iplan.getReportePlanificacionHorario(idperiodo, idfacultad, idcarrera, idplanestudio, tipoPlanificacion);
+            if (planestudio == null)
+                return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            return Ok(planestudio);
+        }
     }
 }
