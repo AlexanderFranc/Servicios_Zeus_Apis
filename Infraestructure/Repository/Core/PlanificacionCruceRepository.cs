@@ -70,7 +70,7 @@ namespace Infraestructure.Repository.Core
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile(Conexion.GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("ZEUS");
 
@@ -161,7 +161,7 @@ namespace Infraestructure.Repository.Core
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile(Conexion.GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("ZEUS");
 

@@ -13,11 +13,13 @@ using Infraestructure.Repository.Public;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Servicios_Zeus.Helpers.Errors;
 using System.Text;
 using System.Text.Json.Serialization;
-
+using Infraestructure.Configuration.Zeus.Public;
+using Infraestructure.Configuration.Zeus.Core;
 
 namespace Servicios_Zeus.Extensions
 {
@@ -29,17 +31,25 @@ namespace Servicios_Zeus.Extensions
             options.AddPolicy("CorsPolicy", builder =>
             //builder.AllowAnyOrigin()
             //builder.WithOrigins("https://zeustest3.uisek.edu.ec", "http://zeustest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "https://eidtest3.uisek.edu.ec", "https://evaluacionestest.uisek.edu.ec", "http://eidtest3.uisek.edu.ec", "http://evaluacionestest.uisek.edu.ec")
-             builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
-             //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
-             //builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec","https://silabo.uisek.edu.ec","http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007","http://silabotest.uisek.edu.ec")
+            //builder.WithOrigins("http://localhost:4200", "https://localhost:7157")
+            //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "zeustest.uisek.edu.ec")
+            builder.WithOrigins("https://evaluaciones.uisek.edu.ec", "http://evaluaciones.uisek.edu.ec", "https://zeus.uisek.edu.ec", "http://zeus.uisek.edu.ec", "https://silabo.uisek.edu.ec", "http://silabo.uisek.edu.ec", "https://localhost:9007", "http://localhost:9007", "http://silabotest.uisek.edu.ec")
             .AllowAnyHeader()
             .AllowAnyMethod());
         });
 
-        public static void AddAplicationService(this IServiceCollection services)
+        public static void AddAplicationService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<Infraestructure.Configuration.Zeus.Public.ZeusPublicContext, Infraestructure.Configuration.Zeus.Public.ZeusPublicContext>();
-            services.AddTransient<Infraestructure.Configuration.Zeus.Core.ZeusCoreContext, Infraestructure.Configuration.Zeus.Core.ZeusCoreContext>();
+            // --- ZeusPublicContext ---
+            var zeusPublicConnString = configuration.GetConnectionString("ZEUS_PUBLIC");
+            services.AddDbContext<ZeusPublicContext>(options =>
+                options.UseSqlServer(zeusPublicConnString)
+            );
+            // --- ZeusCoreContext ---
+            var zeusCoreConnString = configuration.GetConnectionString("ZEUS");
+            services.AddDbContext<ZeusCoreContext>(options =>
+                options.UseSqlServer(zeusCoreConnString)
+            );
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericCoreRepository<>));
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericPublicRepository<>));
             services.AddTransient<IPaisRepository, PaisRepository>();

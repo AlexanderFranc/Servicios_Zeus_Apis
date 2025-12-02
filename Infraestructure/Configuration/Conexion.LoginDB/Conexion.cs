@@ -1,17 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 namespace Infraestructure.Configuration.Conexion.LoginDB
 {
     public class Conexion
     {
+        public static string GetEnvironmentFileName()
+        {
+            string? environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            return $"appsettings.{environmentName}.json";
+        }
+
         public static SqlConnection CreateConnectionTutorias()
         {
             var builder = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                            .AddJsonFile(GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("TutoriasTitulacion");
             return new SqlConnection(myconectionString);
@@ -20,7 +24,7 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile(GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("ZEUS");
             return new SqlConnection(myconectionString);
@@ -31,7 +35,7 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
         {
             var builder = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                            .AddJsonFile(GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("MatriculaUmas");
             return new SqlConnection(myconectionString);
@@ -41,7 +45,7 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
         {
             var builder = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                            .AddJsonFile(GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("UISEKALUMNI");
             return new SqlConnection(myconectionString);
@@ -50,7 +54,7 @@ namespace Infraestructure.Configuration.Conexion.LoginDB
         {
             var builder = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                            .AddJsonFile(GetEnvironmentFileName(), optional: true, reloadOnChange: true);
             IConfiguration _configuration = builder.Build();
             var myconectionString = _configuration.GetConnectionString("NAVISION");
             return new SqlConnection(myconectionString);

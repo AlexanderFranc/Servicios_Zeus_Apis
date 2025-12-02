@@ -7,10 +7,6 @@ using Microsoft.Extensions.Configuration;
 namespace Infraestructure.Configuration.Zeus.Public;
 public partial class ZeusPublicContext : DbContext
 {
-    public ZeusPublicContext()
-    {
-    }
-
     public ZeusPublicContext(DbContextOptions<ZeusPublicContext> options)
         : base(options)
     {
@@ -39,13 +35,6 @@ public partial class ZeusPublicContext : DbContext
     public virtual DbSet<UsuarioFa> UsuarioFas { get; set; }
 
     public virtual DbSet<UsuarioPerfil> UsuarioPerfils { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-        .AddJsonFile("appsettings.json").Build();
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("ZEUS_PUBLIC"));
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("Latin1_General_CI_AI");
