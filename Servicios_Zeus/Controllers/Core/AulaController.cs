@@ -73,13 +73,12 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("infraestructuras")]
         [HttpGet]
-        public async Task<ActionResult> GetInfraestructuras([FromServices] IInfraestructuraRepository repoInfra)
+        public async Task<ActionResult> GetInfraestructuras([FromServices] ZeusCoreContext db)
         {
-            var items = await repoInfra.GetAllAsync();
+            var items = await db.Infraestructuras.AsNoTracking().ToListAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron infraestructuras."));
             
-            // Proyección para evitar referencias circulares y coincidir con el frontend
             var result = items.Select(x => new 
             { 
                 idInfraestructura = x.IdInfraestructura, 
@@ -90,13 +89,12 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("niveles-infraestructura")]
         [HttpGet]
-        public async Task<ActionResult> GetNivelesInfraestructura([FromServices] INivelInfraestructuraRepository repoNivel)
+        public async Task<ActionResult> GetNivelesInfraestructura([FromServices] ZeusCoreContext db)
         {
-            var items = await repoNivel.GetAllAsync();
+            var items = await db.NivelInfraestructuras.AsNoTracking().ToListAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron niveles de infraestructura."));
             
-            // Proyección para evitar referencias circulares y coincidir con el frontend
             var result = items.Select(x => new 
             { 
                 idNivelInfraestructura = x.IdNivelInfraestructura, 
@@ -108,13 +106,12 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("espacios-fisicos-combo")]
         [HttpGet]
-        public async Task<ActionResult> GetEspaciosFisicosCombo()
+        public async Task<ActionResult> GetEspaciosFisicosCombo([FromServices] ZeusCoreContext db)
         {
-            var items = await _repoEspacios.GetAllAsync();
+            var items = await db.EspaciosFisicos.AsNoTracking().ToListAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron espacios físicos."));
             
-            // Proyección para evitar referencias circulares y coincidir con el frontend
             var result = items.Select(x => new 
             { 
                 idEspaciosFisicos = x.IdEspaciosFisicos, 
