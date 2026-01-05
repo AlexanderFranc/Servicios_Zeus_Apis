@@ -19,22 +19,15 @@ namespace Servicios_Zeus.Controllers.Core
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class AulaController : ControllerBase
     {
-        // 1. Declaramos las variables para los repositorios
+        // 1. Declaramos las variables para AMBOS repositorios
         private readonly IAulaRepository _iAulaRepository;
         private readonly IEspaciosFisicosRepository _repoEspacios;
-        private readonly IInfraestructuraRepository _repoInfra;
-        private readonly INivelInfraestructuraRepository _repoNivel;
 
-        // 2. En el constructor recibimos las dependencias e inicializamos las variables
-        public AulaController(IAulaRepository ihoras, 
-                              IEspaciosFisicosRepository repoEspacios,
-                              IInfraestructuraRepository repoInfra,
-                              INivelInfraestructuraRepository repoNivel)
+        // 2. En el constructor recibimos AMBOS e inicializamos las variables
+        public AulaController(IAulaRepository ihoras, IEspaciosFisicosRepository repoEspacios)
         {
             _iAulaRepository = ihoras;
             _repoEspacios = repoEspacios;
-            _repoInfra = repoInfra;
-            _repoNivel = repoNivel;
         }
 
         // --- MÉTODOS ORIGINALES (AULA) ---
@@ -72,13 +65,13 @@ namespace Servicios_Zeus.Controllers.Core
         }
 
         // --- ENDPOINTS PARA FILTROS (COMBOS) ---
+        // Se utiliza [FromServices] para inyectar los repositorios necesarios sin modificar el constructor original
 
         [Route("infraestructuras")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Infraestructura>>> GetInfraestructuras()
+        public async Task<ActionResult<IEnumerable<Infraestructura>>> GetInfraestructuras([FromServices] IInfraestructuraRepository repoInfra)
         {
-            // Devuelve todas las infraestructuras para llenar el combo
-            var items = await _repoInfra.GetAllAsync();
+            var items = await repoInfra.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron infraestructuras."));
             return Ok(items);
@@ -86,11 +79,9 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("niveles-infraestructura")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NivelInfraestructura>>> GetNivelesInfraestructura()
+        public async Task<ActionResult<IEnumerable<NivelInfraestructura>>> GetNivelesInfraestructura([FromServices] INivelInfraestructuraRepository repoNivel)
         {
-            // Devuelve todos los niveles. Si el front filtra en memoria o manda ID, se podría ajustar.
-            // Por ahora devolvemos todo para que el front tenga la data.
-            var items = await _repoNivel.GetAllAsync();
+            var items = await repoNivel.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron niveles de infraestructura."));
             return Ok(items);
@@ -100,7 +91,6 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EspaciosFisico>>> GetEspaciosFisicosCombo()
         {
-            // Devuelve la entidad simple de EspaciosFisico (con nombres) para el combo
             var items = await _repoEspacios.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron espacios físicos."));
