@@ -4,8 +4,10 @@ using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Core.Interfaces.Generico;
+using Infraestructure.Configuration.Zeus.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Servicios_Zeus.Helpers.Errors;
 using System.Collections.Generic;
 using System.Linq;
@@ -126,33 +128,31 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("tipos-espacio")]
         [HttpGet]
-        public async Task<ActionResult> GetTiposEspacio([FromServices] IGenericRepository<TipoEspacio> repoTipo)
+        public async Task<ActionResult> GetTiposEspacio([FromServices] ZeusCoreContext db)
         {
-            var items = await repoTipo.GetAllAsync();
-            if (items == null)
-                return NotFound(new ApiResponse(404, "No se encontraron tipos de espacio."));
-
-            var result = items.Select(x => new 
-            { 
-                idTipoEspacio = x.IdTipoEspacio, 
-                nombreTipoEspacio = x.NombreTipoEspacio 
-            });
+            var result = await db.TipoEspacios
+                .AsNoTracking()
+                .Select(x => new
+                {
+                    idTipoEspacio = x.IdTipoEspacio,
+                    nombreTipoEspacio = x.NombreTipoEspacio
+                })
+                .ToListAsync();
             return Ok(result);
         }
 
         [Route("estados-espacio")]
         [HttpGet]
-        public async Task<ActionResult> GetEstadosEspacio([FromServices] IGenericRepository<EstadoEspacio> repoEstado)
+        public async Task<ActionResult> GetEstadosEspacio([FromServices] ZeusCoreContext db)
         {
-            var items = await repoEstado.GetAllAsync();
-            if (items == null)
-                return NotFound(new ApiResponse(404, "No se encontraron estados de espacio."));
-
-            var result = items.Select(x => new 
-            { 
-                value = x.IdEstadoEspacio, 
-                label = x.NombreEstadoEspacio 
-            });
+            var result = await db.EstadoEspacios
+                .AsNoTracking()
+                .Select(x => new
+                {
+                    value = x.IdEstadoEspacio,
+                    label = x.NombreEstadoEspacio
+                })
+                .ToListAsync();
             return Ok(result);
         }
 
