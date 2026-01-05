@@ -3,10 +3,12 @@ using AutoMapper;
 using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
+using Core.Interfaces.Generico;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servicios_Zeus.Helpers.Errors;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Servicios_Zeus.Controllers.Core
@@ -69,32 +71,89 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("infraestructuras")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Infraestructura>>> GetInfraestructuras([FromServices] IInfraestructuraRepository repoInfra)
+        public async Task<ActionResult> GetInfraestructuras([FromServices] IInfraestructuraRepository repoInfra)
         {
             var items = await repoInfra.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron infraestructuras."));
-            return Ok(items);
+            
+            // Proyección para evitar referencias circulares y coincidir con el frontend
+            var result = items.Select(x => new 
+            { 
+                idInfraestructura = x.IdInfraestructura, 
+                nombreInfraestructura = x.NombreInfraestructura 
+            });
+            return Ok(result);
         }
 
         [Route("niveles-infraestructura")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NivelInfraestructura>>> GetNivelesInfraestructura([FromServices] INivelInfraestructuraRepository repoNivel)
+        public async Task<ActionResult> GetNivelesInfraestructura([FromServices] INivelInfraestructuraRepository repoNivel)
         {
             var items = await repoNivel.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron niveles de infraestructura."));
-            return Ok(items);
+            
+            // Proyección para evitar referencias circulares y coincidir con el frontend
+            var result = items.Select(x => new 
+            { 
+                idNivelInfraestructura = x.IdNivelInfraestructura, 
+                nombreNivelInfraestructura = x.NombreNivelInfraestructura,
+                idInfraestructura = x.IdInfraestructura
+            });
+            return Ok(result);
         }
 
         [Route("espacios-fisicos-combo")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EspaciosFisico>>> GetEspaciosFisicosCombo()
+        public async Task<ActionResult> GetEspaciosFisicosCombo()
         {
             var items = await _repoEspacios.GetAllAsync();
             if (items == null)
                 return NotFound(new ApiResponse(404, "No se encontraron espacios físicos."));
-            return Ok(items);
+            
+            // Proyección para evitar referencias circulares y coincidir con el frontend
+            var result = items.Select(x => new 
+            { 
+                idEspaciosFisicos = x.IdEspaciosFisicos, 
+                codigoEspaciosFisicos = x.CodigoEspaciosFisicos,
+                idNivelInfraestructura = x.IdNivelInfraestructura
+            });
+            return Ok(result);
+        }
+
+        // Nuevos endpoints solicitados para TipoEspacio y EstadoEspacio
+
+        [Route("tipos-espacio")]
+        [HttpGet]
+        public async Task<ActionResult> GetTiposEspacio([FromServices] IGenericRepository<TipoEspacio> repoTipo)
+        {
+            var items = await repoTipo.GetAllAsync();
+            if (items == null)
+                return NotFound(new ApiResponse(404, "No se encontraron tipos de espacio."));
+
+            var result = items.Select(x => new 
+            { 
+                idTipoEspacio = x.IdTipoEspacio, 
+                nombreTipoEspacio = x.NombreTipoEspacio 
+            });
+            return Ok(result);
+        }
+
+        [Route("estados-espacio")]
+        [HttpGet]
+        public async Task<ActionResult> GetEstadosEspacio([FromServices] IGenericRepository<EstadoEspacio> repoEstado)
+        {
+            var items = await repoEstado.GetAllAsync();
+            if (items == null)
+                return NotFound(new ApiResponse(404, "No se encontraron estados de espacio."));
+
+            var result = items.Select(x => new 
+            { 
+                value = x.IdEstadoEspacio, 
+                label = x.NombreEstadoEspacio 
+            });
+            return Ok(result);
         }
 
         [Route("ver/{id}")]
