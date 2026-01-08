@@ -1,4 +1,4 @@
-﻿using Core.Dtos.Core;
+using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Infraestructure.Configuration.Conexion.LoginDB;
@@ -254,7 +254,7 @@ namespace Infraestructure.Repository.Core
             List<AulasDto> listaAulas = new List<AulasDto>();
             DataSet ds_aulas = Conexion.BuscarZEUS_ds(
                 "ESPACIOS_FISICOS ef\r\ninner join nivel_infraestructura ni\r\non ef.id_nivel_infraestructura = ni.id_nivel_infraestructura\r\ninner join infraestructura i\r\non ni.id_infraestructura = i.id_infraestructura\r\ninner join campus c\r\non i.id_campus = c.id_campus\r\ninner join tipo_espacio te\r\non ef.id_tipo_Espacio = te.id_tipo_espacio  ",
-                "c.ID_CAMPUS,c.NOMBRE_CAMPUS,i.ID_INFRAESTRUCTURA,i.CODIGO_INFRAESTRUCTURA,i.NOMBRE_INFRAESTRUCTURA,ni.ID_NIVEL_INFRAESTRUCTURA,\r\nni.CODIGO_NIVEL_INFRAESTRUCTURA,ni.NOMBRE_NIVEL_INFRAESTRUCTURA,ef.ID_ESPACIOS_FISICOS,ef.CODIGO_ESPACIOS_FISICOS,te.CODIGO_TIPO_ESPACIO,te.NOMBRE_TIPO_ESPACIO,ef.CAPACIDAD_TOTAL_ESPACIOS_FISICOS,ef.ACTIVO_ESPACIOS_FISICOS",
+                "c.ID_CAMPUS,c.NOMBRE_CAMPUS,i.ID_INFRAESTRUCTURA,i.CODIGO_INFRAESTRUCTURA,i.NOMBRE_INFRAESTRUCTURA,ni.ID_NIVEL_INFRAESTRUCTURA,\r\nni.CODIGO_NIVEL_INFRAESTRUCTURA,ni.NOMBRE_NIVEL_INFRAESTRUCTURA,ef.ID_ESPACIOS_FISICOS,ef.CODIGO_ESPACIOS_FISICOS,ef.NOMBRE_ESPACIOS_FISICOS,ef.DESCRIPCION_ESPACIOS_FISICOS,ef.ID_TIPO_ESPACIO,te.CODIGO_TIPO_ESPACIO,te.NOMBRE_TIPO_ESPACIO,ef.ID_ESTADO_ESPACIO,ef.CAPACIDAD_TOTAL_ESPACIOS_FISICOS,ef.ACTIVO_ESPACIOS_FISICOS",
                 "where ef.ACTIVO_ESPACIOS_FISICOS = case when   " + activo + " <0 then ef.ACTIVO_ESPACIOS_FISICOS else "+  activo + " end order by 1,2,3,4,5,6");
             //DataSet ds_solicitud = Conexion.ExecZeusCore("Solicitudes", "'" + opcion + "','" + tipo + "','" + periodo + "','" + codfac + "','" + codcar + "','" + estado + "'");
             if (ds_aulas.Tables[0].Rows.Count > 0)
@@ -272,10 +272,14 @@ namespace Infraestructure.Repository.Core
                     aula.NombreNivelInfraestructura = row["NOMBRE_NIVEL_INFRAESTRUCTURA"].ToString();
                     aula.IdEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
                     aula.CodigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
+                    aula.NombreEspaciosFisicos = row["NOMBRE_ESPACIOS_FISICOS"].ToString();
+                    aula.DescripcionEspaciosFisicos = row["DESCRIPCION_ESPACIOS_FISICOS"].ToString();
+                    aula.IdTipoEspacio = row["ID_TIPO_ESPACIO"] != DBNull.Value ? Convert.ToInt32(row["ID_TIPO_ESPACIO"].ToString()) : 0;
                     aula.CodigoTipoEspacio = row["CODIGO_TIPO_ESPACIO"].ToString();
                     aula.NombreTipoEspacio = row["NOMBRE_TIPO_ESPACIO"].ToString();
+                    aula.IdEstadoEspacio = row["ID_ESTADO_ESPACIO"] != DBNull.Value ? Convert.ToInt32(row["ID_ESTADO_ESPACIO"].ToString()) : 0;
                     aula.CapacidadTotalEspaciosFisicos = Convert.ToInt32(row["CAPACIDAD_TOTAL_ESPACIOS_FISICOS"].ToString());
-
+                    aula.Activo = Convert.ToBoolean(row["ACTIVO_ESPACIOS_FISICOS"]);
 
                     listaAulas.Add(aula);
                     aula = new AulasDto();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +18,13 @@ namespace Core.Dtos.Core
         public string NombreNivelInfraestructura { get; set; } = null!;
         public int IdEspaciosFisicos { get; set; }
         public string CodigoEspaciosFisicos { get; set; } = null!;
+        public string NombreEspaciosFisicos { get; set; } = null!;
+        public string DescripcionEspaciosFisicos { get; set; } = null!;
+        public int IdTipoEspacio { get; set; }
         public string CodigoTipoEspacio { get; set; } = null!;
         public string NombreTipoEspacio { get; set; } = null!;
+        public int IdEstadoEspacio { get; set; }
         public int CapacidadTotalEspaciosFisicos { get; set; }
-
+        public bool Activo { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace Servicios_Zeus.Controllers.Core
 {
     //[Authorize]
     [ApiVersion("1.0")]
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -48,24 +49,70 @@ namespace Servicios_Zeus.Controllers.Core
 
         [Route("getAulas/{activo}")]
         [HttpGet]
-        public async Task<ActionResult<List<AulasDto>>> GetAulas(int activo)
+        public async Task<ActionResult> GetAulas(int activo)
         {
             var data = _iAulaRepository.GetAulas(activo);
             if (data == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
-            return Ok(data);
+            
+            var result = data.Select(x => new 
+            {
+                idCampus = x.IdCampus,
+                nombreCampus = x.NombreCampus,
+                idInfraestructura = x.IdInfraestructura,
+                codigoInfraestructura = x.CodigoInfraestructura,
+                nombreInfraestructura = x.NombreInfraestructura,
+                idNivelInfraestructura = x.IdNivelInfraestructura,
+                codigoNivelInfraestructura = x.CodigoNivelInfraestructura,
+                nombreNivelInfraestructura = x.NombreNivelInfraestructura,
+                idEspaciosFisicos = x.IdEspaciosFisicos,
+                codigoEspaciosFisicos = x.CodigoEspaciosFisicos,
+                nombreEspaciosFisicos = x.NombreEspaciosFisicos,
+                descripcionEspaciosFisicos = x.DescripcionEspaciosFisicos,
+                idTipoEspacio = x.IdTipoEspacio,
+                codigoTipoEspacio = x.CodigoTipoEspacio,
+                nombreTipoEspacio = x.NombreTipoEspacio,
+                idEstadoEspacio = x.IdEstadoEspacio,
+                capacidadTotalEspaciosFisicos = x.CapacidadTotalEspaciosFisicos,
+                activoEspaciosFisicos = x.Activo
+            });
+
+            return Ok(result);
         }
 
         // --- CRUD DE ESPACIOS FÍSICOS (Usando _repoEspacios) ---
 
         [Route("listar")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AulasDto>>> ListarEspacios()
+        public async Task<ActionResult> ListarEspacios()
         {
             var items = _iAulaRepository.GetAulas(-1);
             if (items == null)
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
-            return Ok(items);
+            
+            var result = items.Select(x => new 
+            {
+                idCampus = x.IdCampus,
+                nombreCampus = x.NombreCampus,
+                idInfraestructura = x.IdInfraestructura,
+                codigoInfraestructura = x.CodigoInfraestructura,
+                nombreInfraestructura = x.NombreInfraestructura,
+                idNivelInfraestructura = x.IdNivelInfraestructura,
+                codigoNivelInfraestructura = x.CodigoNivelInfraestructura,
+                nombreNivelInfraestructura = x.NombreNivelInfraestructura,
+                idEspaciosFisicos = x.IdEspaciosFisicos,
+                codigoEspaciosFisicos = x.CodigoEspaciosFisicos,
+                nombreEspaciosFisicos = x.NombreEspaciosFisicos,
+                descripcionEspaciosFisicos = x.DescripcionEspaciosFisicos,
+                idTipoEspacio = x.IdTipoEspacio,
+                codigoTipoEspacio = x.CodigoTipoEspacio,
+                nombreTipoEspacio = x.NombreTipoEspacio,
+                idEstadoEspacio = x.IdEstadoEspacio,
+                capacidadTotalEspaciosFisicos = x.CapacidadTotalEspaciosFisicos,
+                activoEspaciosFisicos = x.Activo
+            });
+
+            return Ok(result);
         }
 
         // --- ENDPOINTS PARA FILTROS (COMBOS) ---
@@ -76,13 +123,14 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult> GetInfraestructuras([FromServices] ZeusCoreContext db)
         {
             var items = await db.Infraestructuras.AsNoTracking().ToListAsync();
-            if (items == null)
+            if (items == null || !items.Any())
                 return NotFound(new ApiResponse(404, "No se encontraron infraestructuras."));
             
             var result = items.Select(x => new 
             { 
                 idInfraestructura = x.IdInfraestructura, 
-                nombreInfraestructura = x.NombreInfraestructura 
+                nombreInfraestructura = x.NombreInfraestructura,
+                codigoInfraestructura = x.CodigoInfraestructura
             });
             return Ok(result);
         }
@@ -92,15 +140,20 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult> GetNivelesInfraestructura([FromServices] ZeusCoreContext db)
         {
             var items = await db.NivelInfraestructuras.AsNoTracking().ToListAsync();
-            if (items == null)
+            if (items == null || !items.Any())
                 return NotFound(new ApiResponse(404, "No se encontraron niveles de infraestructura."));
             
-            var result = items.Select(x => new 
-            { 
-                idNivelInfraestructura = x.IdNivelInfraestructura, 
-                nombreNivelInfraestructura = x.NombreNivelInfraestructura,
-                idInfraestructura = x.IdInfraestructura
-            });
+            // Agrupamos por nombre para evitar duplicados en el combo
+            var result = items
+                .GroupBy(x => x.NombreNivelInfraestructura)
+                .Select(g => g.First())
+                .Select(x => new 
+                { 
+                    idNivelInfraestructura = x.IdNivelInfraestructura, 
+                    nombreNivelInfraestructura = x.NombreNivelInfraestructura,
+                    codigoNivelInfraestructura = x.CodigoNivelInfraestructura,
+                    idInfraestructura = x.IdInfraestructura
+                });
             return Ok(result);
         }
 
@@ -109,7 +162,7 @@ namespace Servicios_Zeus.Controllers.Core
         public async Task<ActionResult> GetEspaciosFisicosCombo([FromServices] ZeusCoreContext db)
         {
             var items = await db.EspaciosFisicos.AsNoTracking().ToListAsync();
-            if (items == null)
+            if (items == null || !items.Any())
                 return NotFound(new ApiResponse(404, "No se encontraron espacios físicos."));
             
             var result = items.Select(x => new 
@@ -132,7 +185,8 @@ namespace Servicios_Zeus.Controllers.Core
                 .Select(x => new
                 {
                     idTipoEspacio = x.IdTipoEspacio,
-                    nombreTipoEspacio = x.NombreTipoEspacio
+                    nombreTipoEspacio = x.NombreTipoEspacio,
+                    codigoTipoEspacio = x.CodigoTipoEspacio
                 })
                 .ToListAsync();
             return Ok(result);
