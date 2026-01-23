@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿namespace Servicios_Zeus.Helpers;
+﻿﻿﻿﻿﻿﻿﻿﻿namespace Servicios_Zeus.Helpers;
 public class Params
 {
     private int _pageSize = 5;
