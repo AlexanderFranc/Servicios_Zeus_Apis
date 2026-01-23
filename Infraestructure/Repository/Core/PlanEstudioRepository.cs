@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
@@ -54,8 +54,44 @@ namespace Infraestructure.Repository.Core
         }
 
 
-        public async Task<List<PlanEstudio>> GetAllByIdCarrera(int id) => await
-            _context.PlanEstudios.Where(x => x.IdCarrera == id).ToListAsync();
+        public async Task<IEnumerable<PlanEstudioDto>> GetAllByIdCarrera(int id)
+        {
+            Console.WriteLine($"[PlanEstudioRepository] GetAllByIdCarrera searching for IdCarrera: {id}");
+            try
+            {
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<PlanEstudio, PlanEstudioDto>();
+                    cfg.CreateMap<Malla, MallaDto>();
+                    cfg.CreateMap<Componente, ComponenteDto>();
+                    cfg.CreateMap<ModalidadPe, ModalidadPEDto>();
+                });
+                var mapper = new Mapper(config);
+                
+                var _planestudio = await _context.PlanEstudios
+                    .AsNoTracking()
+                    .Where(x => x.IdCarrera == id)
+                    .ToListAsync();
+
+                Console.WriteLine($"[PlanEstudioRepository] Found {_planestudio.Count} plans for IdCarrera: {id}");
+
+                if (_planestudio.Any())
+                {
+                    foreach (var p in _planestudio)
+                    {
+                        Console.WriteLine($"[PlanEstudioRepository] Plan ID: {p.IdPlanEstudio}, Code: {p.CodigoPlanEstudioMalla}");
+                    }
+                }
+
+                var model = mapper.Map<List<PlanEstudioDto>>(_planestudio);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[PlanEstudioRepository] Error: {ex.Message} - {ex.InnerException?.Message}");
+                throw;
+            }
+        }
 
 
         public async Task<IdPlanMateriaDto> GetByCodeAsync(string codplan, string codmateria)

@@ -262,24 +262,33 @@ namespace Infraestructure.Repository.Core
                 foreach (DataRow row in ds_aulas.Tables[0].Rows)
                 {                   
                     //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
-                    aula.IdCampus = Convert.ToInt32(row["ID_CAMPUS"].ToString());
-                    aula.NombreCampus = row["NOMBRE_CAMPUS"].ToString();
-                    aula.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
-                    aula.CodigoInfraestructura = row["CODIGO_INFRAESTRUCTURA"].ToString();
-                    aula.NombreInfraestructura = row["NOMBRE_INFRAESTRUCTURA"].ToString();
-                    aula.IdNivelInfraestructura = Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString());
-                    aula.CodigoNivelInfraestructura = row["CODIGO_NIVEL_INFRAESTRUCTURA"].ToString();
-                    aula.NombreNivelInfraestructura = row["NOMBRE_NIVEL_INFRAESTRUCTURA"].ToString();
-                    aula.IdEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
-                    aula.CodigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
-                    aula.NombreEspaciosFisicos = row["NOMBRE_ESPACIOS_FISICOS"].ToString();
-                    aula.DescripcionEspaciosFisicos = row["DESCRIPCION_ESPACIOS_FISICOS"].ToString();
+                    aula.IdCampus = row["ID_CAMPUS"] != DBNull.Value ? Convert.ToInt32(row["ID_CAMPUS"].ToString()) : 0;
+                    aula.NombreCampus = row["NOMBRE_CAMPUS"]?.ToString() ?? "";
+                    aula.IdInfraestructura = row["ID_INFRAESTRUCTURA"] != DBNull.Value ? Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString()) : 0;
+                    aula.CodigoInfraestructura = row["CODIGO_INFRAESTRUCTURA"]?.ToString() ?? "";
+                    aula.NombreInfraestructura = row["NOMBRE_INFRAESTRUCTURA"]?.ToString() ?? "";
+                    aula.IdNivelInfraestructura = row["ID_NIVEL_INFRAESTRUCTURA"] != DBNull.Value ? Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString()) : 0;
+                    aula.CodigoNivelInfraestructura = row["CODIGO_NIVEL_INFRAESTRUCTURA"]?.ToString() ?? "";
+                    aula.NombreNivelInfraestructura = row["NOMBRE_NIVEL_INFRAESTRUCTURA"]?.ToString() ?? "";
+                    aula.IdEspaciosFisicos = row["ID_ESPACIOS_FISICOS"] != DBNull.Value ? Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString()) : 0;
+                    aula.CodigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"]?.ToString() ?? "";
+                    aula.NombreEspaciosFisicos = row["NOMBRE_ESPACIOS_FISICOS"]?.ToString() ?? "";
+                    aula.DescripcionEspaciosFisicos = row["DESCRIPCION_ESPACIOS_FISICOS"]?.ToString() ?? "";
                     aula.IdTipoEspacio = row["ID_TIPO_ESPACIO"] != DBNull.Value ? Convert.ToInt32(row["ID_TIPO_ESPACIO"].ToString()) : 0;
                     aula.CodigoTipoEspacio = row["CODIGO_TIPO_ESPACIO"].ToString();
                     aula.NombreTipoEspacio = row["NOMBRE_TIPO_ESPACIO"].ToString();
                     aula.IdEstadoEspacio = row["ID_ESTADO_ESPACIO"] != DBNull.Value ? Convert.ToInt32(row["ID_ESTADO_ESPACIO"].ToString()) : 0;
-                    aula.CapacidadTotalEspaciosFisicos = Convert.ToInt32(row["CAPACIDAD_TOTAL_ESPACIOS_FISICOS"].ToString());
-                    aula.Activo = Convert.ToBoolean(row["ACTIVO_ESPACIOS_FISICOS"]);
+                    
+                    if (row["CAPACIDAD_TOTAL_ESPACIOS_FISICOS"] != DBNull.Value && int.TryParse(row["CAPACIDAD_TOTAL_ESPACIOS_FISICOS"].ToString(), out int capacidad))
+                    {
+                        aula.CapacidadTotalEspaciosFisicos = capacidad;
+                    }
+                    else
+                    {
+                        aula.CapacidadTotalEspaciosFisicos = 0;
+                    }
+
+                    aula.ActivoEspaciosFisicos = Convert.ToBoolean(row["ACTIVO_ESPACIOS_FISICOS"]);
 
                     listaAulas.Add(aula);
                     aula = new AulasDto();

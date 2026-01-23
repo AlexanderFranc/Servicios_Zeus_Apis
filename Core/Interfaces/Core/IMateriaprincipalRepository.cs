@@ -1,4 +1,4 @@
-﻿using Core.Entidades.Core;
+using Core.Entidades.Core;
 using Core.Interfaces.Generico;
 using System;
 using System.Collections.Generic;
@@ -10,5 +10,6 @@ namespace Core.Interfaces.Core
 {
     public interface IMateriaprincipalRepository:IGenericRepository<Materium>
     {
+        Task<(int totalRegistros, IEnumerable<Materium> registros)> GetAllPagingAsync(int pageIndex, int pageSize, string search, int? idCarrera, int? idPlanEstudio, bool noseguimiento = true);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Infraestructure.Configuration.Zeus.Core;
@@ -50,6 +50,39 @@ namespace Infraestructure.Repository.Core
                                         .CountAsync();
 
             var registros = await query.Include(x => x.Componentes).Include(x=>x.IdTipoMateriaCatalogoNavigation)
+                                    .OrderBy(x => x.NombreMateria)
+                                    .Skip((pageIndex - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+
+            return (totalRegistros, registros);
+        }
+
+        public async Task<(int totalRegistros, IEnumerable<Materium> registros)> GetAllPagingAsync(
+        int pageIndex, int pageSize, string search, int? idCarrera, int? idPlanEstudio, bool noseguimiento = true)
+        {
+            var query = noseguimiento ? _context.Materia.AsNoTracking()
+                                  : _context.Materia;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                query = query.Where(p => p.NombreMateria.ToLower().Contains(search) || p.CodigoMateria.ToLower().Contains(search));
+            }
+
+            if (idPlanEstudio.HasValue)
+            {
+                 query = query.Where(m => m.Mallas.Any(ma => ma.IdPlanEstudio == idPlanEstudio.Value));
+            }
+            else if (idCarrera.HasValue)
+            {
+                 query = query.Where(m => m.Mallas.Any(ma => ma.IdPlanEstudioNavigation.IdCarrera == idCarrera.Value));
+            }
+
+            var totalRegistros = await query.CountAsync();
+
+            var registros = await query.Include(x => x.Componentes)
+                                    .Include(x=>x.IdTipoMateriaCatalogoNavigation)
+                                    .OrderBy(x => x.NombreMateria)
                                     .Skip((pageIndex - 1) * pageSize)
                                     .Take(pageSize)
                                     .ToListAsync();

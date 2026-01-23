@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
 using Infraestructure.Configuration.Zeus.Core;
@@ -21,6 +21,8 @@ namespace Infraestructure.Repository.Core
             return await query
                                 .Include(x => x.IdEstadoEspacioNavigation)
                                 .Include(y => y.IdNivelInfraestructuraNavigation)
+                                    .ThenInclude(n => n.IdInfraestructuraNavigation)
+                                        .ThenInclude(i => i.IdCampusNavigation)
                                 .Include(z => z.IdTipoEspacioNavigation)
                                 .ToListAsync();
         }

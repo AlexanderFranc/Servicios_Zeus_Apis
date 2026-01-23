@@ -2,6 +2,7 @@ using Serilog;
 using Servicios_Zeus.Extensions;
 using Servicios_Zeus.Helpers.Errors;
 using System.Reflection;
+using Infraestructure.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();//descomentar en produccion para omitir codigos de error
 //builder.Services.ConfigureRateLimitiong();
 builder.Logging.AddSerilog(logger);
-builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 // Add services to the container.
 builder.Services.ConfigureCors();
@@ -43,7 +44,7 @@ else
 }
 
 app.UseCors("CorsPolicy");
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

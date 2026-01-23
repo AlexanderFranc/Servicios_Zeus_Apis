@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Core.Entidades.Core;
@@ -12,7 +12,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
 namespace Servicios_Zeus.Controllers.Core
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/PlanEstudio")]
     [ApiController]
@@ -54,9 +54,14 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlanEstudioDto>>> GetAllByIdCarrera(int id)
         {
+            Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera called with id: {id}");
             var planestudio = await _iplan.GetAllByIdCarrera(id);
             if (planestudio == null)
+            {
+                Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera returned null for id: {id}");
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
+            }
+            Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera returned {planestudio.Count()} items for id: {id}");
             return Ok(planestudio);
         }
         [Route("GetAllByPlanMateria/{codplan}/{codmateria}")]

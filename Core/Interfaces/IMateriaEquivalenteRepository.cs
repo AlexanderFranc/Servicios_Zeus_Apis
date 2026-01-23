@@ -1,4 +1,4 @@
-﻿using Core.Dtos.Core;
+using Core.Dtos.Core;
 using Core.Interfaces.Generico;
 using System;
 using System.Collections.Generic;
@@ -12,5 +12,7 @@ namespace Core.Interfaces
     {
         List<MateriaEquivalenteDto> getPlanificacionEquivalente(string periodo, int idMallaEquiv);
         List<ComponentesPlanificacionDto> getPlanificacionE(string periodo, int idMallaEquiv);
+        Task<bool> CrearMateriaEquivalente(MateriaEquivalenteInputDto input);
+        Task<bool> EditarMateriaEquivalente(MateriaEquivalenteInputDto input);
     }
 }

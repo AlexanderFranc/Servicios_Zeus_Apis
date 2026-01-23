@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
@@ -39,8 +39,8 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<Pager<Materium>>> GetAllMaterias([FromQuery] Params paisParams)
         {
-            var materia = await _imateriaprincipal.GetAllAsync(paisParams.PageIndex, paisParams.PageSize,
-                                    paisParams.Search);
+            var materia = await _imateriaprincipal.GetAllPagingAsync(paisParams.PageIndex, paisParams.PageSize,
+                                    paisParams.Search, paisParams.IdCarrera, paisParams.IdPlanEstudio);
             return new Pager<Materium>(materia.registros, materia.totalRegistros,
             paisParams.PageIndex, paisParams.PageSize, paisParams.Search);
         }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Servicios_Zeus.Controllers.Core
 {
@@ -18,13 +18,15 @@ namespace Servicios_Zeus.Controllers.Core
         {
             var environment = _config["ASPNETCORE_ENVIRONMENT"];
             var sftpServer = _config["SFtpSettings:Server"];
-            var connectionServer = _config.GetConnectionString("ZEUS").Split(';')[0];
+            var connectionString = _config.GetConnectionString("ZEUS");
+            var currentDirectory = Directory.GetCurrentDirectory();
 
             return Ok(new
             {
                 EnvironmentName = environment,
                 SFTP_Server = sftpServer,
-                DB_Server = connectionServer
+                ConnectionString = connectionString,
+                CurrentDirectory = currentDirectory
             });
         }
     }

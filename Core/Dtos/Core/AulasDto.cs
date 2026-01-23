@@ -25,6 +25,6 @@ namespace Core.Dtos.Core
         public string NombreTipoEspacio { get; set; } = null!;
         public int IdEstadoEspacio { get; set; }
         public int CapacidadTotalEspaciosFisicos { get; set; }
-        public bool Activo { get; set; }
+        public bool ActivoEspaciosFisicos { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Servicios_Zeus.Helpers;
+﻿﻿﻿﻿﻿﻿namespace Servicios_Zeus.Helpers;
 public class Params
 {
     private int _pageSize = 5;
@@ -22,4 +22,6 @@ public class Params
         get => _search;
         set => _search = (!String.IsNullOrEmpty(value))?value.ToLower():"";
     }
+    public int? IdCarrera { get; set; }
+    public int? IdPlanEstudio { get; set; }
 }

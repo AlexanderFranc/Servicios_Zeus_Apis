@@ -80,6 +80,9 @@ namespace Servicios_Zeus.Extensions
             services.AddTransient<IInfraestructuraRepository, InfraestructuraRepository>();
             services.AddTransient<INivelInfraestructuraRepository, NivelInfraestructuraRepository>();
             services.AddTransient<IEspaciosFisicosRepository, EspaciosFisicosRepository>();
+            services.AddTransient<ICampusRepository, CampusRepository>();
+            services.AddTransient<ITipoEspacioRepository, TipoEspacioRepository>();
+            services.AddTransient<IEstadoEspacioRepository, EstadoEspacioRepository>();
             services.AddTransient<IPeriodoRepository, PeriodoRepository>();
             services.AddTransient<IEmpleadoRepository, EmpleadoRepository>();
             services.AddTransient<IPlanificacionRepository, PlanificacionRepository>();
@@ -145,7 +148,10 @@ namespace Servicios_Zeus.Extensions
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers().AddJsonOptions(x =>
-             x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            {
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                x.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            });
         }
 
 
