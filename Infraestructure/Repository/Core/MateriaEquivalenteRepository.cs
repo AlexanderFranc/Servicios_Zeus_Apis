@@ -2,7 +2,6 @@ using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces;
 using Core.Interfaces.Core;
-using Microsoft.EntityFrameworkCore;
 using Infraestructure.Configuration.Conexion.LoginDB;
 using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Repository.Generico;
@@ -26,314 +25,80 @@ namespace Infraestructure.Repository.Core
             MateriaEquivalenteDto plnMatEquiv = new MateriaEquivalenteDto();
             List<MateriaEquivalenteDto> listaPlnMatEquiv = new List<MateriaEquivalenteDto>();
 
-            string campos = @"me.ID_MATERIA_EQUIVALENTE, me.ACTIVO_MATERIA_EQUIVALENTE, me.PORC_EQUIV, me.OBSERVACIONES_MATERIA_EQUIVALENTE, me.PATHAUTORIZACION_MATERIA_EQUIVALENTE, me.AUTORIZACION_MATERIA_EQUIVALENTE,
-x.ID_FACULTAD, x.ID_CARRERA, x.ID_MALLA, x.ID_MATERIA, x.ID_PLAN_ESTUDIO,
-x.CODIGO_FACULTAD, x.NOMBRE_FACULTAD, x.CODIGO_CARRERA, x.NOMBRE_CARRERA, x.CODIGO_PLAN_ESTUDIO_MALLA, x.CODIGO_MODALIDAD_PE, x.NOMBRE_MODALIDAD_PE, x.CODIGO_MATERIA, x.NOMBRE_MATERIA, x.CREDITOS_MATERIA, x.HORAS_SEMESTRALES_MATERIA,
-y.ID_FACULTAD as ID_FACULTAD_EQ, y.ID_CARRERA as ID_CARRERA_EQ, y.ID_MALLA as ID_MALLA_EQ, y.ID_MATERIA as ID_MATERIA_EQ, y.ID_PLAN_ESTUDIO as ID_PLAN_ESTUDIO_EQ,
-y.CODIGO_FACULTAD as CODIGO_FACULTAD_EQ, y.NOMBRE_FACULTAD as NOMBRE_FACULTAD_EQ, y.CODIGO_CARRERA as CODIGO_CARRERA_EQ, y.NOMBRE_CARRERA as NOMBRE_CARRERA_EQ, y.CODIGO_PLAN_ESTUDIO_MALLA as CODIGO_PLAN_ESTUDIO_MALLA_EQ, y.CODIGO_MODALIDAD_PE as CODIGO_MODALIDAD_PE_EQ, y.NOMBRE_MODALIDAD_PE as NOMBRE_MODALIDAD_PE_EQ, y.CODIGO_MATERIA as CODIGO_MATERIA_EQ, y.NOMBRE_MATERIA as NOMBRE_MATERIA_EQ, y.CREDITOS_MATERIA as CREDITOS_MATERIA_EQ, y.HORAS_SEMESTRALES_MATERIA as HORAS_SEMESTRALES_MATERIA_EQ";
-
-            // Usamos JOIN en las relaciones secundarias para asegurar datos maestros
-            string tabla = @"
-MATERIA_EQUIVALENTE me
-left join 
-( 
-    select  
-        m.ID_MALLA, 
-        pe.ID_PLAN_ESTUDIO,
-        fac.ID_FACULTAD,
-        car.ID_CARRERA,
-        mat.ID_MATERIA,
-        fac.CODIGO_FACULTAD, 
-        fac.NOMBRE_FACULTAD, 
-        car.CODIGO_CARRERA, 
-        car.NOMBRE_CARRERA, 
-        pe.CODIGO_PLAN_ESTUDIO_MALLA, 
-        modpe.CODIGO_MODALIDAD_PE, 
-        modpe.NOMBRE_MODALIDAD_PE, 
-        mat.CODIGO_MATERIA, 
-        mat.NOMBRE_MATERIA, mat.CREDITOS_MATERIA, mat.HORAS_SEMESTRALES_MATERIA 
-    from MALLA m 
-    left join PLAN_ESTUDIO pe 
-        on m.ID_PLAN_ESTUDIO = pe.ID_PLAN_ESTUDIO 
-    left join MATERIA mat 
-        on m.ID_MATERIA = mat.ID_MATERIA 
-    left join MODALIDAD_PE modpe 
-        on pe.ID_MODALIDAD_PE = modpe.ID_MODALIDAD_PE 
-    left join CARRERA car 
-        on pe.ID_CARRERA = car.ID_CARRERA 
-    left join FACULTAD fac 
-        on car.ID_FACULTAD = fac.ID_FACULTAD 
-    left join ESTADO_PE epe
-        on pe.ID_ESTADO_PE = epe.ID_ESTADO_PE
- ) as x 
-     on me.ID_MALLA = x.ID_MALLA 
- left join 
- ( 
-     select  
-         m.ID_MALLA, 
-         pe.ID_PLAN_ESTUDIO,
-        fac.ID_FACULTAD,
-        car.ID_CARRERA,
-        mat.ID_MATERIA,
-        fac.CODIGO_FACULTAD, 
-        fac.NOMBRE_FACULTAD, 
-        car.CODIGO_CARRERA, 
-        car.NOMBRE_CARRERA, 
-        pe.CODIGO_PLAN_ESTUDIO_MALLA, 
-        modpe.CODIGO_MODALIDAD_PE, 
-        modpe.NOMBRE_MODALIDAD_PE, 
-        mat.CODIGO_MATERIA, 
-        mat.NOMBRE_MATERIA, mat.CREDITOS_MATERIA, mat.HORAS_SEMESTRALES_MATERIA 
-    from MALLA m 
-    left join PLAN_ESTUDIO pe 
-        on m.ID_PLAN_ESTUDIO = pe.ID_PLAN_ESTUDIO 
-    left join MATERIA mat 
-        on m.ID_MATERIA = mat.ID_MATERIA 
-    left join MODALIDAD_PE modpe 
-        on pe.ID_MODALIDAD_PE = modpe.ID_MODALIDAD_PE 
-    left join CARRERA car 
-        on pe.ID_CARRERA = car.ID_CARRERA 
-    left join FACULTAD fac 
-        on car.ID_FACULTAD = fac.ID_FACULTAD 
-    left join ESTADO_PE epe
-        on pe.ID_ESTADO_PE = epe.ID_ESTADO_PE
-) as y 
-    on me.ID_MALLA_EQUIV = y.ID_MALLA";
-
-            string where = " where 1=1"; // Mostrar todo para coincidir con conteo DB
-            if (idMallaEquiv != 0)
-            {
-                // Filtramos estrictamente por el Plan de Estudio Origen
-                where += $" AND x.ID_PLAN_ESTUDIO = {idMallaEquiv}";
-            }
-
-            // Append Order By at the end
-            string orderBy = " order by x.NOMBRE_CARRERA, x.NOMBRE_MATERIA";
-
-            DataSet ds_plnMatEquiv = Conexion.BuscarZEUS_ds(tabla, campos, where + orderBy);
-
-            if (ds_plnMatEquiv.Tables.Count > 0)
+            DataSet ds_plnMatEquiv = Conexion.ExecZeusCore("MateriasEquivalentes", "'L','" + periodo + "'," + idMallaEquiv);
+            
+                        if (ds_plnMatEquiv.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds_plnMatEquiv.Tables[0].Rows)
                 {
-                    plnMatEquiv.IdMateriaEquivalente = row["ID_MATERIA_EQUIVALENTE"] != DBNull.Value ? Convert.ToInt32(row["ID_MATERIA_EQUIVALENTE"]) : 0;
-                    plnMatEquiv.PorcEquiv = row["PORC_EQUIV"] != DBNull.Value ? Convert.ToDecimal(row["PORC_EQUIV"]) : 0;
-                    plnMatEquiv.ActivoMateriaEquivalente = row["ACTIVO_MATERIA_EQUIVALENTE"] != DBNull.Value ? Convert.ToBoolean(row["ACTIVO_MATERIA_EQUIVALENTE"]) : false;
-
-                    // Datos Materia Origen
-                    plnMatEquiv.IdFacultad = row["ID_FACULTAD"] != DBNull.Value ? Convert.ToInt32(row["ID_FACULTAD"]) : 0;
-                    plnMatEquiv.IdCarrera = row["ID_CARRERA"] != DBNull.Value ? Convert.ToInt32(row["ID_CARRERA"]) : 0;
-                    plnMatEquiv.IdMalla = row["ID_PLAN_ESTUDIO"] != DBNull.Value ? Convert.ToInt32(row["ID_PLAN_ESTUDIO"]) : 0;
-                    plnMatEquiv.IdMateria = row["ID_MATERIA"] != DBNull.Value ? Convert.ToInt32(row["ID_MATERIA"]) : 0;
-
-                    plnMatEquiv.CodigoFacultad = row["CODIGO_FACULTAD"]?.ToString() ?? "";
-                    plnMatEquiv.NombreFacultad = row["NOMBRE_FACULTAD"]?.ToString() ?? "";
-                    plnMatEquiv.CodigoCarrera = row["CODIGO_CARRERA"]?.ToString() ?? "";
-                    plnMatEquiv.NombreCarrera = row["NOMBRE_CARRERA"]?.ToString() ?? "";
-                    plnMatEquiv.CodigoPlanEstudioMalla = row["CODIGO_PLAN_ESTUDIO_MALLA"]?.ToString() ?? "";
-                    plnMatEquiv.CodigoModalidadPe = row["CODIGO_MODALIDAD_PE"]?.ToString() ?? "";
-                    plnMatEquiv.NombreModalidadPe = row["NOMBRE_MODALIDAD_PE"]?.ToString() ?? "";
-                    plnMatEquiv.CodigoMateria = row["CODIGO_MATERIA"]?.ToString() ?? "";
+                    //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+                    plnMatEquiv.IdPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+                    plnMatEquiv.CodigoPeriodo = row["CODIGO_PERIODO"].ToString();
+                    plnMatEquiv.CodigoPlanEstudio = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
+                    plnMatEquiv.CodigoMateria = row["CODIGO_MATERIA"].ToString();
+                    plnMatEquiv.NombreMateria  = row["NOMBRE_MATERIA"].ToString();
+                    plnMatEquiv.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
+                    plnMatEquiv.DniProfesorc = row["DNI_PROFESORC"].ToString();
+                    plnMatEquiv.Docente = row["DOCENTE"].ToString();
+                    plnMatEquiv.Paralelo = row["PARALELO"].ToString();
                     
-                    plnMatEquiv.NombreMateria = row["NOMBRE_MATERIA"]?.ToString() ?? "";
-                    plnMatEquiv.CreditosMateria = row["CREDITOS_MATERIA"] != DBNull.Value ? Convert.ToDecimal(row["CREDITOS_MATERIA"]) : 0;
-                    plnMatEquiv.HorasSemestralesMateria = row["HORAS_SEMESTRALES_MATERIA"] != DBNull.Value ? Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"]) : 0;
-
-                    // Datos Materia Equivalente
-                    plnMatEquiv.IdFacultadEq = row["ID_FACULTAD_EQ"] != DBNull.Value ? Convert.ToInt32(row["ID_FACULTAD_EQ"]) : 0;
-                    plnMatEquiv.IdCarreraEq = row["ID_CARRERA_EQ"] != DBNull.Value ? Convert.ToInt32(row["ID_CARRERA_EQ"]) : 0;
-                    plnMatEquiv.IdMallaEq = row["ID_PLAN_ESTUDIO_EQ"] != DBNull.Value ? Convert.ToInt32(row["ID_PLAN_ESTUDIO_EQ"]) : 0;
-                    plnMatEquiv.IdMateriaEq = row["ID_MATERIA_EQ"] != DBNull.Value ? Convert.ToInt32(row["ID_MATERIA_EQ"]) : 0;
-
-                    plnMatEquiv.CodigoFacultadEq = row["CODIGO_FACULTAD_EQ"] != DBNull.Value ? row["CODIGO_FACULTAD_EQ"].ToString() : "";
-                    plnMatEquiv.NombreFacultadEq = row["NOMBRE_FACULTAD_EQ"] != DBNull.Value ? row["NOMBRE_FACULTAD_EQ"].ToString() : "";
-                    plnMatEquiv.CodigoCarreraEq = row["CODIGO_CARRERA_EQ"] != DBNull.Value ? row["CODIGO_CARRERA_EQ"].ToString() : "";
-                    plnMatEquiv.NombreCarreraEq = row["NOMBRE_CARRERA_EQ"] != DBNull.Value ? row["NOMBRE_CARRERA_EQ"].ToString() : "";
-                    plnMatEquiv.CodigoPlanEstudioMallaEq = row["CODIGO_PLAN_ESTUDIO_MALLA_EQ"] != DBNull.Value ? row["CODIGO_PLAN_ESTUDIO_MALLA_EQ"].ToString() : "";
-                    plnMatEquiv.CodigoModalidadPeEq = row["CODIGO_MODALIDAD_PE_EQ"] != DBNull.Value ? row["CODIGO_MODALIDAD_PE_EQ"].ToString() : "";
-                    plnMatEquiv.NombreModalidadPeEq = row["NOMBRE_MODALIDAD_PE_EQ"] != DBNull.Value ? row["NOMBRE_MODALIDAD_PE_EQ"].ToString() : "";
-                    plnMatEquiv.CodigoMateriaEq = row["CODIGO_MATERIA_EQ"] != DBNull.Value ? row["CODIGO_MATERIA_EQ"].ToString() : "";
-                    
-                    plnMatEquiv.NombreMateriaEq = row["NOMBRE_MATERIA_EQ"] != DBNull.Value ? row["NOMBRE_MATERIA_EQ"].ToString() : "";
-                    plnMatEquiv.CreditosMateriaEq = row["CREDITOS_MATERIA_EQ"] != DBNull.Value ? Convert.ToDecimal(row["CREDITOS_MATERIA_EQ"]) : 0;
-                    plnMatEquiv.HorasSemestralesMateriaEq = row["HORAS_SEMESTRALES_MATERIA_EQ"] != DBNull.Value ? Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA_EQ"]) : 0;
-
-                    plnMatEquiv.ObservacionesMateriaEquivalente = row["OBSERVACIONES_MATERIA_EQUIVALENTE"] != DBNull.Value ? row["OBSERVACIONES_MATERIA_EQUIVALENTE"].ToString() : "";
-                    plnMatEquiv.PathAutorizacionMateriaEquivalente = row["PATHAUTORIZACION_MATERIA_EQUIVALENTE"] != DBNull.Value ? row["PATHAUTORIZACION_MATERIA_EQUIVALENTE"].ToString() : "";
-                    plnMatEquiv.AutorizacionMateriaEquivalente = row["AUTORIZACION_MATERIA_EQUIVALENTE"] != DBNull.Value ? Convert.ToBoolean(row["AUTORIZACION_MATERIA_EQUIVALENTE"]) : null;
-
-                    listaPlnMatEquiv.Add(plnMatEquiv);
-                    plnMatEquiv = new MateriaEquivalenteDto();
-                }
-            }
-            return listaPlnMatEquiv;
+            listaPlnMatEquiv.Add(plnMatEquiv);
+            plnMatEquiv = new MateriaEquivalenteDto();
         }
+    }
+    return listaPlnMatEquiv;
+}
 
 
-        public List<ComponentesPlanificacionDto> getPlanificacionE(string periodo, int idMallaEquiv)
+public List<ComponentesPlanificacionDto> getPlanificacionE(string periodo, int idMallaEquiv)
+{
+    ComponentesPlanificacionDto planificacion = new ComponentesPlanificacionDto();
+    List<ComponentesPlanificacionDto> listaPlanificacion = new List<ComponentesPlanificacionDto>();
+    DataSet ds_planificacion = Conexion.ExecZeusCore("MateriasEquivalentes", "'LP','" + periodo + "'," + idMallaEquiv);
+    //DataSet ds_planificacion = Conexion.BuscarZEUS_ds("PLANIFICACION pln inner join PERIODO per on per.ID_PERIODO=pln.ID_PERIODO inner join MALLA m on m.ID_MALLA = pln.ID_MALLA inner join COMPONENTE cpt on pln.ID_TIPO_COMPONENTE=cpt.ID_SUBTIPO_COMPONENTE and cpt.ID_MATERIA = m.ID_MATERIA and cpt.ID_PLAN_ESTUDIO = m.ID_PLAN_ESTUDIO \r\ninner join MATERIA mat on cpt.ID_MATERIA=mat.ID_MATERIA\r\ninner join PLAN_ESTUDIO ple on cpt.ID_PLAN_ESTUDIO=ple.ID_PLAN_ESTUDIO\r\ninner join MODALIDAD_PE mo on mo.ID_MODALIDAD_PE=pln.ID_MODALIDAD_PLANIFICACION\r\ninner join EMPLEADO pro on pro.IDENTIFICACION_EMP=pln.DNI_PROFESORC\r\ninner join MODALIDAD_PERIODO mope on per.ID_MODALIDAD=mope.ID_MODALIDAD\r\ninner join ESPACIOS_FISICOS ef on ef.ID_ESPACIOS_FISICOS=pln.ID_ESPACIOS_FISICOS inner join NIVEL_INFRAESTRUCTURA ninf on ninf.ID_NIVEL_INFRAESTRUCTURA=ef.ID_NIVEL_INFRAESTRUCTURA\r\ninner join INFRAESTRUCTURA inf on inf.ID_INFRAESTRUCTURA=ninf.ID_INFRAESTRUCTURA \r\ninner join SUBTIPO_COMPONENTE scpt ON pln.ID_TIPO_COMPONENTE = scpt.ID_SUBTIPO_COMPONENTE ", "pln.FECHA_INICIO_PLANIFICACION,pln.FECHA_FIN_PLANIFICACION,pln.ID_MALLA,\r\nmat.HORAS_SEMESTRALES_MATERIA,\r\nmat.CREDITOS_MATERIA,\r\nper.ID_PERIODO,\r\nper.CODIGO_PERIODO,\r\nmat.ID_MATERIA,\r\nmat.CODIGO_MATERIA,\r\nmat.NOMBRE_MATERIA,\r\nPARALELO,CUPO,\r\npln.DNI_PROFESORC,\r\npro.NOMBRES_EMP,\r\npro.APELLIDO_EMP,\r\npln.ID_MODALIDAD_PLANIFICACION,\r\nmo.NOMBRE_MODALIDAD_PE,\r\nmope.NOMBRE_MODALIDADP,\r\nef.CODIGO_ESPACIOS_FISICOS, \r\nple.ID_PLAN_ESTUDIO,\r\nple.CODIGO_PLAN_ESTUDIO_MALLA,\r\nID_PLANIFICACION,\r\npln.ID_TIPO_COMPONENTE,\r\npln.ID_PERIODICIDAD_PLANIFICACION,\r\nef.ID_ESPACIOS_FISICOS,\r\nper.ID_MODALIDAD,\r\nper.ID_ESTADO_PERIODO,\r\nef.ID_NIVEL_INFRAESTRUCTURA,\r\ninf.ID_INFRAESTRUCTURA,\r\nscpt.CODIGO_SUBTIPO_COMPONENTE,\r\npln.ACTIVO   ", "where pln.ID_PERIODO=" + idperiodo + " and ple.ID_PLAN_ESTUDIO=" + idplanestudio + " and pln.ID_MODALIDAD_PLANIFICACION=" + idmodalidadplanificacio);
+    if (ds_planificacion.Tables[0].Rows.Count > 0)
+    {
+        foreach (DataRow row in ds_planificacion.Tables[0].Rows)
         {
-            ComponentesPlanificacionDto planificacion = new ComponentesPlanificacionDto();
-            List<ComponentesPlanificacionDto> listaPlanificacion = new List<ComponentesPlanificacionDto>();
-            DataSet ds_planificacion = Conexion.ExecZeusCore("MateriasEquivalentes", "'LP','" + periodo + "'," + idMallaEquiv);
-
-            if (ds_planificacion.Tables.Count > 0)
-            {
-                foreach (DataRow row in ds_planificacion.Tables[0].Rows)
-                {
-                    string fi = row["FECHA_INICIO_PLANIFICACION"].ToString();
-                    string ff = row["FECHA_FIN_PLANIFICACION"].ToString();
-
-                    planificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
-                    //planificacion.IdComponentePlanificacion = Convert.ToInt32(row["ID_COMPONENTE_PLANIFICACION"].ToString());
-                    planificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
-                    planificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
-                    planificacion.idTipoComponente = Convert.ToInt32(row["ID_SUBTIPO_COMPONENTE"].ToString());
-                    planificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
-                    planificacion.activo = Convert.ToBoolean(row["ACTIVO"].ToString());
-                    planificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
-                    planificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
-                    listaPlanificacion.Add(planificacion);
-                    planificacion = new ComponentesPlanificacionDto();
-                }
-            }
-            return listaPlanificacion;
+            var fi = row["FECHA_INICIO_PLANIFICACION"].ToString();
+            var ff = row["FECHA_FIN_PLANIFICACION"].ToString();
+            //planificacion.idNivelEstudio = Convert.ToInt32(row["ID_NIVEL_ESTUDIO"].ToString());
+            planificacion.idMalla = Convert.ToInt32(row["ID_MALLA"].ToString());
+            planificacion.horasSemestralesMateria = Convert.ToInt32(row["HORAS_SEMESTRALES_MATERIA"].ToString());
+            planificacion.creditosMateria = float.Parse(row["CREDITOS_MATERIA"].ToString());
+            planificacion.idPlanificacion = Convert.ToInt32(row["ID_PLANIFICACION"].ToString());
+            planificacion.idPeriodo = Convert.ToInt32(row["ID_PERIODO"].ToString());
+            planificacion.codigoPeriodo = row["CODIGO_PERIODO"].ToString();
+            planificacion.CODIGO_PLAN_ESTUDIO_MALLA = row["CODIGO_PLAN_ESTUDIO_MALLA"].ToString();
+            planificacion.idMateria = Convert.ToInt32(row["ID_MATERIA"].ToString());
+            planificacion.codigoMateria = row["CODIGO_MATERIA"].ToString();
+            planificacion.nombreMateria = row["NOMBRE_MATERIA"].ToString();
+            planificacion.paralelo = row["PARALELO"].ToString();
+            planificacion.cupo = Convert.ToInt32(row["CUPO"].ToString());
+            planificacion.dniProfesorc = row["DNI_PROFESORC"].ToString();
+            planificacion.nombresEmp = row["NOMBRES_EMP"].ToString();
+            planificacion.apellidoEmp = row["APELLIDO_EMP"].ToString();
+            planificacion.idModalidadPlanificacion = Convert.ToInt32(row["ID_MODALIDAD_PLANIFICACION"].ToString());
+            planificacion.NombreModalidadPe = row["NOMBRE_MODALIDAD_PE"].ToString();
+            planificacion.NombreModalidadp = row["NOMBRE_MODALIDADP"].ToString();
+            planificacion.codigoEspaciosFisicos = row["CODIGO_ESPACIOS_FISICOS"].ToString();
+            planificacion.idPlanEstudio = Convert.ToInt32(row["ID_PLAN_ESTUDIO"].ToString());
+            planificacion.idTipoComponente = Convert.ToInt32(row["ID_TIPO_COMPONENTE"].ToString());
+            planificacion.idPeriodicidad = Convert.ToInt32(row["ID_PERIODICIDAD_PLANIFICACION"].ToString());
+            planificacion.idEspaciosFisicos = Convert.ToInt32(row["ID_ESPACIOS_FISICOS"].ToString());
+            planificacion.idModalidad = Convert.ToInt32(row["ID_MODALIDAD"].ToString());
+            planificacion.IdEstadoPeriodo = Convert.ToInt32(row["ID_ESTADO_PERIODO"].ToString());
+            planificacion.IdNivelInfraestructura = Convert.ToInt32(row["ID_NIVEL_INFRAESTRUCTURA"].ToString());
+            planificacion.IdInfraestructura = Convert.ToInt32(row["ID_INFRAESTRUCTURA"].ToString());
+            planificacion.CodigoSubtipoComponente = row["CODIGO_SUBTIPO_COMPONENTE"].ToString();
+            planificacion.activo = Convert.ToBoolean(row["ACTIVO"].ToString());
+            planificacion.FechaInicioPlanificacion = fi == "" ? null : Convert.ToDateTime(row["FECHA_INICIO_PLANIFICACION"].ToString());
+            planificacion.FechaFinPlanificacion = ff == "" ? null : Convert.ToDateTime(row["FECHA_FIN_PLANIFICACION"].ToString());
+            listaPlanificacion.Add(planificacion);
+            planificacion = new ComponentesPlanificacionDto();
         }
-
-        public async Task<bool> CrearMateriaEquivalente(MateriaEquivalenteInputDto input)
-        {
-            Console.WriteLine($"[REPO] CrearMateriaEquivalente START. IdMalla(Plan):{input.IdMalla}, IdMateria:{input.IdMateria}, IdMallaEquiv(Plan):{input.IdMallaEquiv}, IdMateriaEquiv:{input.IdMateriaEquiv}");
-            try
-            {
-                int finalIdMalla = input.IdMalla;
-                if (input.IdMateria.HasValue && input.IdMateria.Value > 0)
-                {
-                    var malla = await _context.Mallas.FirstOrDefaultAsync(x => x.IdPlanEstudio == input.IdMalla && x.IdMateria == input.IdMateria.Value);
-                    if (malla != null) 
-                    {
-                        finalIdMalla = malla.IdMalla;
-                        Console.WriteLine($"[REPO] Found Malla Origin: {finalIdMalla}");
-                    }
-                    else 
-                    {
-                         Console.WriteLine($"[REPO] Malla Origin NOT FOUND for Plan:{input.IdMalla} Materia:{input.IdMateria}");
-                         // Si no encuentra la malla, no podemos guardar porque input.IdMalla es un PlanEstudioID, no un MallaID
-                         // Esto evita guardar datos corruptos
-                         return false; 
-                    }
-                }
-
-                int finalIdMallaEquiv = input.IdMallaEquiv;
-                if (input.IdMateriaEquiv.HasValue && input.IdMateriaEquiv.Value > 0)
-                {
-                    var malla = await _context.Mallas.FirstOrDefaultAsync(x => x.IdPlanEstudio == input.IdMallaEquiv && x.IdMateria == input.IdMateriaEquiv.Value);
-                    if (malla != null) 
-                    {
-                        finalIdMallaEquiv = malla.IdMalla;
-                        Console.WriteLine($"[REPO] Found Malla Dest: {finalIdMallaEquiv}");
-                    }
-                    else
-                    {
-                         Console.WriteLine($"[REPO] Malla Dest NOT FOUND for Plan:{input.IdMallaEquiv} Materia:{input.IdMateriaEquiv}");
-                         return false;
-                    }
-                }
-
-                var materiaEquivalente = new MateriaEquivalente
-                {
-                    IdMalla = finalIdMalla,
-                    IdMallaEquiv = finalIdMallaEquiv,
-                    PorcEquiv = input.PorcEquiv,
-                    ObservacionesMateriaEquivalente = input.ObservacionesMateriaEquivalente,
-                    PathautorizacionMateriaEquivalente = input.PathautorizacionMateriaEquivalente,
-                    AutorizacionMateriaEquivalente = input.AutorizacionMateriaEquivalente,
-                    ActivoMateriaEquivalente = input.ActivoMateriaEquivalente ?? true
-                };
-
-                Console.WriteLine($"[REPO] Adding to Context: IdMalla={materiaEquivalente.IdMalla}, IdMallaEquiv={materiaEquivalente.IdMallaEquiv}");
-                _context.MateriaEquivalentes.Add(materiaEquivalente);
-                var changes = await _context.SaveChangesAsync();
-                Console.WriteLine($"[REPO] SaveChangesAsync result: {changes}");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[REPO] EXCEPTION in CrearMateriaEquivalente: {ex.Message} - {ex.InnerException?.Message}");
-                Console.WriteLine(ex.StackTrace);
-                return false;
-            }
-        }
-
-        public async Task<bool> EditarMateriaEquivalente(MateriaEquivalenteInputDto input)
-        {
-            Console.WriteLine($"[REPO] EditarMateriaEquivalente START. ID:{input.IdMateriaEquivalente} IdMalla:{input.IdMalla}, IdMateria:{input.IdMateria}");
-            try
-            {
-                var materiaEquivalente = await _context.MateriaEquivalentes.FindAsync(input.IdMateriaEquivalente);
-                if (materiaEquivalente == null) return false;
-
-                // 1. Resolve Materia Origen ID (IdMalla)
-                if (input.IdMateria.HasValue && input.IdMateria.Value > 0)
-                {
-                    // Case A: User changed Plan/Materia -> input.IdMalla is PlanID
-                    var mallaFromPlan = await _context.Mallas.FirstOrDefaultAsync(x => x.IdPlanEstudio == input.IdMalla && x.IdMateria == input.IdMateria.Value);
-                    if (mallaFromPlan != null)
-                    {
-                        materiaEquivalente.IdMalla = mallaFromPlan.IdMalla;
-                    }
-                    else
-                    {
-                        // Case B: User didn't change -> input.IdMalla is already MallaID
-                        // Verify if input.IdMalla is a valid MallaID
-                        var existingMalla = await _context.Mallas.FirstOrDefaultAsync(x => x.IdMalla == input.IdMalla);
-                        if (existingMalla != null)
-                        {
-                             materiaEquivalente.IdMalla = input.IdMalla;
-                        }
-                    }
-                }
-
-                // 2. Resolve Materia Equivalente ID (IdMallaEquiv)
-                if (input.IdMateriaEquiv.HasValue && input.IdMateriaEquiv.Value > 0)
-                {
-                    var mallaFromPlan = await _context.Mallas.FirstOrDefaultAsync(x => x.IdPlanEstudio == input.IdMallaEquiv && x.IdMateria == input.IdMateriaEquiv.Value);
-                    if (mallaFromPlan != null)
-                    {
-                        materiaEquivalente.IdMallaEquiv = mallaFromPlan.IdMalla;
-                    }
-                    else
-                    {
-                        var existingMalla = await _context.Mallas.FirstOrDefaultAsync(x => x.IdMalla == input.IdMallaEquiv);
-                        if (existingMalla != null)
-                        {
-                             materiaEquivalente.IdMallaEquiv = input.IdMallaEquiv;
-                        }
-                    }
-                }
-
-                materiaEquivalente.PorcEquiv = input.PorcEquiv;
-                materiaEquivalente.ObservacionesMateriaEquivalente = input.ObservacionesMateriaEquivalente;
-                materiaEquivalente.PathautorizacionMateriaEquivalente = input.PathautorizacionMateriaEquivalente;
-                materiaEquivalente.AutorizacionMateriaEquivalente = input.AutorizacionMateriaEquivalente;
-                
-                if (input.ActivoMateriaEquivalente.HasValue)
-                {
-                    Console.WriteLine($"[REPO] Updating ActivoMateriaEquivalente to: {input.ActivoMateriaEquivalente.Value}");
-                    materiaEquivalente.ActivoMateriaEquivalente = input.ActivoMateriaEquivalente.Value;
-                }
-                else
-                {
-                     Console.WriteLine("[REPO] ActivoMateriaEquivalente input is null (HasValue=false). Not updating.");
-                }
-
-                _context.MateriaEquivalentes.Update(materiaEquivalente);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[REPO] Error Editing: {ex.Message}");
-                return false;
-            }
-        }
+    }
+    return listaPlanificacion;
+}
     }
 }

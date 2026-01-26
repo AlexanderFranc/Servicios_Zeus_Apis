@@ -1,8 +1,9 @@
-﻿﻿using Core.Dtos.Core;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces;
 using Core.Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Servicios_Zeus.Helpers.Errors;
 using System;
 using System.Collections.Generic;
@@ -19,33 +20,37 @@ namespace Servicios_Zeus.Controllers.Core
     public class MateriaEquivalenteController : Controller
     {
         private readonly IMateriaEquivalenteRepository _materiaEquivalenteRepository;
+        private readonly IMateriaEquivalenteGestionRepository _materiaEquivalenteGestionRepository;
+        private readonly ILogger<MateriaEquivalenteController> _logger;
 
-        public MateriaEquivalenteController(IMateriaEquivalenteRepository materiaEquivalenteRepository)
+        public MateriaEquivalenteController(IMateriaEquivalenteRepository materiaEquivalenteRepository, IMateriaEquivalenteGestionRepository materiaEquivalenteGestionRepository, ILogger<MateriaEquivalenteController> logger)
         {
             _materiaEquivalenteRepository = materiaEquivalenteRepository;
+            _materiaEquivalenteGestionRepository = materiaEquivalenteGestionRepository;
+            _logger = logger;
         }
 
         [Route("getPlanificacionEquivalente/{periodo}/{idMallaEquiv}")]
         [HttpGet]
-        public ActionResult<IEnumerable<MateriaEquivalenteDto>> getPlanificacionEquivalente(string periodo, int idMallaEquiv)
+        public ActionResult<IEnumerable<MateriaEquivalenteGestionDto>> getPlanificacionEquivalente(string periodo, int idMallaEquiv)
         {
-            Console.WriteLine($"[MateriaEquivalenteController] getPlanificacionEquivalente called. Periodo={periodo}, IdMallaEquiv={idMallaEquiv}");
+            _logger.LogInformation($"[MateriaEquivalenteController] getPlanificacionEquivalente called. Periodo={periodo}, IdMallaEquiv={idMallaEquiv}");
             try
             {
-                var data = _materiaEquivalenteRepository.getPlanificacionEquivalente(periodo, idMallaEquiv);
+                var data = _materiaEquivalenteGestionRepository.getPlanificacionEquivalente(periodo, idMallaEquiv);
                 
                 if (data == null)
                 {
-                    Console.WriteLine("[MateriaEquivalenteController] Data is null.");
+                    _logger.LogWarning("[MateriaEquivalenteController] Data is null.");
                     return NotFound(new ApiResponse(404, "La lista no contiene ningún item."));
                 }
                 
-                Console.WriteLine($"[MateriaEquivalenteController] Data count: {data.Count()}");
+                _logger.LogInformation($"[MateriaEquivalenteController] Data count: {data.Count()}");
                 return Ok(data);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[MateriaEquivalenteController] Error in getPlanificacionEquivalente: {ex.Message} - {ex.StackTrace}");
+                _logger.LogError($"[MateriaEquivalenteController] Error in getPlanificacionEquivalente: {ex.Message} - {ex.StackTrace}");
                 return BadRequest(new ApiResponse(400, $"Error interno: {ex.Message}"));
             }
         }
@@ -64,26 +69,26 @@ namespace Servicios_Zeus.Controllers.Core
         [Route("CrearMateriaEquivalente")]
         public async Task<ActionResult<bool>> CrearMateriaEquivalente([FromBody] MateriaEquivalenteInputDto input)
         {
-            Console.WriteLine($"[MateriaEquivalenteController] CrearMateriaEquivalente called.");
-            Console.WriteLine($"Input: IdMalla={input.IdMalla}, IdMallaEquiv={input.IdMallaEquiv}, Porc={input.PorcEquiv}");
+            _logger.LogInformation($"[MateriaEquivalenteController] CrearMateriaEquivalente called.");
+            _logger.LogInformation($"Input: IdMalla={input.IdMalla}, IdMallaEquiv={input.IdMallaEquiv}, Porc={input.PorcEquiv}");
             
             if (input == null)
             {
-                 Console.WriteLine("[MateriaEquivalenteController] Input is null");
+                 _logger.LogWarning("[MateriaEquivalenteController] Input is null");
                  return BadRequest(new ApiResponse(400, "El input no puede ser nulo"));
             }
 
             try 
             {
-                var result = await _materiaEquivalenteRepository.CrearMateriaEquivalente(input);
-                Console.WriteLine($"[MateriaEquivalenteController] Repo result: {result}");
+                var result = await _materiaEquivalenteGestionRepository.CrearMateriaEquivalente(input);
+                _logger.LogInformation($"[MateriaEquivalenteController] Repo result: {result}");
                 
                 if (!result) return BadRequest(new ApiResponse(400, "Error al crear la materia equivalente (Repo returned false)"));
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[MateriaEquivalenteController] Exception: {ex.Message}");
+                _logger.LogError($"[MateriaEquivalenteController] Exception: {ex.Message}");
                 return BadRequest(new ApiResponse(400, $"Error interno: {ex.Message}"));
             }
         }
@@ -92,16 +97,16 @@ namespace Servicios_Zeus.Controllers.Core
         [Route("EditarMateriaEquivalente")]
         public async Task<ActionResult<bool>> EditarMateriaEquivalente([FromBody] MateriaEquivalenteInputDto input)
         {
-             Console.WriteLine($"[MateriaEquivalenteController] EditarMateriaEquivalente called. Id={input.IdMateriaEquivalente}");
+             _logger.LogInformation($"[MateriaEquivalenteController] EditarMateriaEquivalente called. Id={input.IdMateriaEquivalente}");
              try
              {
-                var result = await _materiaEquivalenteRepository.EditarMateriaEquivalente(input);
+                var result = await _materiaEquivalenteGestionRepository.EditarMateriaEquivalente(input);
                 if (!result) return BadRequest(new ApiResponse(400, "Error al editar la materia equivalente"));
                 return Ok(result);
              }
              catch (Exception ex)
              {
-                Console.WriteLine($"[MateriaEquivalenteController] Exception: {ex.Message}");
+                _logger.LogError($"[MateriaEquivalenteController] Exception: {ex.Message}");
                 return BadRequest(new ApiResponse(400, $"Error interno: {ex.Message}"));
              }
         }

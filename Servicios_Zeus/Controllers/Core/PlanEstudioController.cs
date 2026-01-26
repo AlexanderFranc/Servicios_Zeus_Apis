@@ -10,6 +10,8 @@ using AutoMapper;
 using Infraestructure.Mappers;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
+
 namespace Servicios_Zeus.Controllers.Core
 {
     //[Authorize]
@@ -23,10 +25,13 @@ namespace Servicios_Zeus.Controllers.Core
     {
         private readonly IPlanEstudioRepository _iplan;
         private readonly IMapper _mapper;
-        public PlanEstudioController(IPlanEstudioRepository plan, IMapper mapper)
+        private readonly ILogger<PlanEstudioController> _logger;
+
+        public PlanEstudioController(IPlanEstudioRepository plan, IMapper mapper, ILogger<PlanEstudioController> logger)
         {
             _iplan = plan;
             _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -54,14 +59,14 @@ namespace Servicios_Zeus.Controllers.Core
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlanEstudioDto>>> GetAllByIdCarrera(int id)
         {
-            Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera called with id: {id}");
-            var planestudio = await _iplan.GetAllByIdCarrera(id);
+            _logger.LogInformation($"[PlanEstudioController] GetAllByIdCarrera called with id: {id}");
+            var planestudio = await _iplan.GetPlanEstudiosDtoByIdCarrera(id);
             if (planestudio == null)
             {
-                Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera returned null for id: {id}");
+                _logger.LogWarning($"[PlanEstudioController] GetAllByIdCarrera returned null for id: {id}");
                 return NotFound(new ApiResponse(404, "La lista no contiene ningún elemento."));
             }
-            Console.WriteLine($"[PlanEstudioController] GetAllByIdCarrera returned {planestudio.Count()} items for id: {id}");
+            _logger.LogInformation($"[PlanEstudioController] GetAllByIdCarrera returned {planestudio.Count()} items for id: {id}");
             return Ok(planestudio);
         }
         [Route("GetAllByPlanMateria/{codplan}/{codmateria}")]

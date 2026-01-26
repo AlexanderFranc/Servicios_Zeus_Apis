@@ -9,14 +9,17 @@ using Infraestructure.Configuration.Zeus.Core;
 using Infraestructure.Mappers;
 using Infraestructure.Repository.Generico;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infraestructure.Repository.Core
 {
     public class PlanEstudioRepository : GenericCoreRepository<PlanEstudioDto>, IPlanEstudioRepository
     {
-        public PlanEstudioRepository(Configuration.Zeus.Core.ZeusCoreContext context) : base(context)
-        {
+        private readonly ILogger<PlanEstudioRepository> _logger;
 
+        public PlanEstudioRepository(Configuration.Zeus.Core.ZeusCoreContext context, ILogger<PlanEstudioRepository> logger) : base(context)
+        {
+            _logger = logger;
         }
         public override async Task<IEnumerable<PlanEstudioDto>> GetAllAsync(bool noseguimiento = true)
         {
@@ -54,9 +57,12 @@ namespace Infraestructure.Repository.Core
         }
 
 
-        public async Task<IEnumerable<PlanEstudioDto>> GetAllByIdCarrera(int id)
+        public async Task<IEnumerable<PlanEstudio>> GetAllByIdCarrera(int id) => await
+             _context.PlanEstudios.Where(x => x.IdCarrera == id).ToListAsync();
+
+        public async Task<IEnumerable<PlanEstudioDto>> GetPlanEstudiosDtoByIdCarrera(int id)
         {
-            Console.WriteLine($"[PlanEstudioRepository] GetAllByIdCarrera searching for IdCarrera: {id}");
+            _logger.LogInformation($"[PlanEstudioRepository] GetPlanEstudiosDtoByIdCarrera searching for IdCarrera: {id}");
             try
             {
                 var config = new MapperConfiguration(cfg =>
@@ -73,13 +79,13 @@ namespace Infraestructure.Repository.Core
                     .Where(x => x.IdCarrera == id)
                     .ToListAsync();
 
-                Console.WriteLine($"[PlanEstudioRepository] Found {_planestudio.Count} plans for IdCarrera: {id}");
+                _logger.LogInformation($"[PlanEstudioRepository] Found {_planestudio.Count} plans for IdCarrera: {id}");
 
                 if (_planestudio.Any())
                 {
                     foreach (var p in _planestudio)
                     {
-                        Console.WriteLine($"[PlanEstudioRepository] Plan ID: {p.IdPlanEstudio}, Code: {p.CodigoPlanEstudioMalla}");
+                        _logger.LogInformation($"[PlanEstudioRepository] Plan ID: {p.IdPlanEstudio}, Code: {p.CodigoPlanEstudioMalla}");
                     }
                 }
 
@@ -88,7 +94,7 @@ namespace Infraestructure.Repository.Core
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[PlanEstudioRepository] Error: {ex.Message} - {ex.InnerException?.Message}");
+                _logger.LogError($"[PlanEstudioRepository] Error: {ex.Message} - {ex.InnerException?.Message}");
                 throw;
             }
         }
