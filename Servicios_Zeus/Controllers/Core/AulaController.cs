@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using AutoMapper;
+﻿﻿﻿﻿﻿using AutoMapper;
 using Core.Dtos.Core;
 using Core.Entidades.Core;
 using Core.Interfaces.Core;
@@ -194,16 +194,6 @@ namespace Servicios_Zeus.Controllers.Core
                 var items = await _repoEstado.GetAllAsync();
                 
                 var result = items != null ? _mapper.Map<List<EstadoEspacioDto>>(items) : new List<EstadoEspacioDto>();
-
-                result.Insert(0, new EstadoEspacioDto 
-                {
-                    IdEstadoEspacio = 0,
-                    NombreEstadoEspacio = " ",
-                    Nombre = " ", 
-                    Label = " ",
-                    Descripcion = "",
-                    ActivoEstadoEspacio = true
-                });
 
                 return Ok(result);
             }
