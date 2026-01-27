@@ -101,9 +101,19 @@ left join
  ) as y 
      on me.ID_MALLA_EQUIV = y.ID_MALLA";
 
-            string condicion = "me.ID_MALLA_EQUIV=" + idMallaEquiv;
+            string condicion = "";
+            if (idMallaEquiv > 0)
+            {
+                condicion = " WHERE x.ID_PLAN_ESTUDIO=" + idMallaEquiv;
+            }
+            condicion += " ORDER BY x.NOMBRE_CARRERA ASC";
+
+            _logger.LogInformation($"[Repo] Querying with ID_PLAN_ESTUDIO: {idMallaEquiv}");
+            //_logger.LogInformation($"[Repo] Query Tabla: {tabla}");
 
             DataSet ds_planificacion = Conexion.BuscarZEUS_ds(tabla, campos, condicion);
+            
+            _logger.LogInformation($"[Repo] Rows found: {ds_planificacion.Tables[0].Rows.Count}");
 
             if (ds_planificacion.Tables[0].Rows.Count > 0)
             {
